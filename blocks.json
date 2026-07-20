@@ -33,6 +33,13 @@
     "previewBg": "#eef2f9"
   },
   {
+    "file": "blocks/trust-badges.html",
+    "title": "Trust Badges",
+    "description": "Full-width navy reassurance bar: three trust signals (telehealth, insurance, new clients), each a line icon in a soft-blue circular badge above a serif label. Carries its own navy background, faint dividers, and a gentle hover-lift. Stacks on mobile.",
+    "tags": ["banner", "trust", "badges", "icons", "social-proof"],
+    "previewBg": "#28344f"
+  },
+  {
     "file": "blocks/footer.html",
     "title": "Site Footer",
     "description": "Footer in the Services-section style: a white rounded card on a light background with sans-serif type and blue accents. Practice name, phone/fax, email, a soft-blue emergency-use callout, and an Hours column. Two-column layout that stacks on mobile, with an auto-updating copyright year.",

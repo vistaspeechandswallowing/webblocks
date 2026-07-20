@@ -1,0 +1,148 @@
+<!--
+  Block:       Trust Badges
+  Description: Full-width navy reassurance bar — three trust signals, each an
+               icon in a soft-blue circular badge above a serif label. On-brand
+               with the Provider Bio and Hero blocks: same brand blue, soft
+               shadow, and circular-badge motif used on every CTA button.
+  Usage:       Paste everything below into a Squarespace Code Block.
+
+  Background:  The bar carries its OWN navy background, so it works on a plain
+               white page. If your Squarespace Section is already dark, delete
+               the `background:` line on .wb-badges to let the section show
+               through.
+
+  To edit:     Change the text inside each <span class="wb-badge__label">.
+               Swap an <svg> to change an icon (keep viewBox="0 0 24 24").
+
+  Styles are scoped under .wb-badges so nothing leaks into the page.
+-->
+<div class="wb-badges">
+  <div class="wb-badges__inner">
+
+    <!-- BADGE 1 -->
+    <div class="wb-badge">
+      <span class="wb-badge__icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="2" y="6" width="14" height="12" rx="2"/>
+          <path d="M22 8l-6 4 6 4V8Z"/>
+        </svg>
+      </span>
+      <span class="wb-badge__label">Telehealth Appointments</span>
+    </div>
+
+    <span class="wb-badge__divider" aria-hidden="true"></span>
+
+    <!-- BADGE 2 -->
+    <div class="wb-badge">
+      <span class="wb-badge__icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+          <path d="m9 12 2 2 4-4"/>
+        </svg>
+      </span>
+      <span class="wb-badge__label">Accepts Insurance</span>
+    </div>
+
+    <span class="wb-badge__divider" aria-hidden="true"></span>
+
+    <!-- BADGE 3 -->
+    <div class="wb-badge">
+      <span class="wb-badge__icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M8 2v4M16 2v4"/>
+          <path d="M21 12.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7"/>
+          <path d="M3 10h18"/>
+          <path d="M16 19h6M19 16v6"/>
+        </svg>
+      </span>
+      <span class="wb-badge__label">Accepting New Clients</span>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .wb-badges{
+    --wb-blue:#2f6bff;
+    --wb-blue-light:#7ea2ff;
+    width:100%;
+    margin:0;
+    padding:4px;
+    box-sizing:border-box;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:linear-gradient(180deg,#28344f,#212c46);   /* delete to use the Section background */
+  }
+  .wb-badges *{box-sizing:border-box;}
+
+  .wb-badges__inner{
+    max-width:1180px;
+    margin:0 auto;
+    padding:48px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:32px;
+    flex-wrap:wrap;
+  }
+
+  .wb-badge{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    gap:18px;
+    flex:1 1 220px;
+    max-width:300px;
+  }
+
+  .wb-badge__icon{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:76px;height:76px;
+    border-radius:50%;
+    background:rgba(47,107,255,.16);
+    border:1px solid rgba(126,162,255,.35);
+    box-shadow:0 12px 28px -14px rgba(47,107,255,.9);
+    transition:transform .3s cubic-bezier(.2,.7,.2,1), background .3s ease;
+  }
+  .wb-badge__icon svg{
+    width:36px;height:36px;
+    fill:none;stroke:#fff;stroke-width:1.8;
+    stroke-linecap:round;stroke-linejoin:round;
+  }
+  .wb-badge:hover .wb-badge__icon{
+    transform:translateY(-4px);
+    background:rgba(47,107,255,.28);
+  }
+
+  .wb-badge__label{
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:1.3rem;
+    font-weight:500;
+    letter-spacing:.01em;
+    color:#fff;
+    line-height:1.25;
+  }
+
+  .wb-badge__divider{
+    flex:0 0 auto;
+    width:1px;
+    height:72px;
+    background:linear-gradient(180deg,transparent,rgba(255,255,255,.18),transparent);
+  }
+
+  @media (max-width:760px){
+    .wb-badges__inner{flex-direction:column;gap:36px;padding:40px 24px;}
+    .wb-badge{flex:none;max-width:none;}
+    .wb-badge__divider{
+      width:120px;height:1px;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);
+    }
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .wb-badge__icon{transition:none;}
+    .wb-badge:hover .wb-badge__icon{transform:none;}
+  }
+</style>
