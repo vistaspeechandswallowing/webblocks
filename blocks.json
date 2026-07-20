@@ -16,7 +16,7 @@
   {
     "file": "blocks/appointment-booking.html",
     "title": "Appointment Booking",
-    "description": "Blue split panel with a booking pitch on the left and a glassy booking form (name, phone, date, time) on the right.",
+    "description": "Blue split panel with a booking pitch on the left and a glassy booking form (name, phone, date, time) on the right. Emails each submission via Formspree (AJAX, with a spam honeypot).",
     "tags": ["form", "booking", "appointment", "cta"]
   },
   {

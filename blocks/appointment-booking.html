@@ -2,14 +2,30 @@
   Block:       Appointment Booking
   Description: Blue split panel with a booking pitch on the left and a glassy
                booking form on the right (Full Name, Phone, Date, Time).
+               On submit, every request is emailed via Formspree.
   Usage:       Paste everything below into a Squarespace Code Block.
 
-  BEFORE YOU PUBLISH — where do the bookings go?
-  The form is wired to open the visitor's email app addressed to you (mailto),
-  which works anywhere with zero setup. Set your address here:
-      data-booking-email="you@yourdomain.com"      (on the <form> tag below)
-  To send bookings somewhere else instead (Formspree, a webhook, Google Form),
-  see the note at the very bottom of this block.
+  ============================================================================
+  ONE-TIME SETUP — connect the form so submissions get emailed
+  ============================================================================
+  1. Go to https://formspree.io and create a free account.
+  2. Create a new form. Set its notification email to the address that should
+     receive booking requests (Nick's inbox).
+  3. Formspree gives you an endpoint that looks like:
+         https://formspree.io/f/abcdwxyz
+  4. Paste that endpoint into the  action="..."  on the <form> tag below,
+     replacing YOUR_FORM_ID.
+  5. Publish. The FIRST submission triggers a one-time confirmation email from
+     Formspree — click the link in it to activate the form. After that, every
+     submission is emailed automatically and logged in the Formspree dashboard
+     (which also offers CSV export — a lightweight lead list).
+
+  Free tier = 50 submissions/month. Swapping to another provider (Basin,
+  Web3Forms, Getform) usually just means changing the action URL — this form
+  posts standard fields via fetch, so it works with any of them.
+
+  Note: this form is not configured for HIPAA/PHI. It collects a name, phone,
+  and preferred time only. Don't add sensitive health details to it.
 
   All styles are scoped under .wb-appt so nothing leaks into the rest of the page.
 -->
@@ -35,23 +51,29 @@
   </div>
 
   <div class="wb-appt__right">
-    <form class="wb-appt__form" data-booking-email="you@yourdomain.com" novalidate>
+    <!-- Replace YOUR_FORM_ID with your Formspree endpoint (see setup notes at top). -->
+    <form class="wb-appt__form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
       <div class="wb-appt__field">
-        <input type="text" name="fullName" placeholder="Full Name" aria-label="Full Name" required>
+        <input type="text" name="Full Name" placeholder="Full Name" aria-label="Full Name" required>
       </div>
       <div class="wb-appt__field">
-        <input type="tel" name="phone" placeholder="Phone Number" aria-label="Phone Number" required>
+        <input type="tel" name="Phone Number" placeholder="Phone Number" aria-label="Phone Number" required>
       </div>
       <div class="wb-appt__row">
         <div class="wb-appt__field">
-          <input type="text" name="date" placeholder="Date" aria-label="Date" required
+          <input type="text" name="Preferred Date" placeholder="Date" aria-label="Date" required
                  onfocus="this.type='date'" onblur="if(!this.value)this.type='text'">
         </div>
         <div class="wb-appt__field">
-          <input type="text" name="time" placeholder="Time" aria-label="Time" required
+          <input type="text" name="Preferred Time" placeholder="Time" aria-label="Time" required
                  onfocus="this.type='time'" onblur="if(!this.value)this.type='text'">
         </div>
       </div>
+      <!-- Subject line of the email Nick receives -->
+      <input type="hidden" name="_subject" value="New appointment request from the website">
+      <!-- Honeypot: bots fill this, humans can't see it → submission is dropped -->
+      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true"
+             style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
       <button type="submit" class="wb-appt__submit">
         <span>Book Appointment</span>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12m0 0-5-5m5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -213,52 +235,65 @@
 <script>
   (function () {
     var forms = document.querySelectorAll('.wb-appt__form');
-    forms.forEach(function (form) {
+    Array.prototype.forEach.call(forms, function (form) {
       if (form.dataset.wbBound) return;
       form.dataset.wbBound = '1';
       var note = form.querySelector('.wb-appt__note');
+      var button = form.querySelector('.wb-appt__submit');
+
+      function setNote(msg) { if (note) note.textContent = msg; }
+
       form.addEventListener('submit', function (e) {
         e.preventDefault();
-        var email = (form.getAttribute('data-booking-email') || '').trim();
-        var name  = form.fullName.value.trim();
-        var phone = form.phone.value.trim();
-        var date  = form.date.value.trim();
-        var time  = form.time.value.trim();
 
-        if (!name || !phone || !date || !time) {
-          note.textContent = 'Please fill in every field.';
+        // Require every visible field.
+        var missing = false;
+        Array.prototype.forEach.call(form.querySelectorAll('input[required]'), function (input) {
+          if (!input.value.trim()) missing = true;
+        });
+        if (missing) { setNote('Please fill in every field.'); return; }
+
+        var action = form.getAttribute('action') || '';
+        if (action.indexOf('YOUR_FORM_ID') !== -1) {
+          setNote('This form isn’t connected yet — set the Formspree endpoint (see the setup notes in the code).');
           return;
         }
-        if (!email || email === 'you@yourdomain.com') {
-          note.textContent = 'This form needs a destination email set (data-booking-email).';
-          return;
-        }
 
-        var subject = 'Appointment request — ' + name;
-        var body =
-          'Name: ' + name + '\n' +
-          'Phone: ' + phone + '\n' +
-          'Preferred date: ' + date + '\n' +
-          'Preferred time: ' + time + '\n';
-        window.location.href = 'mailto:' + encodeURIComponent(email) +
-          '?subject=' + encodeURIComponent(subject) +
-          '&body=' + encodeURIComponent(body);
-        note.textContent = 'Opening your email app to send the request…';
+        button.disabled = true;
+        setNote('Sending your request…');
+
+        fetch(action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        }).then(function (response) {
+          if (response.ok) {
+            form.reset();
+            setNote('Thanks! Your request has been sent — we’ll be in touch shortly.');
+          } else {
+            response.json().then(function (data) {
+              var msg = (data && data.errors && data.errors.length)
+                ? data.errors.map(function (x) { return x.message; }).join(', ')
+                : 'Something went wrong. Please try again or call us.';
+              setNote(msg);
+            }).catch(function () {
+              setNote('Something went wrong. Please try again or call us.');
+            });
+          }
+        }).catch(function () {
+          setNote('Network error. Please check your connection and try again.');
+        }).then(function () {
+          button.disabled = false;
+        });
       });
     });
   })();
 </script>
 
 <!--
-  ── Sending bookings somewhere other than email ────────────────────────────
-  The block above uses a mailto link so it works with no backend. To collect
-  submissions elsewhere instead, replace the <script> logic with one of these:
-
-  • Formspree: change the <form> to
-        <form class="wb-appt__form" action="https://formspree.io/f/XXXX" method="POST">
-    add name="..." to each input (already present), remove the <script>, and
-    delete the data-booking-email attribute.
-  • Squarespace Form Block: build a native Form Block for the real submission
-    and use this block purely for the visual layout.
-  • Custom webhook: POST the field values with fetch() inside the submit handler.
+  ── Using a different form provider ─────────────────────────────────────────
+  This form posts standard fields (Full Name, Phone Number, Preferred Date,
+  Preferred Time) via fetch with an "Accept: application/json" header, which
+  Formspree, Basin, and Getform all understand. To switch providers, just
+  change the action="..." URL on the <form> tag — no other edits needed.
 -->
