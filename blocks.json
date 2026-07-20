@@ -24,5 +24,12 @@
     "title": "Testimonials",
     "description": "\"What Our Patients Say\" section with a heading, intro text, and a responsive grid of review cards (avatar, name, location, stars, quote).",
     "tags": ["testimonials", "reviews", "grid", "social-proof"]
+  },
+  {
+    "file": "blocks/provider-bio.html",
+    "title": "Provider Bio",
+    "description": "Hovering profile tile for a team member: portrait photo beside an eyebrow label, name with credentials, role, key-fact pills, bio paragraph, and a booking CTA. Stacks vertically on mobile.",
+    "tags": ["bio", "team", "about", "profile", "card"],
+    "previewBg": "#eef2f9"
   }
 ]

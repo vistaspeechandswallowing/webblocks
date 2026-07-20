@@ -1,0 +1,217 @@
+<!-- ===== PROVIDER BIO — paste this whole block into a Squarespace Code Block ===== -->
+<!-- To swap the photo: change the <img src="..."> URL below.                       -->
+<!-- To edit text: change the eyebrow, name, role, tags, and bio paragraph.         -->
+<!-- The "Book" button links to # by default — set href="..." or delete that <a>.   -->
+
+<div class="wb-bio">
+  <article class="wb-bio__card">
+
+    <div class="wb-bio__media">
+      <img class="wb-bio__photo"
+           src="https://cdn.jsdelivr.net/gh/vistaspeechandswallowing/webimages@9e66e7e/team_nicholas-raymond.jpg"
+           alt="Nicholas Raymond, Speech-Language Pathologist" loading="lazy">
+    </div>
+
+    <div class="wb-bio__content">
+      <p class="wb-bio__eyebrow">Meet Your Provider</p>
+
+      <h2 class="wb-bio__name">Nicholas Raymond<span class="wb-bio__creds">, MA, CCC-SLP</span></h2>
+      <p class="wb-bio__role">Owner &amp; Speech-Language Pathologist</p>
+
+      <span class="wb-bio__rule" aria-hidden="true"></span>
+
+      <ul class="wb-bio__tags">
+        <li>Bilingual · Spanish &amp; English</li>
+        <li>Children &amp; Adults</li>
+        <li>Outpatient &amp; Inpatient</li>
+      </ul>
+
+      <p class="wb-bio__desc">
+        Nicholas is a bilingual (Spanish/English) Speech-Language Pathologist with experience
+        working with both children and adults in outpatient and inpatient settings. He takes a
+        strengths-based approach to therapy, building on each client's unique abilities to
+        support meaningful progress. Whether he's guiding a child through the transition from
+        tube feeds to eating by mouth, or helping an adult find their voice again after a stroke,
+        Nicholas brings warmth, skill, and a deep belief in every client's potential.
+      </p>
+
+      <a class="wb-bio__cta" href="#">
+        <span>Book with Nicholas</span>
+        <span class="wb-bio__cta-circle">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+    </div>
+
+  </article>
+</div>
+
+<style>
+  .wb-bio{
+    --wb-blue:#2f6bff;
+    --wb-blue-dark:#1f5be0;
+    --wb-blue-soft:rgba(47,107,255,.10);
+    --wb-ink:#141824;
+    --wb-muted:#5b6472;
+    --wb-radius:28px;
+    max-width:1000px;
+    margin:0 auto;
+    padding:8px;
+    box-sizing:border-box;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  .wb-bio *{box-sizing:border-box;}
+
+  .wb-bio__card{
+    display:grid;
+    grid-template-columns:minmax(240px,340px) 1fr;
+    gap:0;
+    background:#fff;
+    border-radius:var(--wb-radius);
+    overflow:hidden;
+    box-shadow:0 20px 45px -20px rgba(20,40,90,.22);
+    transition:transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s ease;
+  }
+  .wb-bio__card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 38px 70px -24px rgba(20,40,90,.32);
+  }
+
+  /* Photo */
+  .wb-bio__media{
+    position:relative;
+    overflow:hidden;
+    min-height:100%;
+    background:linear-gradient(160deg,#eaf0ff,#dbe6ff);
+  }
+  .wb-bio__photo{
+    display:block;
+    width:100%;
+    height:100%;
+    min-height:340px;
+    object-fit:cover;
+    object-position:center top;
+    transition:transform .6s cubic-bezier(.2,.7,.2,1);
+  }
+  .wb-bio__card:hover .wb-bio__photo{transform:scale(1.04);}
+
+  /* Content */
+  .wb-bio__content{
+    padding:40px 42px 40px;
+    display:flex;
+    flex-direction:column;
+  }
+
+  .wb-bio__eyebrow{
+    margin:0 0 14px;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    color:var(--wb-blue);
+    font-size:.78rem;
+    font-weight:700;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+  }
+  .wb-bio__eyebrow::before{
+    content:"";
+    width:26px;height:2px;border-radius:2px;
+    background:var(--wb-blue);
+  }
+
+  .wb-bio__name{
+    margin:0;
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:2.15rem;
+    line-height:1.12;
+    font-weight:600;
+    letter-spacing:-.01em;
+    color:var(--wb-ink);
+  }
+  .wb-bio__creds{font-size:1.35rem;font-weight:500;color:var(--wb-muted);white-space:nowrap;}
+
+  .wb-bio__role{
+    margin:8px 0 0;
+    color:var(--wb-blue);
+    font-size:1.05rem;
+    font-weight:600;
+  }
+
+  .wb-bio__rule{
+    display:block;
+    width:52px;height:3px;border-radius:3px;
+    background:var(--wb-blue);
+    margin:22px 0;
+  }
+
+  .wb-bio__tags{
+    list-style:none;
+    margin:0 0 22px;
+    padding:0;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .wb-bio__tags li{
+    background:var(--wb-blue-soft);
+    color:var(--wb-blue-dark);
+    font-size:.82rem;
+    font-weight:600;
+    padding:6px 13px;
+    border-radius:999px;
+  }
+
+  .wb-bio__desc{
+    margin:0 0 26px;
+    color:var(--wb-muted);
+    font-size:1.02rem;
+    line-height:1.62;
+  }
+
+  .wb-bio__cta{
+    margin-top:auto;
+    align-self:flex-start;
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    background:var(--wb-blue);
+    color:#fff;
+    text-decoration:none;
+    font-weight:600;
+    font-size:1rem;
+    padding:9px 10px 9px 24px;
+    border-radius:999px;
+    box-shadow:0 12px 26px -12px rgba(47,107,255,.7);
+    transition:background .25s ease, transform .25s ease, box-shadow .25s ease;
+  }
+  .wb-bio__cta:hover{
+    background:var(--wb-blue-dark);
+    transform:translateY(-2px);
+    box-shadow:0 16px 32px -12px rgba(47,107,255,.8);
+  }
+  .wb-bio__cta-circle{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:36px;height:36px;border-radius:50%;
+    background:rgba(255,255,255,.22);
+    transition:transform .25s ease;
+  }
+  .wb-bio__cta:hover .wb-bio__cta-circle{transform:translateX(3px);}
+  .wb-bio__cta-circle svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2.4;
+    stroke-linecap:round;stroke-linejoin:round;}
+
+  /* Stack on smaller screens */
+  @media (max-width:720px){
+    .wb-bio__card{grid-template-columns:1fr;}
+    .wb-bio__media{aspect-ratio:4/3;min-height:0;}
+    .wb-bio__photo{min-height:0;object-position:center 20%;}
+    .wb-bio__content{padding:32px 28px 34px;}
+    .wb-bio__name{font-size:1.85rem;}
+    .wb-bio__creds{font-size:1.2rem;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .wb-bio__card,.wb-bio__photo,.wb-bio__cta,.wb-bio__cta-circle{transition:none;}
+    .wb-bio__card:hover{transform:none;}
+    .wb-bio__card:hover .wb-bio__photo{transform:none;}
+  }
+</style>
