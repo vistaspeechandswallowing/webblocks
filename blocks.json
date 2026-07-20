@@ -20,6 +20,13 @@
     "tags": ["form", "booking", "appointment", "cta"]
   },
   {
+    "file": "blocks/contact-form.html",
+    "title": "Contact Form (HubSpot)",
+    "description": "Clean, centered contact card (Name, Email, Phone, Message) on a white rounded panel. Submits straight into HubSpot CRM via the public Forms API (AJAX, no backend or API key), with a spam honeypot and inline status messages.",
+    "tags": ["form", "contact", "hubspot", "cta", "lead"],
+    "previewBg": "#eef2f9"
+  },
+  {
     "file": "blocks/testimonials.html",
     "title": "Testimonials",
     "description": "\"What Our Patients Say\" section with a heading, intro text, and a responsive grid of review cards (avatar, name, location, stars, quote).",
