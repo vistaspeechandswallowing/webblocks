@@ -63,13 +63,14 @@
     background: #2f6bff;            /* brand blue */
     padding: 10px 12px 10px 30px;
     border-radius: 999px;
-    box-shadow: 0 12px 28px -10px rgba(47,107,255,.6);
+    /* White ring + glow so the CTA lifts off the blue-tinted hero */
+    box-shadow: 0 0 0 2px rgba(255,255,255,.9), 0 14px 40px -6px rgba(47,107,255,.9);
     transition: background .25s ease, transform .25s ease, box-shadow .25s ease;
   }
   .slp-btn:hover {
     background: #1f5be0;            /* brand blue, darker */
     transform: translateY(-2px);
-    box-shadow: 0 16px 34px -10px rgba(47,107,255,.7);
+    box-shadow: 0 0 0 2px #fff, 0 18px 50px -6px rgba(47,107,255,1);
   }
   .slp-btn__circle {
     display: inline-flex;
