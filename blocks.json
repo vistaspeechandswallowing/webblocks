@@ -1,5 +1,11 @@
 [
   {
+    "file": "blocks/appointment-booking.html",
+    "title": "Appointment Booking",
+    "description": "Blue split panel with a booking pitch on the left and a glassy booking form (name, phone, date, time) on the right.",
+    "tags": ["form", "booking", "appointment", "cta"]
+  },
+  {
     "file": "blocks/hello-banner.html",
     "title": "Hello Banner",
     "description": "A simple gradient hero banner with a heading and subtext. A starter example to copy from.",
