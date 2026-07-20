@@ -1,0 +1,86 @@
+<!--
+  Block:       Homepage Hero
+  Description: Centered hero — headline, supporting paragraph, and two audience
+               buttons (patient/caregiver vs. provider) with a group-hover effect.
+  Usage:       Paste everything below into a Squarespace Code Block.
+
+  IMPORTANT — this hero has white text on a TRANSPARENT background. It is meant
+  to sit on top of a colored or image section background. In Squarespace, set the
+  Section background (color or image) behind this Code Block; otherwise the white
+  text will be invisible on a white page.
+
+  Button hover behavior: the patient button is solid by default. Hovering the
+  group reverts every button to the outline style except the one under the
+  cursor, which turns solid and grows slightly.
+
+  Styles are scoped under .slp-hero / .slp-btn so nothing leaks into the page.
+-->
+<div class="slp-hero">
+  <h1>Personalized in-home therapy for feeding, swallowing, and voice.</h1>
+  <p>Focused expertise in pediatric feeding and tube-weaning, adult and pediatric dysphagia, and voice therapy—delivered in the comfort of your home.</p>
+  <div class="slp-hero__actions">
+    <button class="slp-btn slp-btn--solid">I'm a patient or caregiver.</button>
+    <button class="slp-btn slp-btn--outline">I'm a provider.</button>
+  </div>
+</div>
+
+<style>
+.slp-hero { text-align: center; color: #fff; padding: 8% 0; }
+  .slp-hero h1 {
+    font-weight: 500;
+    font-size: clamp(2.7rem, 7vw, 4rem);
+    line-height: 1.05;
+    margin: 0 0 1.4rem;
+  }
+  .slp-hero p {
+    font-size: clamp(1.05rem, 1.6vw, 1.1rem);
+    line-height: 1.5;
+    max-width: 640px;
+    margin: 0 auto 2.5rem;
+  }
+  .slp-hero__actions {
+    display: flex;
+    gap: 1.25rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .slp-btn {
+    font: inherit;
+    font-size: 1rem;
+    padding: 0.95rem 2.6rem;
+    border: 1px solid #fff;
+    cursor: pointer;
+    background: transparent;   /* base look = outline */
+    color: #fff;
+    transition: background-color .2s ease, color .2s ease, transform .2s ease;
+  }
+
+  /* Patient button is solid by default */
+  .slp-btn--solid { background: #fff; color: #2b2f3f; }
+
+  /* When the group is hovered, everything reverts to outline... */
+  .slp-hero__actions:hover .slp-btn { background: transparent; color: #fff; }
+
+  /* ...except the button actually under the cursor, which goes solid and grows */
+  .slp-hero__actions .slp-btn:hover {
+    background: #fff;
+    color: #2b2f3f;
+    transform: scale(1.04);
+  }
+
+  @media (max-width: 560px) {
+    .slp-hero__actions {
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+    .slp-btn {
+      width: 100%;
+      padding: 0.9rem 1.5rem;
+      font-size: 1rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slp-btn { transition: none; }
+  }
+</style>

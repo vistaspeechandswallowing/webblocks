@@ -112,7 +112,7 @@
             </div>
             <button class="btn" type="button">Copy</button>
           </div>
-          <iframe class="preview" src="${b.file}" loading="lazy" title="${b.title || b.file} preview"></iframe>
+          <iframe class="preview" src="${b.file}" loading="lazy" title="${b.title || b.file} preview" style="${b.previewBg ? 'background:' + b.previewBg : ''}"></iframe>
         `;
 
         const btn = card.querySelector('.btn');

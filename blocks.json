@@ -1,5 +1,12 @@
 [
   {
+    "file": "blocks/homepage-hero.html",
+    "title": "Homepage Hero",
+    "description": "Centered hero with a headline, supporting text, and two audience buttons (patient/caregiver vs. provider) with a group-hover effect. White text on a transparent background — sits over a colored/image section.",
+    "tags": ["hero", "homepage", "cta"],
+    "previewBg": "#2b3a67"
+  },
+  {
     "file": "blocks/appointment-booking.html",
     "title": "Appointment Booking",
     "description": "Blue split panel with a booking pitch on the left and a glassy booking form (name, phone, date, time) on the right.",
