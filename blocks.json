@@ -22,7 +22,7 @@
   {
     "file": "blocks/contact-form.html",
     "title": "Contact Form (HubSpot)",
-    "description": "Clean, centered contact card (Name, Email, Phone, Message) on a white rounded panel. Submits straight into HubSpot CRM via the public Forms API (AJAX, no backend or API key), with a spam honeypot and inline status messages.",
+    "description": "Clean, centered contact card on a white rounded panel: Name, Email, Phone (optional), preferred contact method, who it's for (adult/child), service interest, visit preference, and how they heard about VSS. Submits straight into HubSpot CRM via the public Forms API (AJAX, no backend or API key), with a spam honeypot and inline status messages. Collects no health details.",
     "tags": ["form", "contact", "hubspot", "cta", "lead"],
     "previewBg": "#eef2f9"
   },

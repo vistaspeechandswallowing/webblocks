@@ -1,17 +1,32 @@
 <!--
   Block:       Contact Form (HubSpot)
-  Description: A clean contact card (Name, Email, Phone, Message) that sends every
-               submission straight into your HubSpot CRM as a contact + form
-               submission. No server, no API key — posts to HubSpot's public
-               Forms API.
+  Description: A clean contact card that sends every submission straight into
+               your HubSpot CRM as a contact + form submission. No server, no
+               API key — posts to HubSpot's public Forms API.
+               Fields: Name, Email, Phone (optional), Preferred contact method,
+               Who it's for (adult/child), Service interest, Visit preference,
+               and How they heard about VSS.
   Usage:       Paste everything below into a Squarespace Code Block.
 
   ============================================================================
   ONE-TIME SETUP — connect the form to HubSpot
   ============================================================================
   1. In HubSpot, go to  Marketing → Forms  and create (or open) a form.
-     Give it fields for: First name, Email, Phone number, and a Message field
-     (a single-line or multi-line text property such as the default "Message").
+     It needs a property for every field this block sends. HubSpot ships with
+     firstname / email / phone already; create the rest as custom contact
+     properties (Settings → Properties → Create property). Use these EXACT
+     internal names so the values land in the right place:
+         firstname                    (First name — default)
+         email                        (Email — default)
+         phone                        (Phone number — default)
+         preferred_contact_method     (dropdown: Phone call / Text message / Email)
+         who_is_this_for              (dropdown: Adult / Child)
+         service_interest             (dropdown: Speech therapy / Swallowing or
+                                       feeding / Home health / Not sure yet)
+         visit_preference             (dropdown: Arvada clinic / Home health /
+                                       No preference)
+         how_did_you_hear_about_us    (single-line text)
+     Add each of those as a field on the HubSpot form too.
   2. Publish the form. You don't need to embed HubSpot's own code — this block
      posts to HubSpot directly.
   3. Find your two IDs:
@@ -22,14 +37,14 @@
              a1b2c3d4-1234-5678-9abc-def012345678
   4. Paste both into the CONFIG block in the <script> below
      (HUBSPOT_PORTAL_ID and HUBSPOT_FORM_GUID).
-  5. Make sure each field's  name="..."  below matches the field's *internal
-     name* in HubSpot (firstname, email, phone, message are HubSpot's defaults).
-     If you renamed a property in HubSpot, update the matching name here.
+  5. If you rename a property in HubSpot, update the matching  name="..."  on
+     the field below so the two stay in sync.
   6. Publish the Squarespace page. Submissions appear under the form in HubSpot
      and create/update the contact in your CRM automatically.
 
-  Note: this form is not configured for HIPAA/PHI. It collects a name, email,
-  phone, and a short message only. Don't add sensitive health details to it.
+  Note: this is a general-interest contact form only — it deliberately collects
+  NO health details, symptoms, diagnoses, or medical history. Keep it that way
+  so nothing here touches PHI/HIPAA.
 
   All styles are scoped under .wb-contact so nothing leaks into the rest of the page.
 -->
@@ -44,19 +59,55 @@
         <label for="wb-contact-name">Name</label>
         <input id="wb-contact-name" type="text" name="firstname" placeholder="Your name" autocomplete="name" required>
       </div>
+      <div class="wb-contact__field">
+        <label for="wb-contact-email">Email</label>
+        <input id="wb-contact-email" type="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+      </div>
       <div class="wb-contact__row">
         <div class="wb-contact__field">
-          <label for="wb-contact-email">Email</label>
-          <input id="wb-contact-email" type="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+          <label for="wb-contact-phone">Phone <span class="wb-contact__opt">(optional)</span></label>
+          <input id="wb-contact-phone" type="tel" name="phone" placeholder="(555) 555-5555" autocomplete="tel">
         </div>
         <div class="wb-contact__field">
-          <label for="wb-contact-phone">Phone</label>
-          <input id="wb-contact-phone" type="tel" name="phone" placeholder="(555) 555-5555" autocomplete="tel">
+          <label for="wb-contact-method">Preferred contact method</label>
+          <select id="wb-contact-method" name="preferred_contact_method" required>
+            <option value="" disabled selected>Choose one…</option>
+            <option value="Phone call">Phone call</option>
+            <option value="Text message">Text message</option>
+            <option value="Email">Email</option>
+          </select>
         </div>
       </div>
       <div class="wb-contact__field">
-        <label for="wb-contact-message">Message</label>
-        <textarea id="wb-contact-message" name="message" rows="4" placeholder="How can we help?" required></textarea>
+        <label for="wb-contact-who">Who is this for?</label>
+        <select id="wb-contact-who" name="who_is_this_for" required>
+          <option value="" disabled selected>Choose one…</option>
+          <option value="Adult">Adult</option>
+          <option value="Child">Child</option>
+        </select>
+      </div>
+      <div class="wb-contact__field">
+        <label for="wb-contact-service">Service interest</label>
+        <select id="wb-contact-service" name="service_interest" required>
+          <option value="" disabled selected>Choose one…</option>
+          <option value="Speech therapy">Speech therapy</option>
+          <option value="Swallowing or feeding">Swallowing or feeding</option>
+          <option value="Home health">Home health</option>
+          <option value="Not sure yet">Not sure yet</option>
+        </select>
+      </div>
+      <div class="wb-contact__field">
+        <label for="wb-contact-visit">Visit preference</label>
+        <select id="wb-contact-visit" name="visit_preference" required>
+          <option value="" disabled selected>Choose one…</option>
+          <option value="Arvada clinic">Arvada clinic</option>
+          <option value="Home health">Home health</option>
+          <option value="No preference">No preference</option>
+        </select>
+      </div>
+      <div class="wb-contact__field">
+        <label for="wb-contact-referral">How did you hear about VSS?</label>
+        <input id="wb-contact-referral" type="text" name="how_did_you_hear_about_us" placeholder="Doctor, friend, online search…">
       </div>
 
       <!-- Honeypot: bots fill this, humans can't see it → submission is dropped -->
@@ -121,8 +172,9 @@
     color: #334155;
   }
 
+  .wb-contact__opt { font-weight: 400; color: #94a3b8; }
   .wb-contact input,
-  .wb-contact textarea {
+  .wb-contact select {
     box-sizing: border-box;
     width: 100%;
     padding: 0.85rem 1rem;
@@ -135,13 +187,21 @@
     outline: none;
     transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
   }
-  .wb-contact textarea { resize: vertical; min-height: 110px; }
-  .wb-contact input::placeholder,
-  .wb-contact textarea::placeholder { color: #94a3b8; }
+  .wb-contact select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+    cursor: pointer;
+  }
+  .wb-contact select:invalid { color: #94a3b8; }
+  .wb-contact input::placeholder { color: #94a3b8; }
   .wb-contact input:focus,
-  .wb-contact textarea:focus {
+  .wb-contact select:focus {
     border-color: #2563eb;
-    background: #ffffff;
+    background-color: #ffffff;
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
   }
 
@@ -215,7 +275,7 @@
         Array.prototype.forEach.call(form.querySelectorAll('[required]'), function (input) {
           if (!input.value.trim()) missing = true;
         });
-        if (missing) { setNote('Please fill in your name, email, and message.'); return; }
+        if (missing) { setNote('Please complete the required fields.'); return; }
 
         if (HUBSPOT_PORTAL_ID.indexOf('YOUR_') === 0 || HUBSPOT_FORM_GUID.indexOf('YOUR_') === 0) {
           setNote('This form isn’t connected yet — add your HubSpot Portal ID and Form GUID (see the setup notes in the code).');
@@ -224,7 +284,7 @@
 
         // Build HubSpot's submission payload from the named fields.
         var fields = [];
-        Array.prototype.forEach.call(form.querySelectorAll('input[name], textarea[name]'), function (input) {
+        Array.prototype.forEach.call(form.querySelectorAll('input[name], select[name], textarea[name]'), function (input) {
           if (input.name === '_gotcha') return;
           if (!input.value.trim()) return;
           fields.push({ name: input.name, value: input.value.trim() });
@@ -277,9 +337,9 @@
   On submit, this block POSTs a JSON payload to HubSpot's public Forms
   Submissions API:
       https://api.hsforms.com/submissions/v3/integration/submit/{portalId}/{formGuid}
-  Each visible field is sent as { name, value }, where "name" must match the
-  field's internal name in your HubSpot form (firstname, email, phone, message
-  by default). HubSpot creates or updates the contact and logs the submission —
-  no API key or backend required. To collect different data, add/rename fields
+  Each filled field is sent as { name, value }, where "name" must match the
+  field's internal name in your HubSpot form (see the setup notes at the top for
+  the full list). HubSpot creates or updates the contact and logs the submission
+  — no API key or backend required. To collect different data, add/rename fields
   above and mirror the same internal names in your HubSpot form.
 -->
