@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>webblocks — HTML code block library</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --border: #334155;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #818cf8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    header {
+      padding: 3rem 1.5rem 2rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+    header h1 { margin: 0 0 0.5rem; font-size: 2.25rem; }
+    header p { margin: 0; color: var(--muted); }
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+    .grid { display: grid; gap: 1.5rem; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .card__head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+    }
+    .card__title { margin: 0 0 0.25rem; font-size: 1.15rem; }
+    .card__desc { margin: 0; color: var(--muted); font-size: 0.9rem; }
+    .tags { margin-top: 0.5rem; display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .tag {
+      font-size: 0.72rem; color: var(--accent);
+      background: rgba(129,140,248,0.12);
+      border: 1px solid rgba(129,140,248,0.3);
+      padding: 0.1rem 0.5rem; border-radius: 999px;
+    }
+    .btn {
+      flex: none;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: #334155;
+      color: var(--text);
+      padding: 0.45rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      white-space: nowrap;
+    }
+    .btn:hover { background: #475569; }
+    .preview {
+      width: 100%; height: 260px; border: 0; border-top: 1px solid var(--border);
+      background: #fff;
+    }
+    .empty { color: var(--muted); text-align: center; padding: 3rem 0; }
+    footer { text-align: center; color: var(--muted); font-size: 0.82rem; padding-bottom: 2rem; }
+    a { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>webblocks</h1>
+    <p>HTML code blocks for Squarespace — preview and copy.</p>
+  </header>
+  <div class="wrap">
+    <div id="grid" class="grid"></div>
+    <p id="empty" class="empty" hidden>No blocks yet. Add one to <code>blocks/</code> and list it in <code>blocks.json</code>.</p>
+  </div>
+  <footer>Built with <a href="https://github.com/vistaspeechandswallowing/webblocks">webblocks</a></footer>
+
+  <script>
+    async function load() {
+      const grid = document.getElementById('grid');
+      const empty = document.getElementById('empty');
+      let blocks = [];
+      try {
+        const res = await fetch('blocks.json', { cache: 'no-store' });
+        blocks = await res.json();
+      } catch (e) {
+        grid.innerHTML = '<p class="empty">Could not load blocks.json. If viewing locally, run a local server (e.g. <code>python3 -m http.server</code>).</p>';
+        return;
+      }
+      if (!blocks.length) { empty.hidden = false; return; }
+
+      for (const b of blocks) {
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        const tags = (b.tags || []).map(t => `<span class="tag">${t}</span>`).join('');
+        card.innerHTML = `
+          <div class="card__head">
+            <div>
+              <h2 class="card__title">${b.title || b.file}</h2>
+              <p class="card__desc">${b.description || ''}</p>
+              <div class="tags">${tags}</div>
+            </div>
+            <button class="btn" type="button">Copy</button>
+          </div>
+          <iframe class="preview" src="${b.file}" loading="lazy" title="${b.title || b.file} preview"></iframe>
+        `;
+
+        const btn = card.querySelector('.btn');
+        btn.addEventListener('click', async () => {
+          try {
+            const code = await (await fetch(b.file, { cache: 'no-store' })).text();
+            await navigator.clipboard.writeText(code);
+            btn.textContent = 'Copied!';
+            setTimeout(() => (btn.textContent = 'Copy'), 1500);
+          } catch (e) {
+            btn.textContent = 'Failed';
+            setTimeout(() => (btn.textContent = 'Copy'), 1500);
+          }
+        });
+
+        grid.appendChild(card);
+      }
+    }
+    load();
+  </script>
+</body>
+</html>

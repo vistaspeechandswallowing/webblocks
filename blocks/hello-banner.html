@@ -1,0 +1,34 @@
+<!--
+  Block:       Hello Banner
+  Description: A simple gradient hero banner with a heading and subtext.
+  Usage:       Paste everything below into a Squarespace Code Block.
+  Note:        All styles are scoped under .wb-hello-banner so they
+               will not leak into the rest of your Squarespace page.
+-->
+<div class="wb-hello-banner">
+  <h1 class="wb-hello-banner__title">Welcome</h1>
+  <p class="wb-hello-banner__subtitle">A starter code block you can copy and make your own.</p>
+</div>
+
+<style>
+  .wb-hello-banner {
+    box-sizing: border-box;
+    padding: 4rem 1.5rem;
+    text-align: center;
+    color: #ffffff;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+    border-radius: 12px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  .wb-hello-banner__title {
+    margin: 0 0 0.5rem;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+  }
+  .wb-hello-banner__subtitle {
+    margin: 0;
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    opacity: 0.92;
+  }
+</style>

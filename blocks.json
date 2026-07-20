@@ -1,0 +1,8 @@
+[
+  {
+    "file": "blocks/hello-banner.html",
+    "title": "Hello Banner",
+    "description": "A simple gradient hero banner with a heading and subtext. A starter example to copy from.",
+    "tags": ["hero", "banner", "example"]
+  }
+]
