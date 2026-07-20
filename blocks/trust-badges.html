@@ -14,13 +14,18 @@
   To edit:     Change the text inside each <span class="wb-badge__label">.
                Swap an <svg> to change an icon (keep viewBox="0 0 24 24").
 
+  Links:       Each badge is a link — set href="..." on each <a class="wb-badge">
+               to point it at the matching page (e.g. your insurance page). To
+               make a badge non-clickable, change its <a ...> to <div class="wb-badge">
+               and its closing </a> to </div>.
+
   Styles are scoped under .wb-badges so nothing leaks into the page.
 -->
 <div class="wb-badges">
   <div class="wb-badges__inner">
 
     <!-- BADGE 1 -->
-    <div class="wb-badge">
+    <a class="wb-badge" href="#">
       <span class="wb-badge__icon">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <rect x="2" y="6" width="14" height="12" rx="2"/>
@@ -28,12 +33,12 @@
         </svg>
       </span>
       <span class="wb-badge__label">Telehealth Appointments</span>
-    </div>
+    </a>
 
     <span class="wb-badge__divider" aria-hidden="true"></span>
 
-    <!-- BADGE 2 -->
-    <div class="wb-badge">
+    <!-- BADGE 2 — set href to your insurance page -->
+    <a class="wb-badge" href="#">
       <span class="wb-badge__icon">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
@@ -41,12 +46,12 @@
         </svg>
       </span>
       <span class="wb-badge__label">Accepts Insurance</span>
-    </div>
+    </a>
 
     <span class="wb-badge__divider" aria-hidden="true"></span>
 
     <!-- BADGE 3 -->
-    <div class="wb-badge">
+    <a class="wb-badge" href="#">
       <span class="wb-badge__icon">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M8 2v4M16 2v4"/>
@@ -56,7 +61,7 @@
         </svg>
       </span>
       <span class="wb-badge__label">Accepting New Clients</span>
-    </div>
+    </a>
 
   </div>
 </div>
@@ -93,6 +98,13 @@
     gap:18px;
     flex:1 1 220px;
     max-width:300px;
+    text-decoration:none;
+    color:inherit;
+    border-radius:16px;
+  }
+  .wb-badge:focus-visible{
+    outline:2px solid var(--wb-blue-light);
+    outline-offset:8px;
   }
 
   .wb-badge__icon{
@@ -117,13 +129,14 @@
   }
 
   .wb-badge__label{
-    font-family:Georgia,"Times New Roman",serif;
-    font-size:1.3rem;
-    font-weight:500;
+    font-size:1.15rem;
+    font-weight:600;
     letter-spacing:.01em;
     color:#fff;
-    line-height:1.25;
+    line-height:1.3;
+    transition:color .25s ease;
   }
+  .wb-badge:hover .wb-badge__label{color:var(--wb-blue-light);}
 
   .wb-badge__divider{
     flex:0 0 auto;
