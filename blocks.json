@@ -31,5 +31,12 @@
     "description": "Hovering profile tile for a team member: portrait photo beside an eyebrow label, name with credentials, role, key-fact pills, bio paragraph, and a booking CTA. Stacks vertically on mobile.",
     "tags": ["bio", "team", "about", "profile", "card"],
     "previewBg": "#eef2f9"
+  },
+  {
+    "file": "blocks/footer.html",
+    "title": "Site Footer",
+    "description": "Serif footer on a warm greige background: practice name, phone/fax, email, an emergency-use notice, and an Hours column. Two-column layout that stacks on mobile, with an auto-updating copyright year.",
+    "tags": ["footer", "contact", "hours"],
+    "previewBg": "#dcdcd4"
   }
 ]

@@ -1,0 +1,148 @@
+<!-- ===== SITE FOOTER — paste this whole block into a Squarespace Code Block ===== -->
+<!-- Edit the practice name, phone/fax, email, hours, and emergency notice below.   -->
+<!-- The email link uses mailto: — update both the href and the visible text.       -->
+<!-- Styles are scoped under .wb-footer so nothing leaks into the rest of the page. -->
+
+<footer class="wb-footer">
+  <div class="wb-footer__inner">
+
+    <div class="wb-footer__brand">
+      <h2 class="wb-footer__name">Vista Speech &amp; Swallowing</h2>
+
+      <div class="wb-footer__contact">
+        <p>Call: <a href="tel:+17205099640">(720) 509-9640</a></p>
+        <p>Fax: (855) 915-1524</p>
+      </div>
+
+      <p class="wb-footer__email">
+        <a href="mailto:nicholas@vistaspeech.com">nicholas@vistaspeech.com</a>
+      </p>
+
+      <p class="wb-footer__notice">
+        The client portal is not to be used for emergency situations. If you or
+        others are in immediate danger or experiencing a medical emergency,
+        call 911 immediately.
+      </p>
+    </div>
+
+    <div class="wb-footer__hours">
+      <h3 class="wb-footer__heading">Hours</h3>
+      <p class="wb-footer__days">Monday &ndash; Saturday</p>
+      <p class="wb-footer__appt">By appointment only.</p>
+    </div>
+
+  </div>
+
+  <div class="wb-footer__base">
+    <p>&copy; <span class="wb-footer__year">2026</span> Vista Speech &amp; Swallowing. All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  .wb-footer{
+    --wb-ink:#34495f;          /* muted navy — headings & links */
+    --wb-ink-hover:#20304a;    /* darker navy on hover */
+    --wb-body:#22252b;         /* near-black body text */
+    --wb-bg:#dcdcd4;           /* warm greige background */
+    --wb-rule:rgba(52,73,95,.16);
+
+    box-sizing:border-box;
+    background:var(--wb-bg);
+    color:var(--wb-body);
+    font-family:Georgia,"Times New Roman",serif;
+    padding:72px 8% 40px;
+    line-height:1.65;
+  }
+  .wb-footer *{box-sizing:border-box;}
+
+  .wb-footer__inner{
+    max-width:1200px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1.6fr 1fr;
+    gap:48px 64px;
+    align-items:start;
+  }
+
+  /* ---- Brand column ---- */
+  .wb-footer__name{
+    margin:0 0 28px;
+    font-size:clamp(2rem,4vw,2.9rem);
+    font-weight:500;
+    line-height:1.1;
+    letter-spacing:.005em;
+    color:var(--wb-ink);
+  }
+
+  .wb-footer__contact{margin:0 0 24px;}
+  .wb-footer__contact p{margin:0;font-size:1.12rem;}
+
+  .wb-footer__email{margin:0 0 44px;font-size:1.12rem;}
+
+  .wb-footer a{
+    color:var(--wb-ink);
+    text-decoration:underline;
+    text-underline-offset:3px;
+    text-decoration-thickness:1px;
+    transition:color .2s ease;
+  }
+  .wb-footer a:hover{color:var(--wb-ink-hover);}
+  .wb-footer__contact a{text-decoration:none;}
+  .wb-footer__contact a:hover{text-decoration:underline;}
+
+  .wb-footer__notice{
+    margin:0;
+    max-width:52ch;
+    font-size:.95rem;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    line-height:1.75;
+  }
+
+  /* ---- Hours column ---- */
+  .wb-footer__heading{
+    margin:0 0 28px;
+    font-size:clamp(1.5rem,2.6vw,1.9rem);
+    font-weight:500;
+    color:var(--wb-ink);
+  }
+  .wb-footer__days{margin:0 0 4px;font-size:1.12rem;}
+  .wb-footer__appt{margin:0;font-size:1.12rem;font-weight:700;}
+
+  /* ---- Base / copyright ---- */
+  .wb-footer__base{
+    max-width:1200px;
+    margin:56px auto 0;
+    padding-top:24px;
+    border-top:1px solid var(--wb-rule);
+  }
+  .wb-footer__base p{
+    margin:0;
+    font-size:.9rem;
+    color:rgba(34,37,43,.7);
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width:760px){
+    .wb-footer{padding:56px 7% 36px;}
+    .wb-footer__inner{
+      grid-template-columns:1fr;
+      gap:40px;
+    }
+    .wb-footer__email{margin-bottom:32px;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .wb-footer a{transition:none;}
+  }
+</style>
+
+<script>
+  /* Keep the copyright year current without editing the markup. */
+  (function(){
+    var el = document.currentScript.previousElementSibling;
+    while (el && !el.classList.contains('wb-footer')) el = el.previousElementSibling;
+    var y = el && el.querySelector('.wb-footer__year');
+    if (y) y.textContent = new Date().getFullYear();
+  })();
+</script>
