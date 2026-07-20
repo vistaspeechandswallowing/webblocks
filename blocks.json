@@ -7,6 +7,13 @@
     "previewBg": "#2b3a67"
   },
   {
+    "file": "blocks/service-tiles.html",
+    "title": "Service Tiles",
+    "description": "Responsive grid of service cards (image, title, description) with hover lift/zoom, plus a centered pill CTA button.",
+    "tags": ["services", "grid", "cards", "cta"],
+    "previewBg": "#eef2f9"
+  },
+  {
     "file": "blocks/appointment-booking.html",
     "title": "Appointment Booking",
     "description": "Blue split panel with a booking pitch on the left and a glassy booking form (name, phone, date, time) on the right.",
