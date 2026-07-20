@@ -6,6 +6,12 @@
     "tags": ["form", "booking", "appointment", "cta"]
   },
   {
+    "file": "blocks/testimonials.html",
+    "title": "Testimonials",
+    "description": "\"What Our Patients Say\" section with a heading, intro text, and a responsive grid of review cards (avatar, name, location, stars, quote).",
+    "tags": ["testimonials", "reviews", "grid", "social-proof"]
+  },
+  {
     "file": "blocks/hello-banner.html",
     "title": "Hello Banner",
     "description": "A simple gradient hero banner with a heading and subtext. A starter example to copy from.",

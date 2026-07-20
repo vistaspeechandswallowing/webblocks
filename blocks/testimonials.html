@@ -1,0 +1,240 @@
+<!--
+  Block:       Testimonials
+  Description: "What Our Patients Say" section — a heading with intro text and a
+               responsive grid of review cards (avatar, name, location, stars, quote).
+  Usage:       Paste everything below into a Squarespace Code Block.
+
+  HOW TO EDIT:
+  • Each review is one <article class="wb-tst__card"> below. Copy/paste or delete
+    cards to change how many you show (the grid reflows automatically).
+  • Replace the name, location, and quote text in each card.
+  • Avatars use a neutral placeholder. To use a real photo, upload it in
+    Squarespace, then set the image URL in  style="--avatar:url('...')"  on the
+    .wb-tst__avatar element (or just change the <img src="...">).
+  • Star rating: delete a <svg class="wb-tst__star"> to show fewer than 5.
+  • "See all reviews" link: set the href on the .wb-tst__link anchor.
+
+  All styles are scoped under .wb-tst so nothing leaks into the rest of the page.
+-->
+<section class="wb-tst">
+  <header class="wb-tst__header">
+    <div class="wb-tst__intro">
+      <p class="wb-tst__eyebrow">Testimonials</p>
+      <h2 class="wb-tst__title">What Our<br><span>Patients Say</span></h2>
+    </div>
+    <div class="wb-tst__aside">
+      <p class="wb-tst__blurb">We provide a full range of medical services – from consultation to diagnosis and treatment</p>
+      <a class="wb-tst__link" href="#">See all reviews</a>
+    </div>
+  </header>
+
+  <div class="wb-tst__grid">
+
+    <article class="wb-tst__card">
+      <div class="wb-tst__top">
+        <img class="wb-tst__avatar" alt="" aria-hidden="true"
+             src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23e2e8f0'/%3E%3Ccircle cx='50' cy='38' r='18' fill='%2394a3b8'/%3E%3Cpath d='M18 88c0-18 14-30 32-30s32 12 32 30' fill='%2394a3b8'/%3E%3C/svg%3E">
+        <div class="wb-tst__person">
+          <p class="wb-tst__name">Sophia Williams</p>
+          <p class="wb-tst__loc">New York, USA</p>
+          <div class="wb-tst__stars">
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+          </div>
+        </div>
+        <svg class="wb-tst__quote" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 7H6a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v1a2 2 0 0 1-2 2H5v2h1a4 4 0 0 0 4-4V7Zm10 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v1a2 2 0 0 1-2 2h-1v2h1a4 4 0 0 0 4-4V7Z"/></svg>
+      </div>
+      <p class="wb-tst__text">The doctors are truly amazing! I felt cared for and the treatment was excellent.</p>
+    </article>
+
+    <article class="wb-tst__card">
+      <div class="wb-tst__top">
+        <img class="wb-tst__avatar" alt="" aria-hidden="true"
+             src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23e2e8f0'/%3E%3Ccircle cx='50' cy='38' r='18' fill='%2394a3b8'/%3E%3Cpath d='M18 88c0-18 14-30 32-30s32 12 32 30' fill='%2394a3b8'/%3E%3C/svg%3E">
+        <div class="wb-tst__person">
+          <p class="wb-tst__name">Sara John</p>
+          <p class="wb-tst__loc">Washington, DC</p>
+          <div class="wb-tst__stars">
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+          </div>
+        </div>
+        <svg class="wb-tst__quote" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 7H6a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v1a2 2 0 0 1-2 2H5v2h1a4 4 0 0 0 4-4V7Zm10 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v1a2 2 0 0 1-2 2h-1v2h1a4 4 0 0 0 4-4V7Z"/></svg>
+      </div>
+      <p class="wb-tst__text">The doctors are truly amazing! I felt cared for and the treatment was excellent.</p>
+    </article>
+
+    <article class="wb-tst__card">
+      <div class="wb-tst__top">
+        <img class="wb-tst__avatar" alt="" aria-hidden="true"
+             src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23e2e8f0'/%3E%3Ccircle cx='50' cy='38' r='18' fill='%2394a3b8'/%3E%3Cpath d='M18 88c0-18 14-30 32-30s32 12 32 30' fill='%2394a3b8'/%3E%3C/svg%3E">
+        <div class="wb-tst__person">
+          <p class="wb-tst__name">Clara Roy</p>
+          <p class="wb-tst__loc">New City, USA</p>
+          <div class="wb-tst__stars">
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+          </div>
+        </div>
+        <svg class="wb-tst__quote" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 7H6a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v1a2 2 0 0 1-2 2H5v2h1a4 4 0 0 0 4-4V7Zm10 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v1a2 2 0 0 1-2 2h-1v2h1a4 4 0 0 0 4-4V7Z"/></svg>
+      </div>
+      <p class="wb-tst__text">The doctors are truly amazing! I felt cared for and the treatment was excellent.</p>
+    </article>
+
+    <article class="wb-tst__card">
+      <div class="wb-tst__top">
+        <img class="wb-tst__avatar" alt="" aria-hidden="true"
+             src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23e2e8f0'/%3E%3Ccircle cx='50' cy='38' r='18' fill='%2394a3b8'/%3E%3Cpath d='M18 88c0-18 14-30 32-30s32 12 32 30' fill='%2394a3b8'/%3E%3C/svg%3E">
+        <div class="wb-tst__person">
+          <p class="wb-tst__name">Jacob Peter</p>
+          <p class="wb-tst__loc">Las Vegas, USA</p>
+          <div class="wb-tst__stars">
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+          </div>
+        </div>
+        <svg class="wb-tst__quote" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 7H6a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v1a2 2 0 0 1-2 2H5v2h1a4 4 0 0 0 4-4V7Zm10 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v1a2 2 0 0 1-2 2h-1v2h1a4 4 0 0 0 4-4V7Z"/></svg>
+      </div>
+      <p class="wb-tst__text">The doctors are truly amazing! I felt cared for and the treatment was excellent.</p>
+    </article>
+
+    <article class="wb-tst__card">
+      <div class="wb-tst__top">
+        <img class="wb-tst__avatar" alt="" aria-hidden="true"
+             src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23e2e8f0'/%3E%3Ccircle cx='50' cy='38' r='18' fill='%2394a3b8'/%3E%3Cpath d='M18 88c0-18 14-30 32-30s32 12 32 30' fill='%2394a3b8'/%3E%3C/svg%3E">
+        <div class="wb-tst__person">
+          <p class="wb-tst__name">Olivia Francis</p>
+          <p class="wb-tst__loc">Chicago, USA</p>
+          <div class="wb-tst__stars">
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+          </div>
+        </div>
+        <svg class="wb-tst__quote" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 7H6a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v1a2 2 0 0 1-2 2H5v2h1a4 4 0 0 0 4-4V7Zm10 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v1a2 2 0 0 1-2 2h-1v2h1a4 4 0 0 0 4-4V7Z"/></svg>
+      </div>
+      <p class="wb-tst__text">The doctors are truly amazing! I felt cared for and the treatment was excellent.</p>
+    </article>
+
+    <article class="wb-tst__card">
+      <div class="wb-tst__top">
+        <img class="wb-tst__avatar" alt="" aria-hidden="true"
+             src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23e2e8f0'/%3E%3Ccircle cx='50' cy='38' r='18' fill='%2394a3b8'/%3E%3Cpath d='M18 88c0-18 14-30 32-30s32 12 32 30' fill='%2394a3b8'/%3E%3C/svg%3E">
+        <div class="wb-tst__person">
+          <p class="wb-tst__name">Henry Lucas</p>
+          <p class="wb-tst__loc">Miami, USA</p>
+          <div class="wb-tst__stars">
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg class="wb-tst__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+          </div>
+        </div>
+        <svg class="wb-tst__quote" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 7H6a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v1a2 2 0 0 1-2 2H5v2h1a4 4 0 0 0 4-4V7Zm10 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v1a2 2 0 0 1-2 2h-1v2h1a4 4 0 0 0 4-4V7Z"/></svg>
+      </div>
+      <p class="wb-tst__text">The doctors are truly amazing! I felt cared for and the treatment was excellent.</p>
+    </article>
+
+  </div>
+</section>
+
+<style>
+  .wb-tst {
+    box-sizing: border-box;
+    padding: clamp(1.5rem, 4vw, 3rem) 0;
+    color: #0f172a;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  .wb-tst *, .wb-tst *::before, .wb-tst *::after { box-sizing: border-box; }
+
+  .wb-tst__header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1.5rem;
+    margin-bottom: clamp(1.75rem, 4vw, 3rem);
+  }
+  .wb-tst__eyebrow {
+    margin: 0 0 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #64748b;
+  }
+  .wb-tst__title {
+    margin: 0;
+    font-size: clamp(2.25rem, 5vw, 4rem);
+    line-height: 1.02;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+  .wb-tst__title span { color: #2563eb; }
+
+  .wb-tst__aside { max-width: 26rem; text-align: right; }
+  .wb-tst__blurb { margin: 0 0 0.75rem; color: #64748b; font-size: clamp(0.95rem, 1.4vw, 1.05rem); line-height: 1.5; }
+  .wb-tst__link { color: #2563eb; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+  .wb-tst__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(1rem, 2vw, 1.75rem);
+  }
+
+  .wb-tst__card {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid #eef2f7;
+    border-radius: 16px;
+    padding: clamp(1.25rem, 2vw, 1.75rem);
+    box-shadow: 0 18px 40px -24px rgba(15, 23, 42, 0.35);
+  }
+
+  .wb-tst__top { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.25rem; }
+  .wb-tst__avatar {
+    flex: none;
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #e2e8f0;
+  }
+  .wb-tst__person { padding-top: 0.15rem; }
+  .wb-tst__name { margin: 0 0 0.15rem; font-size: 1.2rem; font-weight: 700; color: #0f172a; }
+  .wb-tst__loc { margin: 0 0 0.6rem; font-size: 0.95rem; color: #64748b; }
+  .wb-tst__stars { display: flex; gap: 0.2rem; }
+  .wb-tst__star { width: 20px; height: 20px; fill: #fbbf24; }
+
+  .wb-tst__quote {
+    position: absolute;
+    top: clamp(1.25rem, 2vw, 1.75rem);
+    right: clamp(1.25rem, 2vw, 1.75rem);
+    width: 40px;
+    height: 40px;
+    fill: #2563eb;
+    opacity: 0.9;
+  }
+
+  .wb-tst__text { margin: 0; color: #475569; font-size: 1.02rem; line-height: 1.6; }
+
+  @media (max-width: 640px) {
+    .wb-tst__header { flex-direction: column; align-items: flex-start; }
+    .wb-tst__aside { text-align: left; }
+  }
+</style>
