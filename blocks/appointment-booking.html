@@ -1,0 +1,264 @@
+<!--
+  Block:       Appointment Booking
+  Description: Blue split panel with a booking pitch on the left and a glassy
+               booking form on the right (Full Name, Phone, Date, Time).
+  Usage:       Paste everything below into a Squarespace Code Block.
+
+  BEFORE YOU PUBLISH — where do the bookings go?
+  The form is wired to open the visitor's email app addressed to you (mailto),
+  which works anywhere with zero setup. Set your address here:
+      data-booking-email="you@yourdomain.com"      (on the <form> tag below)
+  To send bookings somewhere else instead (Formspree, a webhook, Google Form),
+  see the note at the very bottom of this block.
+
+  All styles are scoped under .wb-appt so nothing leaks into the rest of the page.
+-->
+<section class="wb-appt">
+  <div class="wb-appt__left">
+    <p class="wb-appt__eyebrow">Book Appointment</p>
+    <h2 class="wb-appt__title">Make An Appointment</h2>
+    <p class="wb-appt__lead">Take the first step towards better health.<br>Book your appointment today.</p>
+    <ul class="wb-appt__list">
+      <li>
+        <svg class="wb-appt__check" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm-1.1 14.3-4-4 1.4-1.4 2.6 2.6 5.4-5.4L17.7 9l-6.8 7.3Z"/></svg>
+        <span>Easy &amp; Quick Booking</span>
+      </li>
+      <li>
+        <svg class="wb-appt__check" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm-1.1 14.3-4-4 1.4-1.4 2.6 2.6 5.4-5.4L17.7 9l-6.8 7.3Z"/></svg>
+        <span>Choose Your Preferred Doctor</span>
+      </li>
+      <li>
+        <svg class="wb-appt__check" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm-1.1 14.3-4-4 1.4-1.4 2.6 2.6 5.4-5.4L17.7 9l-6.8 7.3Z"/></svg>
+        <span>Convenient Date &amp; Time</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="wb-appt__right">
+    <form class="wb-appt__form" data-booking-email="you@yourdomain.com" novalidate>
+      <div class="wb-appt__field">
+        <input type="text" name="fullName" placeholder="Full Name" aria-label="Full Name" required>
+      </div>
+      <div class="wb-appt__field">
+        <input type="tel" name="phone" placeholder="Phone Number" aria-label="Phone Number" required>
+      </div>
+      <div class="wb-appt__row">
+        <div class="wb-appt__field">
+          <input type="text" name="date" placeholder="Date" aria-label="Date" required
+                 onfocus="this.type='date'" onblur="if(!this.value)this.type='text'">
+        </div>
+        <div class="wb-appt__field">
+          <input type="text" name="time" placeholder="Time" aria-label="Time" required
+                 onfocus="this.type='time'" onblur="if(!this.value)this.type='text'">
+        </div>
+      </div>
+      <button type="submit" class="wb-appt__submit">
+        <span>Book Appointment</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12m0 0-5-5m5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <p class="wb-appt__note" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<style>
+  .wb-appt {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: center;
+    padding: clamp(1.75rem, 4vw, 3.5rem);
+    border-radius: 28px;
+    color: #ffffff;
+    background:
+      radial-gradient(120% 140% at 12% 0%, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0) 42%),
+      linear-gradient(135deg, #1b47c4 0%, #2563eb 55%, #1e40af 100%);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    position: relative;
+    overflow: hidden;
+  }
+  /* subtle hexagon texture */
+  .wb-appt::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='96' viewBox='0 0 56 96'%3E%3Cpath fill='none' stroke='%23ffffff' stroke-opacity='0.06' stroke-width='2' d='M28 0l28 16v32L28 64 0 48V16zM28 64l28 16v32M28 64L0 80v32'/%3E%3C/svg%3E");
+    background-size: 56px 96px;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  .wb-appt > * { position: relative; z-index: 1; }
+
+  .wb-appt__eyebrow {
+    margin: 0 0 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.82);
+  }
+  .wb-appt__title {
+    margin: 0 0 1rem;
+    font-size: clamp(1.9rem, 4vw, 3rem);
+    line-height: 1.08;
+    font-weight: 800;
+  }
+  .wb-appt__lead {
+    margin: 0 0 1.75rem;
+    font-size: clamp(1rem, 1.6vw, 1.15rem);
+    line-height: 1.55;
+    color: rgba(255,255,255,0.85);
+  }
+  .wb-appt__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.1rem;
+  }
+  .wb-appt__list li {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    font-size: clamp(1rem, 1.5vw, 1.15rem);
+    font-weight: 500;
+  }
+  .wb-appt__check {
+    flex: none;
+    width: 24px;
+    height: 24px;
+    fill: #ffffff;
+    opacity: 0.95;
+  }
+
+  .wb-appt__right {
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 22px;
+    padding: clamp(1.25rem, 2.5vw, 2rem);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .wb-appt__form { display: grid; gap: 1rem; margin: 0; }
+  .wb-appt__row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .wb-appt__field { display: block; }
+
+  .wb-appt input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1rem 1.15rem;
+    font-size: 1rem;
+    font-family: inherit;
+    color: #ffffff;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 12px;
+    outline: none;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .wb-appt input::placeholder { color: rgba(255,255,255,0.75); }
+  .wb-appt input:focus {
+    border-color: rgba(255,255,255,0.7);
+    background: rgba(255,255,255,0.18);
+  }
+  /* make the native date/time picker icon visible on the dark field */
+  .wb-appt input[type="date"]::-webkit-calendar-picker-indicator,
+  .wb-appt input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 0.8;
+    cursor: pointer;
+  }
+
+  .wb-appt__submit {
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-top: 0.35rem;
+    padding: 0.55rem 0.55rem 0.55rem 1.6rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    font-family: inherit;
+    color: #1d4ed8;
+    background: #ffffff;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: transform 0.12s ease, box-shadow 0.15s ease;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+  }
+  .wb-appt__submit:hover { transform: translateY(-1px); box-shadow: 0 14px 30px rgba(0,0,0,0.24); }
+  .wb-appt__submit:active { transform: translateY(0); }
+  .wb-appt__submit svg {
+    flex: none;
+    width: 44px;
+    height: 44px;
+    padding: 11px;
+    box-sizing: border-box;
+    color: #ffffff;
+    background: #2563eb;
+    border-radius: 50%;
+  }
+
+  .wb-appt__note { margin: 0.25rem 0 0; font-size: 0.9rem; min-height: 1.1em; color: rgba(255,255,255,0.92); }
+
+  /* Stack on narrow screens (Squarespace mobile) */
+  @media (max-width: 720px) {
+    .wb-appt { grid-template-columns: 1fr; }
+    .wb-appt__submit { justify-self: stretch; justify-content: center; }
+  }
+</style>
+
+<script>
+  (function () {
+    var forms = document.querySelectorAll('.wb-appt__form');
+    forms.forEach(function (form) {
+      if (form.dataset.wbBound) return;
+      form.dataset.wbBound = '1';
+      var note = form.querySelector('.wb-appt__note');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var email = (form.getAttribute('data-booking-email') || '').trim();
+        var name  = form.fullName.value.trim();
+        var phone = form.phone.value.trim();
+        var date  = form.date.value.trim();
+        var time  = form.time.value.trim();
+
+        if (!name || !phone || !date || !time) {
+          note.textContent = 'Please fill in every field.';
+          return;
+        }
+        if (!email || email === 'you@yourdomain.com') {
+          note.textContent = 'This form needs a destination email set (data-booking-email).';
+          return;
+        }
+
+        var subject = 'Appointment request — ' + name;
+        var body =
+          'Name: ' + name + '\n' +
+          'Phone: ' + phone + '\n' +
+          'Preferred date: ' + date + '\n' +
+          'Preferred time: ' + time + '\n';
+        window.location.href = 'mailto:' + encodeURIComponent(email) +
+          '?subject=' + encodeURIComponent(subject) +
+          '&body=' + encodeURIComponent(body);
+        note.textContent = 'Opening your email app to send the request…';
+      });
+    });
+  })();
+</script>
+
+<!--
+  ── Sending bookings somewhere other than email ────────────────────────────
+  The block above uses a mailto link so it works with no backend. To collect
+  submissions elsewhere instead, replace the <script> logic with one of these:
+
+  • Formspree: change the <form> to
+        <form class="wb-appt__form" action="https://formspree.io/f/XXXX" method="POST">
+    add name="..." to each input (already present), remove the <script>, and
+    delete the data-booking-email attribute.
+  • Squarespace Form Block: build a native Form Block for the real submission
+    and use this block purely for the visual layout.
+  • Custom webhook: POST the field values with fetch() inside the submit handler.
+-->
