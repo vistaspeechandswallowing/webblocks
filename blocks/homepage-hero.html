@@ -1,7 +1,8 @@
 <!--
   Block:       Homepage Hero
-  Description: Centered hero — headline, supporting paragraph, and two audience
-               buttons (patient/caregiver vs. provider) with a group-hover effect.
+  Description: Centered hero — headline, supporting paragraph, and a pill CTA
+               button with a circular arrow badge (matches the button used in
+               the Service Tiles, Provider Bio, and Appointment blocks).
   Usage:       Paste everything below into a Squarespace Code Block.
 
   IMPORTANT — this hero has white text on a TRANSPARENT background. It is meant
@@ -9,9 +10,8 @@
   Section background (color or image) behind this Code Block; otherwise the white
   text will be invisible on a white page.
 
-  Button hover behavior: the patient button is solid by default. Hovering the
-  group reverts every button to the outline style except the one under the
-  cursor, which turns solid and grows slightly.
+  The CTA links to # by default — set href="..." on the <a class="slp-btn"> to
+  point it at your booking/contact page.
 
   Styles are scoped under .slp-hero / .slp-btn so nothing leaks into the page.
 -->
@@ -19,7 +19,12 @@
   <h1>Personalized therapy for feeding, swallowing, and voice.</h1>
   <p>Specialized expertise for children and adults, whether in our Arvada clinic or your living room, so patients can eat, speak, and be heard again.</p>
   <div class="slp-hero__actions">
-    <button class="slp-btn slp-btn--solid">Get Started</button>
+    <a class="slp-btn" href="#">
+      <span>Get Started</span>
+      <span class="slp-btn__circle">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </span>
+    </a>
   </div>
 </div>
 
@@ -43,28 +48,46 @@
     justify-content: center;
     flex-wrap: wrap;
   }
+
+  /* Pill CTA with circular arrow badge — same language as the other blocks. */
   .slp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
     font: inherit;
-    font-size: 1rem;
-    padding: 0.95rem 2.6rem;
-    border: 1px solid #fff;
-    cursor: pointer;
-    background: transparent;   /* base look = outline */
-    color: #fff;
-    transition: background-color .2s ease, color .2s ease, transform .2s ease;
-  }
-
-  /* Patient button is solid by default */
-  .slp-btn--solid { background: #fff; color: #2b2f3f; }
-
-  /* When the group is hovered, everything reverts to outline... */
-  .slp-hero__actions:hover .slp-btn { background: transparent; color: #fff; }
-
-  /* ...except the button actually under the cursor, which goes solid and grows */
-  .slp-hero__actions .slp-btn:hover {
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: #2f6bff;                 /* brand-blue label on the white pill */
     background: #fff;
-    color: #2b2f3f;
-    transform: scale(1.04);
+    padding: 9px 12px 9px 28px;
+    border-radius: 999px;
+    box-shadow: 0 12px 28px -10px rgba(0,0,0,.35);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .slp-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 34px -10px rgba(0,0,0,.45);
+  }
+  .slp-btn__circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #2f6bff;
+    transition: transform .25s ease;
+  }
+  .slp-btn:hover .slp-btn__circle { transform: translateX(4px); }
+  .slp-btn__circle svg {
+    width: 19px;
+    height: 19px;
+    fill: none;
+    stroke: #fff;
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
   @media (max-width: 560px) {
@@ -73,13 +96,15 @@
       gap: 0.9rem;
     }
     .slp-btn {
+      justify-content: center;
       width: 100%;
-      padding: 0.9rem 1.5rem;
-      font-size: 1rem;
+      padding-left: 28px;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .slp-btn { transition: none; }
+    .slp-btn, .slp-btn__circle { transition: none; }
+    .slp-btn:hover { transform: none; }
+    .slp-btn:hover .slp-btn__circle { transform: none; }
   }
 </style>
