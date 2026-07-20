@@ -49,40 +49,42 @@
     flex-wrap: wrap;
   }
 
-  /* Pill CTA with circular arrow badge — same language as the other blocks. */
+  /* Solid pill CTA with circular arrow badge — matches the "Schedule a Free
+     Consultation" button in the Service Tiles block. */
   .slp-btn {
     display: inline-flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     font: inherit;
     font-size: 1.05rem;
     font-weight: 600;
     text-decoration: none;
-    color: #2f6bff;                 /* brand-blue label on the white pill */
-    background: #fff;
-    padding: 9px 12px 9px 28px;
+    color: #fff;
+    background: #2f6bff;            /* brand blue */
+    padding: 10px 12px 10px 30px;
     border-radius: 999px;
-    box-shadow: 0 12px 28px -10px rgba(0,0,0,.35);
-    transition: transform .25s ease, box-shadow .25s ease;
+    box-shadow: 0 12px 28px -10px rgba(47,107,255,.6);
+    transition: background .25s ease, transform .25s ease, box-shadow .25s ease;
   }
   .slp-btn:hover {
+    background: #1f5be0;            /* brand blue, darker */
     transform: translateY(-2px);
-    box-shadow: 0 16px 34px -10px rgba(0,0,0,.45);
+    box-shadow: 0 16px 34px -10px rgba(47,107,255,.7);
   }
   .slp-btn__circle {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
-    background: #2f6bff;
+    background: rgba(255,255,255,.22);
     transition: transform .25s ease;
   }
   .slp-btn:hover .slp-btn__circle { transform: translateX(4px); }
   .slp-btn__circle svg {
-    width: 19px;
-    height: 19px;
+    width: 20px;
+    height: 20px;
     fill: none;
     stroke: #fff;
     stroke-width: 2.4;
