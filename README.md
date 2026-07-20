@@ -3,6 +3,8 @@
 HTML code blocks for Squarespace. Every reusable block we build lives here — one
 self-contained HTML file per block, with a browsable gallery to preview and copy them.
 
+**Live gallery:** https://vistaspeechandswallowing.github.io/webblocks/
+
 ## Structure
 
 ```
