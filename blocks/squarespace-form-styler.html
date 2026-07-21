@@ -22,12 +22,16 @@
 }
 .sqs-block-form * { box-sizing: border-box; }
 
-/* Let grid/flex children shrink so inputs don't overflow the card. */
-.sqs-block-form .field-child,
-.sqs-block-form .name-globals > *,
-.sqs-block-form .field-element {
+/* Let field wrappers and controls shrink so nothing overflows the card.
+   (7.1 field wrappers are .field; inputs/selects have hashed classes, so
+   target them by element.) */
+.sqs-block-form .field,
+.sqs-block-form input,
+.sqs-block-form select,
+.sqs-block-form textarea {
   min-width: 0 !important;
   max-width: 100% !important;
+  box-sizing: border-box !important;
 }
 
 /* Card around the whole form */
@@ -125,6 +129,21 @@
 }
 .sqs-block-form .form-item.fields.name legend { grid-column: 1 / -1 !important; }
 .sqs-block-form .form-item.fields.name .field { width: 100% !important; }
+
+/* Phone group: narrow Country + flexible Number, both allowed to shrink.
+   The two fields live in a wrapper div directly inside the phone fieldset. */
+.sqs-block-form .form-item.fields.phone > div {
+  display: grid !important;
+  grid-template-columns: minmax(0, 8rem) minmax(0, 1fr) !important;
+  gap: 0.75rem !important;
+  align-items: end !important;
+}
+
+/* Never let the card exceed the viewport, and let long labels wrap. */
+.sqs-block-form .form-wrapper { max-width: min(640px, calc(100vw - 2rem)) !important; }
+.sqs-block-form .form-item .title,
+.sqs-block-form .option label,
+.sqs-block-form .caption-text { overflow-wrap: anywhere !important; }
 
 /* Checkboxes / radios */
 .sqs-block-form fieldset.form-item {
