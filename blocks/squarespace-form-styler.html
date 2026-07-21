@@ -120,6 +120,20 @@
   .sqs-block-form *,
   .wb-formstyle-demo * { box-sizing: border-box; }
 
+  /* ---- Font: force ONE family on every element in the form ----
+     Uses a universal selector so it also catches Squarespace's sub-field
+     captions (First/Last name, phone Country/Number), the country <select>,
+     and placeholders — the spots a per-element list tends to miss.
+     Swap the stack below for Georgia, "Times New Roman", serif to go serif. */
+  .sqs-block-form,
+  .sqs-block-form *,
+  .sqs-block-form ::placeholder,
+  .wb-formstyle-demo,
+  .wb-formstyle-demo *,
+  .wb-formstyle-demo ::placeholder {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  }
+
   /* ---- Card around the whole form ---- */
   .sqs-block-form .form-wrapper,
   .wb-formstyle-demo .form-wrapper {
