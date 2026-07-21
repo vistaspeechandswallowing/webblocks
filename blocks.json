@@ -40,6 +40,13 @@
     "previewBg": "#28344f"
   },
   {
+    "file": "blocks/squarespace-form-styler.html",
+    "title": "Squarespace Form Styler",
+    "description": "Drop-in CSS that restyles a native Squarespace Form block to match the site: rounded fields, brand-blue accents, pill submit button, and a card wrapper. On mobile the Name and Phone rows stack and fields shrink so nothing runs off the card.",
+    "tags": ["form", "squarespace", "css", "styling"],
+    "previewBg": "#eef2f9"
+  },
+  {
     "file": "blocks/footer.html",
     "title": "Site Footer",
     "description": "Footer in the Services-section style: a white rounded card on a light background with sans-serif type and blue accents. Practice name, phone/fax, email, a soft-blue emergency-use callout, and an Hours column. Two-column layout that stacks on mobile, with an auto-updating copyright year.",
