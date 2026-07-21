@@ -65,11 +65,21 @@
   line-height: 1.3 !important;
   color: var(--wb-ink) !important;
 }
-/* Every "(required)" marker — group titles and sub-field captions alike. */
+/* Replace every "(required)" text with a blue asterisk (group titles and
+   sub-field captions alike). font-size:0 hides the words; the ::after adds
+   the "*" back at full size. */
 .sqs-block-form .form-item .required,
 .sqs-block-form .form-item .description.required {
+  font-size: 0 !important;
+}
+.sqs-block-form .form-item .required::after,
+.sqs-block-form .form-item .description.required::after {
+  content: "*" !important;
+  margin-left: 0.15em !important;
   color: var(--wb-blue) !important;
+  font-size: 1rem !important;
   font-weight: 700 !important;
+  vertical-align: baseline !important;
 }
 .sqs-block-form .form-item .description {
   margin: 0.4rem 0 0 !important;
