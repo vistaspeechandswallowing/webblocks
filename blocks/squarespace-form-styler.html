@@ -1,0 +1,223 @@
+<!--
+  Block:       Squarespace Form Styler
+  Description: Drop-in CSS that restyles a native Squarespace Form block to match
+               the site (rounded fields, brand-blue accents, pill submit button,
+               card wrapper). Scoped under .sqs-block-form so it only touches
+               form blocks. Adds nothing to the markup — it just styles what
+               Squarespace already renders.
+  Usage:       Paste this whole block into a Squarespace Code Block on the same
+               page as the form, or into Website → Website Tools → Custom CSS
+               (drop the <style> tags if you use the CSS editor).
+
+  Mobile:      The Name and Phone rows collapse to a single column, and every
+               field is allowed to shrink (min-width:0) so nothing runs off the
+               card on narrow screens.
+-->
+<style>
+  /* Force one font on absolutely everything in the form */
+  .sqs-block-form,
+  .sqs-block-form * {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                 Helvetica, Arial, sans-serif !important;
+  }
+  .sqs-block-form {
+    --wb-blue: #2f6bff;
+    --wb-blue-dark: #1f5be0;
+    --wb-blue-soft: rgba(47, 107, 255, 0.10);
+    --wb-ink: #141824;
+    --wb-muted: #6b7280;
+    --wb-line: #d7deea;
+    --wb-field-bg: #f6f8fc;
+    --wb-radius: 14px;
+    --wb-radius-lg: 22px;
+
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  }
+  .sqs-block-form * { box-sizing: border-box; }
+
+  /* Let grid/flex children shrink instead of overflowing the card.
+     (Grid items default to min-width:auto, which is what pushes the
+     side-by-side inputs past the edge.) */
+  .sqs-block-form .field-child,
+  .sqs-block-form .name-globals > *,
+  .sqs-block-form .field-element {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  /* Card around the whole form */
+  .sqs-block-form .form-wrapper {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: clamp(1.5rem, 4vw, 2.75rem) !important;
+    background: #ffffff;
+    border: 1px solid var(--wb-line);
+    border-radius: var(--wb-radius-lg);
+    box-shadow: 0 18px 40px -18px rgba(20, 40, 90, 0.18);
+    overflow: hidden;               /* belt-and-suspenders: nothing escapes the card */
+  }
+
+  /* Spacing between fields */
+  .sqs-block-form .field-list .form-item {
+    margin: 0 0 1.15rem !important;
+    padding: 0 !important;
+    border: none !important;
+    max-width: 100% !important;
+  }
+  .sqs-block-form .field-list .form-item:last-child { margin-bottom: 0 !important; }
+
+  /* Labels */
+  .sqs-block-form .form-item .title {
+    display: block !important;
+    margin: 0 0 0.5rem !important;
+    padding: 0 !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    line-height: 1.3 !important;
+    color: var(--wb-ink) !important;
+  }
+  .sqs-block-form .form-item .title .required {
+    color: var(--wb-blue) !important;
+    font-weight: 700 !important;
+  }
+  .sqs-block-form .form-item .description {
+    margin: 0.4rem 0 0 !important;
+    font-size: 0.85rem !important;
+    line-height: 1.5 !important;
+    color: var(--wb-muted) !important;
+  }
+
+  /* Inputs / textarea / select */
+  .sqs-block-form .field-element {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    padding: 0.85rem 1rem !important;
+    font-size: 1rem !important;
+    font-family: inherit !important;
+    color: var(--wb-ink) !important;
+    background: var(--wb-field-bg) !important;
+    border: 1px solid var(--wb-line) !important;
+    border-radius: var(--wb-radius) !important;
+    outline: none !important;
+    box-shadow: none !important;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease !important;
+  }
+  .sqs-block-form textarea.field-element {
+    min-height: 130px !important;
+    resize: vertical !important;
+  }
+  .sqs-block-form .field-element::placeholder { color: #9aa3b2 !important; }
+
+  .sqs-block-form .field-element:focus {
+    background: #ffffff !important;
+    border-color: var(--wb-blue) !important;
+    box-shadow: 0 0 0 3px var(--wb-blue-soft) !important;
+  }
+
+  /* Custom caret for selects */
+  .sqs-block-form select.field-element {
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    padding-right: 2.6rem !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 1rem center !important;
+  }
+
+  /* Name field: two even columns */
+  .sqs-block-form .form-item.name .name-globals {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.75rem !important;
+  }
+  .sqs-block-form .form-item.name .field-child { width: 100% !important; padding: 0 !important; }
+
+  /* Phone field: keep country + number side by side, but let them shrink.
+     Country is sized to its content so the number gets the rest. */
+  .sqs-block-form .form-item.phone .field-list,
+  .sqs-block-form .form-item.phone .phone-globals {
+    display: grid !important;
+    grid-template-columns: minmax(0, 8rem) minmax(0, 1fr) !important;
+    gap: 0.75rem !important;
+  }
+
+  /* Checkboxes / radios */
+  .sqs-block-form fieldset.form-item {
+    margin: 0 0 1.15rem !important;
+    padding: 0 !important;
+    border: none !important;
+  }
+  .sqs-block-form .form-item .option { margin: 0 0 0.5rem !important; }
+  .sqs-block-form .form-item .option label {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.6rem !important;
+    font-size: 1rem !important;
+    color: var(--wb-ink) !important;
+    cursor: pointer !important;
+  }
+  .sqs-block-form .form-item .option input {
+    width: 1.15rem !important;
+    height: 1.15rem !important;
+    accent-color: var(--wb-blue) !important;
+    margin: 0 !important;
+  }
+
+  /* Error states */
+  .sqs-block-form .form-item.error .field-element {
+    border-color: #e0355a !important;
+    box-shadow: 0 0 0 3px rgba(224, 53, 90, 0.12) !important;
+  }
+  .sqs-block-form .form-item.error .error-message {
+    margin-top: 0.4rem !important;
+    color: #e0355a !important;
+    font-size: 0.85rem !important;
+  }
+
+  /* Submit button */
+  .sqs-block-form .form-button-wrapper { margin-top: 1.5rem !important; }
+  .sqs-block-form .form-button,
+  .sqs-block-form .form-button-wrapper .sqs-system-button {
+    display: inline-block !important;
+    width: auto !important;
+    padding: 0.95rem 2.4rem !important;
+    font-size: 1.02rem !important;
+    font-weight: 700 !important;
+    font-family: inherit !important;
+    letter-spacing: 0.01em !important;
+    color: #ffffff !important;
+    background: var(--wb-blue) !important;
+    border: none !important;
+    border-radius: 999px !important;
+    cursor: pointer !important;
+    box-shadow: 0 10px 24px -8px rgba(47, 107, 255, 0.6) !important;
+    transition: transform 0.12s ease, background 0.15s ease, box-shadow 0.15s ease !important;
+  }
+  .sqs-block-form .form-button:hover {
+    background: var(--wb-blue-dark) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 14px 30px -8px rgba(47, 107, 255, 0.7) !important;
+  }
+  .sqs-block-form .form-button:active { transform: translateY(0) !important; }
+
+  /* Mobile: stack the multi-column rows so nothing runs off the card */
+  @media (max-width: 600px) {
+    .sqs-block-form .form-item.name .name-globals,
+    .sqs-block-form .form-item.phone .field-list,
+    .sqs-block-form .form-item.phone .phone-globals {
+      grid-template-columns: 1fr !important;
+    }
+    .sqs-block-form .form-button {
+      display: block !important;
+      width: 100% !important;
+      text-align: center !important;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sqs-block-form .field-element,
+    .sqs-block-form .form-button { transition: none !important; }
+  }
+</style>
