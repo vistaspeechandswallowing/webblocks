@@ -110,21 +110,21 @@
   background-position: right 1rem center !important;
 }
 
-/* Name field: two even columns */
-.sqs-block-form .form-item.name .name-globals {
+/* Even vertical spacing between field groups. Squarespace 7.1 puts a large
+   default row-gap on .field-list; neutralize it and use uniform margins. */
+.sqs-block-form .field-list { row-gap: 0 !important; column-gap: 0 !important; }
+.sqs-block-form .field-list > * { margin: 0 0 1.25rem !important; }
+.sqs-block-form .field-list > *:last-child { margin-bottom: 0 !important; }
+
+/* Name group: two even columns with the "Name" legend spanning the top.
+   Stacks to one column on mobile (see the media query below). */
+.sqs-block-form .form-item.fields.name {
   display: grid !important;
   grid-template-columns: 1fr 1fr !important;
-  gap: 0.75rem !important;
+  gap: 0.5rem 0.9rem !important;
 }
-.sqs-block-form .form-item.name .field-child { width: 100% !important; padding: 0 !important; }
-
-/* Phone field: narrow country + flexible number, both allowed to shrink */
-.sqs-block-form .form-item.phone .field-list,
-.sqs-block-form .form-item.phone .phone-globals {
-  display: grid !important;
-  grid-template-columns: minmax(0, 8rem) minmax(0, 1fr) !important;
-  gap: 0.75rem !important;
-}
+.sqs-block-form .form-item.fields.name legend { grid-column: 1 / -1 !important; }
+.sqs-block-form .form-item.fields.name .field { width: 100% !important; }
 
 /* Checkboxes / radios */
 .sqs-block-form fieldset.form-item {
@@ -162,6 +162,7 @@
 /* Submit button */
 .sqs-block-form .form-button-wrapper { margin-top: 1.5rem !important; }
 .sqs-block-form .form-button,
+.sqs-block-form .form-submit-button,
 .sqs-block-form .form-button-wrapper .sqs-system-button {
   display: inline-block !important;
   width: auto !important;
@@ -178,21 +179,20 @@
   box-shadow: 0 10px 24px -8px rgba(47, 107, 255, 0.6) !important;
   transition: transform 0.12s ease, background 0.15s ease, box-shadow 0.15s ease !important;
 }
-.sqs-block-form .form-button:hover {
+.sqs-block-form .form-button:hover,
+.sqs-block-form .form-submit-button:hover {
   background: var(--wb-blue-dark) !important;
   transform: translateY(-1px) !important;
   box-shadow: 0 14px 30px -8px rgba(47, 107, 255, 0.7) !important;
 }
-.sqs-block-form .form-button:active { transform: translateY(0) !important; }
+.sqs-block-form .form-button:active,
+.sqs-block-form .form-submit-button:active { transform: translateY(0) !important; }
 
-/* Mobile: stack the multi-column rows so nothing runs off the card */
+/* Mobile: stack the Name columns and make the submit button full width */
 @media (max-width: 600px) {
-  .sqs-block-form .form-item.name .name-globals,
-  .sqs-block-form .form-item.phone .field-list,
-  .sqs-block-form .form-item.phone .phone-globals {
-    grid-template-columns: 1fr !important;
-  }
-  .sqs-block-form .form-button {
+  .sqs-block-form .form-item.fields.name { grid-template-columns: 1fr !important; }
+  .sqs-block-form .form-button,
+  .sqs-block-form .form-submit-button {
     display: block !important;
     width: 100% !important;
     text-align: center !important;
@@ -201,5 +201,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .sqs-block-form .field-element,
-  .sqs-block-form .form-button { transition: none !important; }
+  .sqs-block-form .form-button,
+  .sqs-block-form .form-submit-button { transition: none !important; }
 }
