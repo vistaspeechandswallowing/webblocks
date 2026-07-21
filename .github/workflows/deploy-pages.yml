@@ -31,6 +31,16 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # full history so we can read each file's last-commit date
+
+      - name: Generate last-updated dates
+        run: |
+          jq -r '.[].file' blocks.json | while read -r f; do
+            d=$(git log -1 --format=%cI -- "$f")
+            printf '{"file":%s,"updated":%s}\n' "$(jq -Rn --arg v "$f" '$v')" "$(jq -Rn --arg v "$d" '$v')"
+          done | jq -s 'map({(.file): .updated}) | add' > updated.json
+          cat updated.json
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
