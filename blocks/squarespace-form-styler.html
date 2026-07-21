@@ -65,7 +65,9 @@
   line-height: 1.3 !important;
   color: var(--wb-ink) !important;
 }
-.sqs-block-form .form-item .title .required {
+/* Every "(required)" marker — group titles and sub-field captions alike. */
+.sqs-block-form .form-item .required,
+.sqs-block-form .form-item .description.required {
   color: var(--wb-blue) !important;
   font-weight: 700 !important;
 }
