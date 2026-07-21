@@ -106,9 +106,16 @@
         updated = await (await fetch('updated.json', { cache: 'no-store' })).json();
       } catch (e) { /* no dates available — that's fine */ }
 
+      // Full timestamp down to the second, in Mountain Time (shows MST in
+      // winter / MDT in summer automatically).
       const fmtDate = iso => {
         const d = new Date(iso);
-        return isNaN(d) ? '' : d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+        return isNaN(d) ? '' : d.toLocaleString(undefined, {
+          timeZone: 'America/Denver',
+          year: 'numeric', month: 'short', day: 'numeric',
+          hour: 'numeric', minute: '2-digit', second: '2-digit',
+          hour12: true, timeZoneName: 'short'
+        });
       };
 
       for (const b of blocks) {
