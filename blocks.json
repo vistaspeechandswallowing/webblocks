@@ -38,5 +38,12 @@
     "description": "Footer in the Services-section style: a white rounded card on a light background with sans-serif type and blue accents. Practice name, phone/fax, email, a soft-blue emergency-use callout, and an Hours column. Two-column layout that stacks on mobile, with an auto-updating copyright year.",
     "tags": ["footer", "contact", "hours"],
     "previewBg": "#eef2f9"
+  },
+  {
+    "file": "blocks/squarespace-form-styler.html",
+    "title": "Squarespace Form Styler",
+    "description": "CSS-only override that force-styles Squarespace's native Form Block to match the site: rounded brand-blue fields, custom select caret, styled checkboxes/labels, error states, and a pill submit button. Paste into a Code Block (delete the demo) or drop the <style> into Custom CSS to skin every form site-wide.",
+    "tags": ["form", "css", "squarespace", "override", "styling"],
+    "previewBg": "#eef2f9"
   }
 ]
