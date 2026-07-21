@@ -52,6 +52,7 @@
   /* Solid pill CTA with circular arrow badge — matches the "Schedule a Free
      Consultation" button in the Service Tiles block. */
   .slp-btn {
+    box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     gap: 14px;
@@ -93,6 +94,9 @@
   }
 
   @media (max-width: 560px) {
+    /* Keep hero content off the screen edges so the full-width button
+       doesn't ram into the sides. */
+    .slp-hero { padding: 8% 20px; }
     .slp-hero__actions {
       flex-direction: column;
       gap: 0.9rem;
