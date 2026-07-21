@@ -45,6 +45,7 @@
     }
     .card__title { margin: 0 0 0.25rem; font-size: 1.15rem; }
     .card__desc { margin: 0; color: var(--muted); font-size: 0.9rem; }
+    .card__updated { margin: 0.4rem 0 0; color: var(--muted); font-size: 0.75rem; }
     .tags { margin-top: 0.5rem; display: flex; flex-wrap: wrap; gap: 0.35rem; }
     .tag {
       font-size: 0.72rem; color: var(--accent);
@@ -98,17 +99,31 @@
       }
       if (!blocks.length) { empty.hidden = false; return; }
 
+      // Optional: per-block last-updated dates, generated at deploy time.
+      // Missing (e.g. local preview) just means no date is shown.
+      let updated = {};
+      try {
+        updated = await (await fetch('updated.json', { cache: 'no-store' })).json();
+      } catch (e) { /* no dates available — that's fine */ }
+
+      const fmtDate = iso => {
+        const d = new Date(iso);
+        return isNaN(d) ? '' : d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+      };
+
       for (const b of blocks) {
         const card = document.createElement('div');
         card.className = 'card';
 
         const tags = (b.tags || []).map(t => `<span class="tag">${t}</span>`).join('');
+        const updatedStr = fmtDate(updated[b.file]);
         card.innerHTML = `
           <div class="card__head">
             <div>
               <h2 class="card__title">${b.title || b.file}</h2>
               <p class="card__desc">${b.description || ''}</p>
               <div class="tags">${tags}</div>
+              ${updatedStr ? `<p class="card__updated">Updated ${updatedStr}</p>` : ''}
             </div>
             <button class="btn" type="button">Copy</button>
           </div>
