@@ -149,33 +149,26 @@
     background:linear-gradient(180deg,transparent,rgba(255,255,255,.18),transparent);
   }
 
-  /* Tablet / small: tighten spacing but keep the three badges in one row. */
+  /* Mobile: keep the original stacked layout, just shrink everything down
+     so the bar takes less vertical space. */
   @media (max-width:760px){
     .wb-badges__inner{
-      gap:12px;
-      padding:32px 16px;
-      flex-wrap:nowrap;
-      align-items:flex-start;
+      flex-direction:column;
+      gap:22px;
+      padding:28px 20px;
     }
     .wb-badge{
-      flex:1 1 0;
+      flex:none;
       max-width:none;
       gap:12px;
     }
-    /* Dividers make no sense between equal-width columns — hide them. */
-    .wb-badge__divider{display:none;}
-    .wb-badge__icon{width:58px;height:58px;}
+    .wb-badge__icon{width:56px;height:56px;}
     .wb-badge__icon svg{width:28px;height:28px;}
-    .wb-badge__label{font-size:0.9rem;line-height:1.25;}
-  }
-
-  /* Phones: shrink a touch more so two-word labels stay tidy. */
-  @media (max-width:420px){
-    .wb-badges__inner{gap:8px;padding:26px 10px;}
-    .wb-badge{gap:10px;}
-    .wb-badge__icon{width:50px;height:50px;}
-    .wb-badge__icon svg{width:24px;height:24px;}
-    .wb-badge__label{font-size:0.8rem;}
+    .wb-badge__label{font-size:1rem;}
+    .wb-badge__divider{
+      width:100px;height:1px;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);
+    }
   }
 
   @media (prefers-reduced-motion:reduce){
