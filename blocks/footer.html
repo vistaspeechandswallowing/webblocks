@@ -1,5 +1,5 @@
 <!-- ===== SITE FOOTER — paste this whole block into a Squarespace Code Block ===== -->
-<!-- Edit the practice name, phone/fax, email, hours, and emergency notice below.   -->
+<!-- Edit the practice name, phone/fax, email, address, hours, and notice below.    -->
 <!-- The email link uses mailto: — update both the href and the visible text.       -->
 <!-- Styles are scoped under .wb-footer so nothing leaks into the rest of the page. -->
 
@@ -26,7 +26,12 @@
         </p>
       </div>
 
-      <div class="wb-footer__hours">
+      <div class="wb-footer__col">
+        <h3 class="wb-footer__heading">Arvada Office</h3>
+        <p class="wb-footer__days">8850 W 58th Ave<br>Suite 201<br>Arvada, CO 80002</p>
+      </div>
+
+      <div class="wb-footer__col">
         <h3 class="wb-footer__heading">Hours</h3>
         <p class="wb-footer__days">Monday &ndash; Saturday</p>
         <p class="wb-footer__appt">By appointment only.</p>
@@ -50,7 +55,6 @@
     --wb-radius:24px;
 
     box-sizing:border-box;
-    background:#eef2f9;
     padding:clamp(1.5rem,4vw,3rem);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   }
@@ -59,15 +63,13 @@
   .wb-footer__card{
     max-width:1180px;
     margin:0 auto;
-    background:#fff;
     border-radius:var(--wb-radius);
-    box-shadow:0 18px 40px -18px rgba(20,40,90,.18);
     padding:clamp(2rem,4vw,3.25rem);
   }
 
   .wb-footer__inner{
     display:grid;
-    grid-template-columns:1.6fr 1fr;
+    grid-template-columns:1.6fr 1fr 1fr;
     gap:40px 56px;
     align-items:start;
   }
@@ -76,7 +78,7 @@
   .wb-footer__name{
     margin:0 0 22px;
     font-size:clamp(1.7rem,3.2vw,2.3rem);
-    font-weight:700;
+    font-weight:500;
     line-height:1.12;
     letter-spacing:-.01em;
     color:var(--wb-ink);
@@ -107,16 +109,16 @@
     line-height:1.6;
   }
 
-  /* ---- Hours column ---- */
+  /* ---- Info columns (Office / Hours) ---- */
   .wb-footer__heading{
     margin:0 0 18px;
     font-size:clamp(1.35rem,2.4vw,1.6rem);
-    font-weight:700;
+    font-weight:600;
     letter-spacing:-.01em;
     color:var(--wb-ink);
   }
-  .wb-footer__days{margin:0 0 4px;font-size:1.05rem;color:var(--wb-muted);}
-  .wb-footer__appt{margin:0;font-size:1.05rem;font-weight:700;color:var(--wb-ink);}
+  .wb-footer__days{margin:0 0 4px;font-size:1.05rem;line-height:1.5;color:var(--wb-muted);}
+  .wb-footer__appt{margin:8px 0 0;font-size:1.05rem;font-weight:700;color:var(--wb-ink);}
 
   /* ---- Base / copyright ---- */
   .wb-footer__base{
@@ -131,11 +133,20 @@
   }
 
   /* ---- Responsive ---- */
-  @media (max-width:760px){
+  @media (max-width:900px){
+    .wb-footer__inner{
+      grid-template-columns:1fr 1fr;
+      gap:36px 40px;
+    }
+    .wb-footer__brand{grid-column:1 / -1;}
+  }
+
+  @media (max-width:560px){
     .wb-footer__inner{
       grid-template-columns:1fr;
       gap:32px;
     }
+    .wb-footer__brand{grid-column:auto;}
     .wb-footer__email{margin-bottom:22px;}
   }
 
