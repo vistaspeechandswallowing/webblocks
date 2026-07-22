@@ -18,12 +18,6 @@
         <p class="wb-footer__email">
           <a href="mailto:nicholas@vistaspeech.com">nicholas@vistaspeech.com</a>
         </p>
-
-        <p class="wb-footer__notice">
-          The client portal is not to be used for emergency situations. If you or
-          others are in immediate danger or experiencing a medical emergency,
-          call 911 immediately.
-        </p>
       </div>
 
       <div class="wb-footer__col">
@@ -36,6 +30,12 @@
         <p class="wb-footer__days">Monday &ndash; Saturday</p>
         <p class="wb-footer__appt">By appointment only.</p>
       </div>
+
+      <p class="wb-footer__notice">
+        The client portal is not to be used for emergency situations. If you or
+        others are in immediate danger or experiencing a medical emergency,
+        call 911 immediately.
+      </p>
 
     </div>
 
@@ -98,7 +98,11 @@
   .wb-footer a:hover{color:var(--wb-blue-dark);text-decoration:underline;}
 
   .wb-footer__notice{
-    margin:0;
+    /* Sits in the brand column, below its contact info, on desktop.
+       Because it's a direct grid child (not nested in the brand block),
+       it drops to the very bottom when the footer stacks on mobile. */
+    grid-column:1;
+    margin:4px 0 0;
     max-width:52ch;
     padding:16px 20px;
     border-radius:14px;
