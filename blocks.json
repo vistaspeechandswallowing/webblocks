@@ -49,7 +49,7 @@
   {
     "file": "blocks/footer.html",
     "title": "Site Footer",
-    "description": "Footer in the Services-section style: a white rounded card on a light background with sans-serif type and blue accents. Practice name, phone/fax, email, a soft-blue emergency-use callout, and an Hours column. Two-column layout that stacks on mobile, with an auto-updating copyright year.",
+    "description": "Footer with sans-serif type and blue accents. Practice name, phone/fax, email, a soft-blue emergency-use callout, plus Office address and Hours columns. Three-column layout that collapses to two then one on smaller screens, with an auto-updating copyright year.",
     "tags": ["footer", "contact", "hours"],
     "previewBg": "#eef2f9"
   }
