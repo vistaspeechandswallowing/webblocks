@@ -297,6 +297,123 @@
 }
 .vss-page .vss-prose p:last-child{margin-bottom:0;}
 
+/* ---- Article column ----------------------------------------------------
+   For pages that are mostly reading (a condition or service explainer)
+   rather than a sequence of marketing panels. Body copy is LEFT aligned at a
+   comfortable measure — centered paragraphs are a landing-page device and get
+   tiring past a couple of lines. Headings align left with the text. */
+.vss-article{max-width:760px;margin-inline:auto;}
+.vss-article .vss-h2{text-align:left;}
+.vss-article .vss-prose{text-align:left;margin-inline:0;max-width:none;}
+.vss-article h3{
+  margin:2rem 0 .6rem;
+  font-size:1.35rem;font-weight:600;letter-spacing:normal;
+  color:var(--vss-ink,#141824);line-height:1.3;
+}
+
+/* ---- Contained figure --------------------------------------------------
+   A photo that sits INSIDE the content column with rounded corners, instead
+   of a full-bleed photo band. Interior pages use this; the full-bleed photo
+   treatment stays with the home page hero. */
+.vss-figure{max-width:900px;margin:0 auto;}
+.vss-figure img{
+  display:block;width:100%;height:auto;
+  /* Reserve the space before the photo arrives, so nothing jumps on load and
+     a tall source image can't blow out the section. */
+  aspect-ratio:16/9;object-fit:cover;
+  background:#eef2f9;
+  border-radius:var(--vss-radius,24px);
+  box-shadow:0 24px 50px -24px rgba(20,40,90,.35);
+}
+.vss-figure figcaption{
+  margin-top:.85rem;text-align:center;
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+  font-size:.9rem;color:var(--vss-muted,#6b7280);
+}
+
+/* ---- On this page (jump links) ----------------------------------------
+   A short contents box under the intro. Gives a longer page a visible
+   skeleton and lets someone jump straight to the part that applies to them. */
+.vss-toc{
+  max-width:760px;margin:0 auto;
+  background:#fff;
+  border:1px solid #e3e9f4;
+  border-left:4px solid var(--vss-blue,#2f6bff);
+  border-radius:16px;
+  padding:24px 28px;
+  box-shadow:0 14px 32px -22px rgba(20,40,90,.35);
+}
+.vss-toc__title{
+  margin:0 0 .85rem;
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+  font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--vss-muted,#6b7280);
+}
+.vss-toc ol{
+  list-style:none;margin:0;padding:0;
+  counter-reset:vss-toc;
+  display:grid;gap:.55rem;
+}
+.vss-toc li{counter-increment:vss-toc;}
+.vss-toc a{
+  display:flex;align-items:baseline;gap:.7rem;
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+  font-size:1.02rem;line-height:1.45;
+  color:var(--vss-ink,#141824);text-decoration:none;
+  transition:color .2s ease;
+}
+.vss-toc a::before{
+  content:counter(vss-toc) ".";
+  flex:0 0 auto;font-weight:700;color:var(--vss-blue,#2f6bff);
+}
+.vss-toc a:hover{color:var(--vss-blue,#2f6bff);}
+
+/* Anchored sections shouldn't land under the sticky Squarespace header. */
+.vss-page [id]{scroll-margin-top:90px;}
+
+/* ---- Pull quote --------------------------------------------------------
+   One sentence lifted out of the copy, to give a long page a resting point. */
+.vss-quote{
+  max-width:760px;margin:2.5rem auto 0;
+  background:var(--vss-blue-soft,rgba(47,107,255,.10));
+  border-left:4px solid var(--vss-blue,#2f6bff);
+  border-radius:0 16px 16px 0;
+  padding:26px 30px;
+}
+.vss-page .vss-quote p{
+  margin:0;
+  font-family:var(--vss-serif,"Newsreader",Georgia,serif);
+  font-size:clamp(1.2rem,2.2vw,1.5rem);
+  line-height:1.4;color:var(--vss-ink,#141824);
+}
+
+/* ---- Info cards (small two-up facts) ----------------------------------- */
+.vss-infocards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:24px;
+  max-width:760px;margin:var(--vss-gap, clamp(1rem,2.5vw,2rem)) auto 0;
+}
+.vss-infocard{
+  background:#fff;border:1px solid #e3e9f4;border-radius:18px;
+  padding:26px 28px;
+  box-shadow:0 14px 32px -22px rgba(20,40,90,.35);
+}
+.vss-infocard svg{
+  width:26px;height:26px;margin-bottom:14px;
+  fill:none;stroke:var(--vss-blue,#2f6bff);stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+.vss-infocard h3{
+  margin:0 0 .5rem;font-size:1.25rem;font-weight:600;
+  letter-spacing:normal;color:var(--vss-ink,#141824);line-height:1.25;
+}
+.vss-page .vss-infocard p{
+  margin:0;
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+  font-size:1rem;line-height:1.55;color:var(--vss-muted,#6b7280);
+}
+
 /* ---- Checklist (symptom / "is this you?" style list) ------------------- */
 /* Two columns of white cards, each led by a blue check mark. Collapses to one
    column on narrow screens. */

@@ -11,15 +11,21 @@
     • Section → Width: Full Bleed.  Content width: Wide/Full.
     • Section → Padding top & bottom: 0.  (Spacing is owned by these bands.)
 
-  THIS IS AN INTERIOR PAGE, so it opens with .vss-band--pagehead — the quiet
-  sub-page header (breadcrumb, title, lede, meta row) — NOT the home page's
-  full-bleed photo hero. .vss-band--hero and its parallax script belong to the
-  home page only; don't copy them here.
+  SHAPE OF THIS PAGE — it's an ARTICLE, not a landing page:
+    header → contained photo → "on this page" jump links → left-aligned
+    explainer sections at a readable measure → closing CTA.
+  That means: no full-bleed photo hero and no parallax (those belong to the
+  home page), body copy LEFT aligned inside .vss-article, and every major
+  section carries an id so the contents box can link to it.
 
   STYLING lives in pages/custom-css.css (Design → Custom CSS): the shared
-  tokens AND the shared components (.vss-pagehead, .vss-btn, .vss-h2,
-  .vss-prose, .vss-checklist, …). This block is pure markup — no page-specific
-  styles at all. custom-css.css MUST be installed for this page to look right.
+  tokens AND the shared components (.vss-pagehead, .vss-article, .vss-toc,
+  .vss-figure, .vss-quote, .vss-checklist, .vss-infocard, .vss-btn, …). This
+  block is pure markup — no page-specific styles. custom-css.css MUST be
+  installed for this page to look right.
+
+  TODO before publishing: swap the photo below for a real swallow-study /
+  clinic image (it currently reuses a site photo as a placeholder).
 =========================================================================== -->
 <div class="vss-page">
 
@@ -60,52 +66,116 @@
     </div>
   </section>
 
-  <!-- ===== 2. WHAT A SWALLOW STUDY IS ===================================== -->
+  <!-- ===== 2. PHOTO + CONTENTS =============================================
+       The photo is CONTAINED (rounded, inside the column), not a full-bleed
+       band — that's what keeps an interior page from reading like a second
+       home page. Swap the src for a real swallow-study photo. -->
   <section class="vss-band">
     <div class="vss-container">
-      <h2 class="vss-h2">Treatment based on what we see.</h2>
-      <div class="vss-prose">
-        <p>A swallow study lets us see exactly what is happening in the throat during eating and drinking, so treatment is based on what we observe rather than what we guess.</p>
-        <p>Vista Speech and Swallowing performs endoscopic swallow studies for adults in our Arvada office and on site at facilities and partner clinics across the Denver metro area.</p>
+      <figure class="vss-figure">
+        <img src="https://cdn.jsdelivr.net/gh/vistaspeechandswallowing/webimages@33f6688/panel_01_woman-bench-coffee.png"
+             alt="An adult client sitting comfortably with a drink during a swallowing appointment.">
+      </figure>
+
+      <div class="vss-toc" style="margin-top:2.5rem;">
+        <p class="vss-toc__title">On this page</p>
+        <ol>
+          <li><a href="#what-it-is">What a swallow study is</a></li>
+          <li><a href="#signs">When a swallow study is the right next step</a></li>
+          <li><a href="#where">Where we perform studies</a></li>
+          <li><a href="#schedule">Schedule a study</a></li>
+        </ol>
       </div>
     </div>
   </section>
 
-  <!-- ===== 3. WHEN A STUDY IS THE RIGHT NEXT STEP (pale blue) ============= -->
-  <section class="vss-band vss-band--services">
+  <!-- ===== 3. WHAT A SWALLOW STUDY IS ====================================== -->
+  <section class="vss-band" id="what-it-is">
     <div class="vss-container">
-      <h2 class="vss-h2">When a swallow study is the right next step</h2>
-      <div class="vss-prose">
-        <p>You or someone you care for may benefit from a study if any of the following sound familiar.</p>
-      </div>
+      <div class="vss-article">
+        <h2 class="vss-h2">What a swallow study is</h2>
+        <div class="vss-prose">
+          <p>Swallowing problems are common, treatable, and often invisible from the outside. A swallow study lets us see exactly what is happening in the throat during eating and drinking, so treatment is based on what we observe rather than what we guess.</p>
+          <p>Vista Speech and Swallowing performs endoscopic swallow studies for adults in our Arvada office and on site at facilities and partner clinics across the Denver metro area.</p>
+        </div>
 
-      <ul class="vss-checklist">
-        <li>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 7"></path></svg>
-          <span>Coughing, choking, or a wet sounding voice during or after meals</span>
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 7"></path></svg>
-          <span>Food or pills feeling stuck in the throat</span>
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 7"></path></svg>
-          <span>Repeated pneumonia or unexplained chest infections</span>
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 7"></path></svg>
-          <span>Weight loss, dehydration, or meals that keep getting longer</span>
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 7"></path></svg>
-          <span>A recent stroke, head and neck cancer treatment, or a diagnosis such as Parkinson&rsquo;s disease or ALS</span>
-        </li>
-      </ul>
+        <blockquote class="vss-quote">
+          <p>Treatment based on what we observe rather than what we guess.</p>
+        </blockquote>
+      </div>
     </div>
   </section>
 
-  <!-- ===== 4. CLOSING CTA (navy) ========================================== -->
-  <section class="vss-band vss-band--cta">
+  <!-- ===== 4. WHEN A STUDY IS THE RIGHT NEXT STEP (pale blue) ============== -->
+  <section class="vss-band vss-band--services" id="signs">
+    <div class="vss-container">
+      <div class="vss-article">
+        <h2 class="vss-h2">When a swallow study is the right next step</h2>
+        <div class="vss-prose">
+          <p>You or someone you care for may benefit from a study if any of the following sound familiar.</p>
+        </div>
+
+        <ul class="vss-checklist">
+          <li>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 7"></path></svg>
+            <span>Coughing, choking, or a wet sounding voice during or after meals</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 7"></path></svg>
+            <span>Food or pills feeling stuck in the throat</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 7"></path></svg>
+            <span>Repeated pneumonia or unexplained chest infections</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 7"></path></svg>
+            <span>Weight loss, dehydration, or meals that keep getting longer</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 7"></path></svg>
+            <span>A recent stroke, head and neck cancer treatment, or a diagnosis such as Parkinson&rsquo;s disease or ALS</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 5. WHERE WE PERFORM STUDIES ===================================== -->
+  <section class="vss-band" id="where">
+    <div class="vss-container">
+      <div class="vss-article">
+        <h2 class="vss-h2">Where we perform studies</h2>
+        <div class="vss-prose">
+          <p>Studies happen wherever they are easiest for the person having them.</p>
+        </div>
+      </div>
+
+      <div class="vss-infocards">
+        <div class="vss-infocard">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 21h18"></path>
+            <path d="M5 21V7l7-4 7 4v14"></path>
+            <path d="M10 21v-6h4v6"></path>
+          </svg>
+          <h3>In our Arvada office</h3>
+          <p>Come to us for a study in the clinic, with the full setup on hand.</p>
+        </div>
+
+        <div class="vss-infocard">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 21s-7-4.35-7-10a7 7 0 1 1 14 0c0 5.65-7 10-7 10Z"></path>
+            <circle cx="12" cy="11" r="2.5"></circle>
+          </svg>
+          <h3>On site where you are</h3>
+          <p>We travel to facilities and partner clinics across the Denver metro area.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 6. CLOSING CTA (navy) =========================================== -->
+  <section class="vss-band vss-band--cta" id="schedule">
     <div class="vss-container">
       <h2 class="vss-h2">Schedule a study</h2>
       <div class="vss-prose">
@@ -121,6 +191,30 @@
       </div>
     </div>
   </section>
+
+  <!-- ===== OPTIONAL SECTIONS (uncomment once Nick supplies the copy) =======
+       The reference site carries two more things this page could use. Both
+       need real content — they're scaffolded here rather than invented:
+
+       A) A PROVIDER QUOTE / BIO — reuse blocks/provider-bio.html, or drop a
+          .vss-quote with a real attribution line.
+
+       B) AN FAQ — the reference closes its explainer with common questions
+          ("Does it hurt?", "How long does it take?", "Do I need a referral?",
+          "Is it covered by insurance?"). Same pattern as section 5:
+
+       <section class="vss-band vss-band--services" id="faq">
+         <div class="vss-container">
+           <div class="vss-article">
+             <h2 class="vss-h2">Common questions</h2>
+             <h3>Question goes here?</h3>
+             <div class="vss-prose"><p>Answer goes here.</p></div>
+           </div>
+         </div>
+       </section>
+
+       If you add either one, add a matching <li> to the "On this page" box.
+  ====================================================================== -->
 
   <!-- NOTE: The footer is intentionally NOT part of this page. It's a
        site-wide element managed in Squarespace's global Footer section (using
