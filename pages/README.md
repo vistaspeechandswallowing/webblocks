@@ -19,6 +19,7 @@ pages/
 ├── custom-css.css  # The COMPLETE site Custom CSS — paste ONCE into Squarespace
 ├── _template.html  # Starting point for a new page composition
 ├── home.html       # The Home page
+├── swallow-study.html  # The Swallow Study page
 └── …               # More pages land here as they're migrated
 ```
 
