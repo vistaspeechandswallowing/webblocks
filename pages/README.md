@@ -22,20 +22,27 @@ pages/
 └── …               # More pages land here as they're migrated
 ```
 
-## The system
+## The system — three tiers
 
-Every page composition depends on two shared pieces:
+Styling is split by how widely it's used, so nothing is duplicated across pages:
 
-1. **`custom-css.css`** is the complete Custom CSS for the site: the shared
-   design tokens (width, spacing, palette — `--vss-max`, `--vss-section-y`,
-   `--vss-blue`, …) plus the global type tweaks and the native-form styler.
-   Paste the whole file **once** into **Design → Custom CSS**. Change the site's
-   spacing/width/brand color in this one file and every page follows. Each page
-   also carries fallbacks, so it renders sanely even before the tokens are
-   installed.
-2. **A container + rhythm convention** every page reuses:
-   - `.vss-container` — one `max-width` + gutter, centered. Wrap every band in it.
-   - `.vss-band` — one clamped `padding-block` for vertical rhythm between sections.
+1. **Tokens** — values (width, spacing, palette: `--vss-max`, `--vss-section-y`,
+   `--vss-blue`, …). In `custom-css.css`.
+2. **Shared components** — the reusable building blocks every page is made of:
+   `.vss-page` (+ full-bleed breakout), `.vss-container`, `.vss-band`, `.vss-btn`,
+   `.vss-hero`, `.vss-badge`, `.vss-card`, `.vss-h2`. Also in `custom-css.css`.
+   Change the button (or any component) once here and **every page updates**.
+3. **Page-specific** — anything unique to one page. Set it inline on the element
+   in that page's `.html` (e.g. the hero's background photo in `home.html`).
+
+Tiers 1 and 2 both live in **`custom-css.css`**, which is the complete Custom
+CSS for the site (it also holds the global type tweaks and the native-form
+styler). Paste the whole file **once** into **Design → Custom CSS**.
+
+Because the components live in Custom CSS, the page `.html` files are essentially
+**pure markup** — reuse the component classes; don't redeclare their CSS. The
+tradeoff: a page block depends on `custom-css.css` being installed (a `.vss-btn`
+won't style itself without it). That's a one-time paste, so it's fine.
 
 ## Migrating a page
 
