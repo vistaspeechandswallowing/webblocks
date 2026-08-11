@@ -49,7 +49,9 @@
   /* ---- Shape / type ---------------------------------------------------- */
   --vss-radius: 24px;
   --vss-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --vss-serif: Georgia, "Times New Roman", Times, serif;
+  /* Use the site's actual Squarespace serif (Newsreader is loaded by the
+     theme) rather than the heavier Georgia. Georgia stays only as a fallback. */
+  --vss-serif: "Newsreader", Georgia, "Times New Roman", Times, serif;
 }
 
 
@@ -96,8 +98,13 @@
    Replaces Squarespace's per-section vh/vmax padding that grew unbounded. */
 .vss-band{ padding-block:var(--vss-section-y, clamp(3rem,6vw,6rem)); }
 
-/* Light bands sit on white. */
-.vss-band--intro, .vss-band--services{ background:#fff; }
+.vss-band--services{ background:#fff; }
+
+/* Intro is a slim, understated pale-blue strip — not a full-height band. */
+.vss-band--intro{
+  background:#e9eef8;
+  padding-block:.55rem;
+}
 
 /* ---- Pill CTA button -------------------------------------------------- */
 .vss-btn{
@@ -129,7 +136,8 @@
 .vss-eyebrow{
   margin:0;text-align:center;
   font-family:var(--vss-serif, Georgia, serif);
-  font-size:clamp(1rem,1.6vw,1.15rem);
+  font-style:italic;
+  font-size:clamp(.82rem,1.4vw,.95rem);
   color:var(--vss-muted,#6b7280);
 }
 
@@ -138,9 +146,16 @@
   position:relative;
   background-size:cover;
   background-position:50% 35%;
+  /* Smooth parallax: the photo holds still while the page scrolls over it
+     (replaces Squarespace's JS parallax). Disabled on mobile below, where
+     fixed backgrounds are janky/unsupported. */
+  background-attachment:fixed;
   /* A bit more breathing room than a normal band. Written as a direct clamp
      (no calc/var math) so the compiler accepts it. ~1.4x --vss-section-y. */
   padding-block:clamp(4rem, 8.5vw, 8.5rem);
+}
+@media (max-width:760px){
+  .vss-band--hero{ background-attachment:scroll; }
 }
 .vss-hero{ text-align:center; color:#fff; font-family:var(--vss-serif, Georgia, serif); }
 /* Force white + our serif on the hero heading so the Squarespace theme's
