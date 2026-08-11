@@ -243,8 +243,9 @@
    inside the site. Use .vss-band--hero ONLY on the home page; every other page
    opens with this. */
 .vss-band--pagehead{
+  /* No bottom border — the gradient already resolves into the white of the
+     next band, so a rule on top of it just reads as a seam. */
   background:linear-gradient(180deg,#eef2f9,#ffffff);
-  border-bottom:1px solid #e3e9f4;
   padding-block:clamp(2.5rem,5vw,4.5rem);
 }
 .vss-pagehead{text-align:center;}
@@ -396,8 +397,10 @@
 .vss-page .vss-quote p{
   margin:0;
   font-family:var(--vss-serif,"Newsreader",Georgia,serif);
-  font-size:clamp(1.2rem,2.2vw,1.5rem);
-  line-height:1.4;color:var(--vss-ink,#141824);
+  /* Only a step above body copy — it's an aside inside the article, not a
+     section heading, so it shouldn't out-shout the headings around it. */
+  font-size:clamp(1.08rem,1.7vw,1.25rem);
+  line-height:1.5;color:var(--vss-ink,#141824);
 }
 
 /* ---- Info cards (small two-up facts) ----------------------------------- */
@@ -411,6 +414,16 @@
   background:#fff;border:1px solid #e3e9f4;border-radius:18px;
   padding:26px 28px;
   box-shadow:0 14px 32px -22px rgba(20,40,90,.35);
+  /* Same hover as .vss-checklist — the two tile types sit a screen apart, so
+     they should behave identically. */
+  transition:transform .3s cubic-bezier(.2,.7,.2,1),
+             box-shadow .3s ease,
+             border-color .3s ease;
+}
+.vss-infocard:hover{
+  transform:translateY(-3px);
+  border-color:rgba(47,107,255,.45);
+  box-shadow:0 22px 40px -24px rgba(20,40,90,.5);
 }
 .vss-infocard svg{
   width:26px;height:26px;margin-bottom:14px;
@@ -447,12 +460,25 @@
   font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
   font-size:1.02rem;line-height:1.5;color:var(--vss-ink,#141824);
   box-shadow:0 14px 32px -22px rgba(20,40,90,.35);
+  /* Hover: a small lift, a warmer shadow, and the brand blue picked up in the
+     border. Lighter than the home page's card lift (-10px) on purpose —
+     these are read as a list, so they shouldn't jump under the cursor. */
+  transition:transform .3s cubic-bezier(.2,.7,.2,1),
+             box-shadow .3s ease,
+             border-color .3s ease;
+}
+.vss-checklist li:hover{
+  transform:translateY(-3px);
+  border-color:rgba(47,107,255,.45);
+  box-shadow:0 22px 40px -24px rgba(20,40,90,.5);
 }
 .vss-checklist svg{
   flex:0 0 auto;width:22px;height:22px;margin-top:2px;
   fill:none;stroke:var(--vss-blue,#2f6bff);stroke-width:2.4;
   stroke-linecap:round;stroke-linejoin:round;
+  transition:transform .3s cubic-bezier(.2,.7,.2,1);
 }
+.vss-checklist li:hover svg{transform:scale(1.15);}
 
 /* ---- Closing CTA band (navy, centered) --------------------------------- */
 .vss-band--cta{
@@ -461,6 +487,44 @@
 }
 .vss-page .vss-band--cta .vss-h2{color:#fff;}
 .vss-page .vss-band--cta .vss-prose p{color:rgba(255,255,255,.82);}
+
+/* ---- Section heading, subheading weight -------------------------------
+   For article pages, where an h2 marks a section of a document rather than
+   announcing a new panel. Sans-serif and noticeably smaller than .vss-h2, so
+   the serif h1 stays the only display-scale type on the page. Drop the
+   modifier to go back to the big serif heading. */
+.vss-h2--sub{
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+  font-size:clamp(1.4rem,2.4vw,1.75rem);
+  font-weight:700;
+  letter-spacing:-.01em;
+  line-height:1.25;
+  margin-bottom:1rem;
+}
+
+/* ---- Inline section CTA -----------------------------------------------
+   A quiet text link that closes a section, so someone convinced halfway down
+   the page doesn't have to scroll to the bottom to act. Deliberately NOT the
+   pill button — several filled buttons down one page compete with each other
+   and with the real CTA at the end. */
+.vss-section-cta{
+  display:inline-flex;align-items:center;gap:.55rem;
+  margin-top:1.75rem;
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+  font-size:1.02rem;font-weight:600;
+  color:var(--vss-blue,#2f6bff);text-decoration:none;
+  border-bottom:2px solid transparent;
+  transition:border-color .2s ease, gap .2s ease;
+}
+.vss-section-cta svg{
+  width:18px;height:18px;
+  fill:none;stroke:currentColor;stroke-width:2.4;
+  stroke-linecap:round;stroke-linejoin:round;
+  transition:transform .2s ease;
+}
+.vss-section-cta:hover{border-bottom-color:currentColor;}
+.vss-section-cta:hover svg{transform:translateX(3px);}
+.vss-section-cta:focus-visible{outline:2px solid var(--vss-blue,#2f6bff);outline-offset:4px;border-radius:4px;}
 
 /* ---- Card grid -------------------------------------------------------- */
 .vss-grid{
@@ -485,11 +549,18 @@
 
 /* ---- Reduced motion --------------------------------------------------- */
 @media (prefers-reduced-motion:reduce){
-  .vss-btn,.vss-btn__circle,.vss-badge__icon,.vss-card,.vss-card__media{transition:none;}
+  .vss-btn,.vss-btn__circle,.vss-badge__icon,.vss-card,.vss-card__media,
+  .vss-checklist li,.vss-checklist svg,.vss-infocard,
+  .vss-section-cta,.vss-section-cta svg{transition:none;}
   .vss-btn:hover{transform:none;}
   .vss-card:hover{transform:none;}
   .vss-card:hover .vss-card__media{transform:none;}
   .vss-badge:hover .vss-badge__icon{transform:none;}
+  /* Colour and shadow still change on hover — only the movement is dropped. */
+  .vss-checklist li:hover{transform:none;}
+  .vss-checklist li:hover svg{transform:none;}
+  .vss-infocard:hover{transform:none;}
+  .vss-section-cta:hover svg{transform:none;}
 }
 
 
