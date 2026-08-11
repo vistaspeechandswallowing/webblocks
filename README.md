@@ -21,7 +21,7 @@ webblocks/
 │   ├── _template.html      # Starting point for a new block
 │   └── hello-banner.html   # Example block
 └── pages/              # Full-page compositions (one code block per page)
-    ├── _tokens.css         # Shared tokens — paste once into Custom CSS
+    ├── custom-css.css      # Complete site Custom CSS — paste once into Squarespace
     ├── _template.html      # Starting point for a new page
     └── home.html           # The Home page
 ```

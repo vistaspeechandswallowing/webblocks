@@ -16,7 +16,7 @@ folder is where pages get migrated to, one at a time.
 
 ```
 pages/
-├── _tokens.css     # Shared design tokens — paste ONCE into Squarespace Custom CSS
+├── custom-css.css  # The COMPLETE site Custom CSS — paste ONCE into Squarespace
 ├── _template.html  # Starting point for a new page composition
 ├── home.html       # The Home page
 └── …               # More pages land here as they're migrated
@@ -26,11 +26,13 @@ pages/
 
 Every page composition depends on two shared pieces:
 
-1. **`_tokens.css`** defines width, spacing, and palette as CSS variables
-   (`--vss-max`, `--vss-section-y`, `--vss-blue`, …). Paste it **once** into
-   **Design → Custom CSS**. Change the site's spacing/width in this one file and
-   every page follows. Each page also carries fallbacks, so it renders sanely
-   even before the tokens are installed.
+1. **`custom-css.css`** is the complete Custom CSS for the site: the shared
+   design tokens (width, spacing, palette — `--vss-max`, `--vss-section-y`,
+   `--vss-blue`, …) plus the global type tweaks and the native-form styler.
+   Paste the whole file **once** into **Design → Custom CSS**. Change the site's
+   spacing/width/brand color in this one file and every page follows. Each page
+   also carries fallbacks, so it renders sanely even before the tokens are
+   installed.
 2. **A container + rhythm convention** every page reuses:
    - `.vss-container` — one `max-width` + gutter, centered. Wrap every band in it.
    - `.vss-band` — one clamped `padding-block` for vertical rhythm between sections.
@@ -54,7 +56,7 @@ Section must stop imposing its own grid and padding:
 2. New Section → **Full Bleed**, content width **Wide/Full**, Section
    **padding top & bottom = 0**, background **none** (each band carries its own).
 3. Paste the page's `.html` into one Code Block.
-4. Make sure `_tokens.css` is in Design → Custom CSS (only needed once, site-wide).
+4. Make sure `custom-css.css` is in Design → Custom CSS (only needed once, site-wide).
 
 ## Previewing locally
 
@@ -62,5 +64,5 @@ The files are self-contained. To eyeball one, concatenate the tokens and the
 page into a throwaway HTML file and open it, e.g.:
 
 ```bash
-{ echo '<style>'; cat pages/_tokens.css; echo '</style>'; cat pages/home.html; } > /tmp/preview.html
+{ echo '<style>'; cat pages/custom-css.css; echo '</style>'; cat pages/home.html; } > /tmp/preview.html
 ```
