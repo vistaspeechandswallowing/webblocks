@@ -1,0 +1,324 @@
+/* ==========================================================================
+   Vista Speech & Swallowing — Squarespace Custom CSS  (COMPLETE)
+   --------------------------------------------------------------------------
+   WHERE THIS GOES: Squarespace → Design → Custom CSS. Paste this WHOLE file.
+   It replaces everything currently in that box — it already contains all of
+   the prior Custom CSS, tidied and consolidated with the shared page tokens.
+
+   Contents:
+     1. Shared design tokens      — the one source of truth for the page
+                                     compositions in pages/*.html
+     2. Global type & chrome      — small site-wide tweaks (headings, header)
+     3. Form styler               — restyles native Squarespace Form blocks
+
+   Brand colors are defined ONCE in the tokens (section 1); section 3 points at
+   them, so there's a single place to change the blue/ink/muted values.
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. SHARED DESIGN TOKENS
+   Every page composition (pages/*.html) reads these. Change spacing, width, or
+   brand color here and every page follows. Each page also carries fallbacks,
+   so it renders correctly even if these are ever missing.
+   ========================================================================== */
+:root{
+  /* ---- Layout ---------------------------------------------------------- */
+  --vss-max: 1180px;                       /* one content width, site-wide     */
+  --vss-gutter: clamp(20px, 5vw, 48px);    /* space from content to screen edge */
+
+  /* ---- Vertical rhythm ------------------------------------------------- */
+  /* Replace Squarespace's per-section vh/vmax padding. Grows with the screen
+     but is CLAMPED, so it stops drifting on large monitors.                */
+  --vss-section-y: clamp(3rem, 6vw, 6rem); /* padding above/below each section */
+  --vss-gap: clamp(1rem, 2.5vw, 2rem);     /* generic gap between items        */
+
+  /* ---- Brand palette --------------------------------------------------- */
+  --vss-blue: #2f6bff;
+  --vss-blue-dark: #1f5be0;
+  --vss-blue-light: #7ea2ff;
+  --vss-blue-soft: rgba(47, 107, 255, 0.10);
+  --vss-navy-a: #28344f;
+  --vss-navy-b: #212c46;
+  --vss-ink: #141824;
+  --vss-muted: #6b7280;
+
+  /* ---- Shape / type ---------------------------------------------------- */
+  --vss-radius: 24px;
+  --vss-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --vss-serif: Georgia, "Times New Roman", Times, serif;
+}
+
+
+/* ==========================================================================
+   2. GLOBAL TYPE & CHROME
+   Small site-wide tweaks that apply outside the page code blocks.
+   ========================================================================== */
+
+/* Tighten the space under headings. */
+h1{
+  margin-bottom: 0.25rem;
+  padding-bottom: 0;
+}
+
+/* Native footer heading + tagline styling (the .footer-classed text blocks). */
+h3.footer{
+  text-align: center;
+  margin-bottom: 0.25rem;
+  padding-bottom: 0;
+}
+p.footer{
+  text-align: center;
+  font-style: italic;
+  color: #253551;
+}
+
+/* Barely-there shadow under the site header. */
+.header{
+  box-shadow: 0 4px 16px -12px rgba(20, 40, 90, 0.16);
+}
+
+
+/* ==========================================================================
+   3. SQUARESPACE FORM STYLER
+   Restyles native Form blocks to match the site: rounded fields, brand-blue
+   accents, pill submit button, card wrapper. Scoped to .sqs-block-form.
+   Brand colors come from the tokens in section 1.
+   ========================================================================== */
+
+.sqs-block-form,
+.sqs-block-form * {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               Helvetica, Arial, sans-serif !important;
+}
+.sqs-block-form {
+  /* Brand values reference the shared tokens; only form-specific values are
+     defined locally. */
+  --wb-blue: var(--vss-blue);
+  --wb-blue-dark: var(--vss-blue-dark);
+  --wb-blue-soft: var(--vss-blue-soft);
+  --wb-ink: var(--vss-ink);
+  --wb-muted: var(--vss-muted);
+  --wb-line: #d7deea;
+  --wb-field-bg: #f6f8fc;
+  --wb-radius: 14px;
+  --wb-radius-lg: 22px;
+
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+}
+.sqs-block-form * { box-sizing: border-box; }
+
+/* Let field wrappers and controls shrink so nothing overflows the card.
+   (7.1 field wrappers are .field; inputs/selects have hashed classes, so
+   target them by element.) */
+.sqs-block-form .field,
+.sqs-block-form input,
+.sqs-block-form select,
+.sqs-block-form textarea {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Card around the whole form */
+.sqs-block-form .form-wrapper {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: clamp(1.5rem, 4vw, 2.75rem) !important;
+  background: #ffffff;
+  border: 1px solid var(--wb-line);
+  border-radius: var(--wb-radius-lg);
+  box-shadow: 0 18px 40px -18px rgba(20, 40, 90, 0.18);
+  overflow: hidden;
+}
+
+/* Spacing between fields */
+.sqs-block-form .field-list .form-item {
+  margin: 0 0 1.15rem !important;
+  padding: 0 !important;
+  border: none !important;
+  max-width: 100% !important;
+}
+.sqs-block-form .field-list .form-item:last-child { margin-bottom: 0 !important; }
+
+/* Labels */
+.sqs-block-form .form-item .title {
+  display: block !important;
+  margin: 0 0 0.5rem !important;
+  padding: 0 !important;
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  color: var(--wb-ink) !important;
+}
+/* Replace every "(required)" text with a blue asterisk (group titles and
+   sub-field captions alike). font-size:0 hides the words; the ::after adds
+   the "*" back at full size. */
+.sqs-block-form .form-item .required,
+.sqs-block-form .form-item .description.required {
+  font-size: 0 !important;
+}
+.sqs-block-form .form-item .required::after,
+.sqs-block-form .form-item .description.required::after {
+  content: "*" !important;
+  margin-left: 0.15em !important;
+  color: var(--wb-blue) !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  vertical-align: baseline !important;
+}
+.sqs-block-form .form-item .description {
+  margin: 0.4rem 0 0 !important;
+  font-size: 0.85rem !important;
+  line-height: 1.5 !important;
+  color: var(--wb-muted) !important;
+}
+
+/* Inputs / textarea / select */
+.sqs-block-form .field-element {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  padding: 0.85rem 1rem !important;
+  font-size: 1rem !important;
+  font-family: inherit !important;
+  color: var(--wb-ink) !important;
+  background: var(--wb-field-bg) !important;
+  border: 1px solid var(--wb-line) !important;
+  border-radius: var(--wb-radius) !important;
+  outline: none !important;
+  box-shadow: none !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease !important;
+}
+.sqs-block-form textarea.field-element {
+  min-height: 130px !important;
+  resize: vertical !important;
+}
+.sqs-block-form .field-element::placeholder { color: #9aa3b2 !important; }
+
+.sqs-block-form .field-element:focus {
+  background: #ffffff !important;
+  border-color: var(--wb-blue) !important;
+  box-shadow: 0 0 0 3px var(--wb-blue-soft) !important;
+}
+
+/* Custom caret for selects */
+.sqs-block-form select.field-element {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  padding-right: 2.6rem !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 1rem center !important;
+}
+
+/* Even vertical spacing between field groups. Squarespace 7.1 puts a large
+   default row-gap on .field-list; neutralize it and use uniform margins. */
+.sqs-block-form .field-list { row-gap: 0 !important; column-gap: 0 !important; }
+.sqs-block-form .field-list > * { margin: 0 0 1.25rem !important; }
+.sqs-block-form .field-list > *:last-child { margin-bottom: 0 !important; }
+
+/* Name group: two even columns with the "Name" legend spanning the top.
+   Stacks to one column on mobile (see the media query below). */
+.sqs-block-form .form-item.fields.name {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 0.5rem 0.9rem !important;
+}
+.sqs-block-form .form-item.fields.name legend { grid-column: 1 / -1 !important; }
+.sqs-block-form .form-item.fields.name .field { width: 100% !important; }
+
+/* Phone group: narrow Country + flexible Number, both allowed to shrink.
+   The two fields live in a wrapper div directly inside the phone fieldset. */
+.sqs-block-form .form-item.fields.phone > div {
+  display: grid !important;
+  grid-template-columns: minmax(0, 8rem) minmax(0, 1fr) !important;
+  gap: 0.75rem !important;
+  align-items: end !important;
+}
+
+/* Never let the card exceed the viewport, and let long labels wrap. */
+.sqs-block-form .form-wrapper { max-width: min(640px, calc(100vw - 2rem)) !important; }
+.sqs-block-form .form-item .title,
+.sqs-block-form .option label,
+.sqs-block-form .caption-text { overflow-wrap: anywhere !important; }
+
+/* Checkboxes / radios */
+.sqs-block-form fieldset.form-item {
+  margin: 0 0 1.15rem !important;
+  padding: 0 !important;
+  border: none !important;
+}
+.sqs-block-form .form-item .option { margin: 0 0 0.5rem !important; }
+.sqs-block-form .form-item .option label {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.6rem !important;
+  font-size: 1rem !important;
+  color: var(--wb-ink) !important;
+  cursor: pointer !important;
+}
+.sqs-block-form .form-item .option input {
+  width: 1.15rem !important;
+  height: 1.15rem !important;
+  accent-color: var(--wb-blue) !important;
+  margin: 0 !important;
+}
+
+/* Error states */
+.sqs-block-form .form-item.error .field-element {
+  border-color: #e0355a !important;
+  box-shadow: 0 0 0 3px rgba(224, 53, 90, 0.12) !important;
+}
+.sqs-block-form .form-item.error .error-message {
+  margin-top: 0.4rem !important;
+  color: #e0355a !important;
+  font-size: 0.85rem !important;
+}
+
+/* Submit button */
+.sqs-block-form .form-button-wrapper { margin-top: 1.5rem !important; }
+.sqs-block-form .form-button,
+.sqs-block-form .form-submit-button,
+.sqs-block-form .form-button-wrapper .sqs-system-button {
+  display: inline-block !important;
+  width: auto !important;
+  padding: 0.95rem 2.4rem !important;
+  font-size: 1.02rem !important;
+  font-weight: 700 !important;
+  font-family: inherit !important;
+  letter-spacing: 0.01em !important;
+  color: #ffffff !important;
+  background: var(--wb-blue) !important;
+  border: none !important;
+  border-radius: 999px !important;
+  cursor: pointer !important;
+  box-shadow: 0 10px 24px -8px rgba(47, 107, 255, 0.6) !important;
+  transition: transform 0.12s ease, background 0.15s ease, box-shadow 0.15s ease !important;
+}
+.sqs-block-form .form-button:hover,
+.sqs-block-form .form-submit-button:hover {
+  background: var(--wb-blue-dark) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 14px 30px -8px rgba(47, 107, 255, 0.7) !important;
+}
+.sqs-block-form .form-button:active,
+.sqs-block-form .form-submit-button:active { transform: translateY(0) !important; }
+
+/* Mobile: stack the Name columns and make the submit button full width */
+@media (max-width: 600px) {
+  .sqs-block-form .form-item.fields.name { grid-template-columns: 1fr !important; }
+  .sqs-block-form .form-button,
+  .sqs-block-form .form-submit-button {
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sqs-block-form .field-element,
+  .sqs-block-form .form-button,
+  .sqs-block-form .form-submit-button { transition: none !important; }
+}
