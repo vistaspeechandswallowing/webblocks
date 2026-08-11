@@ -98,7 +98,8 @@
    Replaces Squarespace's per-section vh/vmax padding that grew unbounded. */
 .vss-band{ padding-block:var(--vss-section-y, clamp(3rem,6vw,6rem)); }
 
-.vss-band--services{ background:#fff; }
+/* Services sits on a pale blue so the white cards pop (blends into the footer). */
+.vss-band--services{ background:#eef2f9; }
 
 /* Intro is a slim, understated pale-blue strip — not a full-height band. */
 .vss-band--intro{
@@ -138,24 +139,17 @@
   font-family:var(--vss-serif, Georgia, serif);
   font-style:italic;
   font-size:clamp(.82rem,1.4vw,.95rem);
-  color:var(--vss-muted,#6b7280);
+  color:#4a5773;   /* muted navy, not gray */
 }
 
 /* ---- Hero band (dark photo bg set inline on the section) -------------- */
 .vss-band--hero{
   position:relative;
   background-size:cover;
-  background-position:50% 35%;
-  /* Smooth parallax: the photo holds still while the page scrolls over it
-     (replaces Squarespace's JS parallax). Disabled on mobile below, where
-     fixed backgrounds are janky/unsupported. */
-  background-attachment:fixed;
+  background-position:50% 35%;   /* JS parallax updates the Y offset on scroll */
   /* A bit more breathing room than a normal band. Written as a direct clamp
      (no calc/var math) so the compiler accepts it. ~1.4x --vss-section-y. */
   padding-block:clamp(4rem, 8.5vw, 8.5rem);
-}
-@media (max-width:760px){
-  .vss-band--hero{ background-attachment:scroll; }
 }
 .vss-hero{ text-align:center; color:#fff; font-family:var(--vss-serif, Georgia, serif); }
 /* Force white + our serif on the hero heading so the Squarespace theme's
@@ -236,7 +230,7 @@
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
   gap:32px;
-  margin-top:var(--vss-section-y, clamp(3rem,6vw,6rem));
+  margin-top:var(--vss-gap, clamp(1rem,2.5vw,2rem));
 }
 .vss-card{
   background:#fff;border-radius:var(--vss-radius,24px);overflow:hidden;
@@ -250,7 +244,7 @@
 .vss-card__body{padding:28px 30px 32px;flex:1;display:flex;flex-direction:column;}
 .vss-card__title{margin:0 0 10px;font-family:var(--vss-serif, Georgia, "Times New Roman", Times, serif);font-size:1.5rem;font-weight:600;letter-spacing:normal;color:var(--vss-ink,#141824);line-height:1.2;}
 .vss-card__desc{margin:0;color:var(--vss-muted,#6b7280);font-size:1.02rem;line-height:1.5;}
-.vss-cta-row{display:flex;justify-content:center;margin-top:var(--vss-section-y, clamp(3rem,6vw,6rem));}
+.vss-cta-row{display:flex;justify-content:center;margin-top:clamp(2rem,4vw,3.25rem);}
 
 /* ---- Reduced motion --------------------------------------------------- */
 @media (prefers-reduced-motion:reduce){

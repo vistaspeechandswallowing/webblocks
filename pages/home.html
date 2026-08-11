@@ -167,3 +167,31 @@
        add a footer band here. -->
 
 </div>
+
+<script>
+  /* Smooth hero parallax — the background photo drifts slower than the page as
+     you scroll (replaces Squarespace's JS parallax). rAF-throttled; respects
+     reduced-motion. This is the only element on the page that needs JS. */
+  (function () {
+    var hero = document.querySelector('.vss-band--hero');
+    if (!hero) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var FACTOR = 0.2;   // higher = more movement
+    var ticking = false;
+
+    function update() {
+      var top = hero.getBoundingClientRect().top;
+      var shift = (top * -FACTOR).toFixed(1);
+      hero.style.backgroundPosition = '50% calc(35% + ' + shift + 'px)';
+      ticking = false;
+    }
+    function onScroll() {
+      if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
+  })();
+</script>
