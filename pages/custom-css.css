@@ -69,13 +69,17 @@
 .vss-page{
   box-sizing:border-box;
   font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
-  /* Escape Squarespace's centered content column so full-width bands (hero
-     photo, navy badge bar) can span edge-to-edge. Each .vss-container
-     re-centers content inside. */
+  /* Full-bleed breakout — escape Squarespace's centered content column so
+     full-width bands (hero photo, navy badge bar) span edge-to-edge. Written
+     WITHOUT calc() because Squarespace's CSS compiler rejects calc() that mixes
+     units (e.g. 50% - 50vw), which would drop this whole stylesheet. The
+     left:50% + -50vw margins achieve the same centered full-width result. */
   width:100vw;
-  max-width:100vw;
-  margin-left:calc(50% - 50vw);
-  margin-right:calc(50% - 50vw);
+  position:relative;
+  left:50%;
+  right:50%;
+  margin-left:-50vw;
+  margin-right:-50vw;
   overflow-x:hidden;   /* guard against a stray horizontal scrollbar */
 }
 .vss-page *{box-sizing:border-box;}
@@ -134,7 +138,9 @@
   position:relative;
   background-size:cover;
   background-position:50% 35%;
-  padding-block:calc(var(--vss-section-y, clamp(3rem,6vw,6rem)) * 1.4);
+  /* A bit more breathing room than a normal band. Written as a direct clamp
+     (no calc/var math) so the compiler accepts it. ~1.4x --vss-section-y. */
+  padding-block:clamp(4rem, 8.5vw, 8.5rem);
 }
 .vss-hero{ text-align:center; color:#fff; font-family:var(--vss-serif, Georgia, serif); }
 /* Force white + our serif on the hero heading so the Squarespace theme's
@@ -428,8 +434,10 @@ p.footer{
   align-items: end !important;
 }
 
-/* Never let the card exceed the viewport, and let long labels wrap. */
-.sqs-block-form .form-wrapper { max-width: min(640px, calc(100vw - 2rem)) !important; }
+/* Never let the card exceed the viewport, and let long labels wrap.
+   (max-width kept as a plain value — no min()/calc() — so the compiler accepts
+   it; the field min-width:0 rules above already prevent overflow.) */
+.sqs-block-form .form-wrapper { max-width: 640px !important; }
 .sqs-block-form .form-item .title,
 .sqs-block-form .option label,
 .sqs-block-form .caption-text { overflow-wrap: anywhere !important; }
