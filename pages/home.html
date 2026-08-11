@@ -275,13 +275,18 @@
     padding-block:calc(var(--vss-section-y, clamp(3rem,6vw,6rem)) * 1.4);
   }
   .vss-hero{ text-align:center; color:#fff; font-family:var(--vss-serif, Georgia, serif); }
-  .vss-hero h1{
+  /* Force white + our serif on the hero heading so the Squarespace theme's
+     default h1 color/font can't wash it out over the photo. */
+  .vss-page .vss-hero h1{
+    color:#fff;
+    font-family:var(--vss-serif, Georgia, serif);
     font-weight:500;
     font-size:clamp(2.7rem,7vw,4rem);
     line-height:1.05;
     margin:0 0 1.4rem;
   }
-  .vss-hero p{
+  .vss-page .vss-hero p{
+    color:#fff;
     font-size:clamp(1.05rem,1.6vw,1.1rem);
     line-height:1.5;max-width:640px;margin:0 auto 2.5rem;
   }
