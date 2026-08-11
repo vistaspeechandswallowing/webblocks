@@ -19,6 +19,7 @@ pages/
 ├── custom-css.css  # The COMPLETE site Custom CSS — paste ONCE into Squarespace
 ├── _template.html  # Starting point for a new page composition
 ├── home.html       # The Home page
+├── swallow-study.html  # The Swallow Study page
 └── …               # More pages land here as they're migrated
 ```
 
@@ -30,7 +31,13 @@ Styling is split by how widely it's used, so nothing is duplicated across pages:
    `--vss-blue`, …). In `custom-css.css`.
 2. **Shared components** — the reusable building blocks every page is made of:
    `.vss-page` (+ full-bleed breakout), `.vss-container`, `.vss-band`, `.vss-btn`,
-   `.vss-hero`, `.vss-badge`, `.vss-card`, `.vss-h2`. Also in `custom-css.css`.
+   `.vss-hero`, `.vss-badge`, `.vss-card`, `.vss-h2`, `.vss-pagehead`,
+   `.vss-prose`, `.vss-checklist`. Also in `custom-css.css`.
+
+   **Home vs. interior pages:** `.vss-band--hero` (full-bleed photo + parallax)
+   is the *home page's* opener and should stay unique to it. Every other page
+   opens with `.vss-band--pagehead` — breadcrumb, title, lede, meta row on a
+   soft tint — so sub-pages read as sub-pages. See `swallow-study.html`.
    Change the button (or any component) once here and **every page updates**.
 3. **Page-specific** — anything unique to one page. Set it inline on the element
    in that page's `.html` (e.g. the hero's background photo in `home.html`).

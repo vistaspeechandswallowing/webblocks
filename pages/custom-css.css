@@ -84,6 +84,12 @@
   margin-left:-50vw;
   margin-right:-50vw;
   overflow-x:hidden;   /* guard against a stray horizontal scrollbar */
+  /* Paint the page's own ground. Bands that don't set a background (the plain
+     .vss-band content sections) are transparent, so without this they show
+     whatever color the containing Squarespace Section happens to use — which
+     is a grey on this template, not white. Bands that DO set a background
+     (hero, pagehead, services, badges, cta) paint over this. */
+  background:#fff;
 }
 .vss-page *{box-sizing:border-box;}
 
@@ -97,7 +103,14 @@
 
 /* ONE vertical rhythm = ONE clamped section pad, shared by every band.
    Replaces Squarespace's per-section vh/vmax padding that grew unbounded. */
-.vss-band{ padding-block:var(--vss-section-y, clamp(3rem,6vw,6rem)); }
+.vss-band{
+  padding-block:var(--vss-section-y, clamp(3rem,6vw,6rem));
+  /* Default ground is white. Belt-and-braces with the background on .vss-page:
+     a band must never be transparent, or it shows whatever color the
+     containing Squarespace Section uses (grey on this template). The
+     modifiers below override this. */
+  background:#fff;
+}
 
 /* Services sits on a pale blue so the white cards pop (blends into the footer). */
 .vss-band--services{ background:#eef2f9; }
@@ -223,6 +236,315 @@
   line-height:1.12;
 }
 
+/* ---- Sub-page header --------------------------------------------------
+   The counterpart to .vss-band--hero, for interior pages. Same family — same
+   container, same serif, same button — but deliberately quieter: no photo, no
+   parallax, dark type on a soft tint, and a breadcrumb that places the page
+   inside the site. Use .vss-band--hero ONLY on the home page; every other page
+   opens with this. */
+.vss-band--pagehead{
+  /* No bottom border — the gradient already resolves into the white of the
+     next band, so a rule on top of it just reads as a seam. */
+  background:linear-gradient(180deg,#eef2f9,#ffffff);
+  padding-block:clamp(2.5rem,5vw,4.5rem);
+}
+.vss-pagehead{text-align:center;}
+
+/* Breadcrumb — small, muted, sits above the page title. */
+.vss-crumbs{
+  margin:0 0 1.4rem;
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+  font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--vss-muted,#6b7280);
+}
+.vss-crumbs a{color:inherit;text-decoration:none;border-bottom:1px solid transparent;}
+.vss-crumbs a:hover{color:var(--vss-blue,#2f6bff);border-bottom-color:currentColor;}
+.vss-crumbs span{margin:0 .5em;opacity:.55;}
+
+.vss-page .vss-pagehead h1{
+  margin:0 0 1rem;
+  /* Smaller than the home hero on purpose — an interior page title, not a
+     billboard. */
+  font-size:clamp(2.2rem,5vw,3.1rem);
+  font-weight:500;line-height:1.1;
+  color:var(--vss-ink,#141824);
+}
+.vss-page .vss-pagehead p{
+  max-width:660px;margin:0 auto;
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+  font-size:clamp(1.02rem,1.5vw,1.15rem);
+  line-height:1.6;color:#4a5773;
+}
+
+/* Meta row — a few at-a-glance facts under the page title. Inline and light,
+   so it informs without becoming a second banner. */
+.vss-meta{
+  display:flex;flex-wrap:wrap;justify-content:center;
+  gap:10px 28px;
+  margin-top:1.75rem;
+}
+.vss-meta__item{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+  font-size:.95rem;font-weight:600;color:#3d4a66;
+}
+.vss-meta__item svg{
+  width:19px;height:19px;flex:0 0 auto;
+  fill:none;stroke:var(--vss-blue,#2f6bff);stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+
+/* On phones the header has to behave like a HEADER, not a title screen. At
+   390px the desktop proportions eat most of the first viewport: a display-
+   sized title, a four-line lede, and a meta row stacked three deep. Tighten
+   all three so the first real section is reachable without scrolling.
+   (Placed AFTER the rules it overrides — same specificity, so source order
+   decides.) */
+@media (max-width:640px){
+  .vss-band--pagehead{padding-block:1.5rem 1.75rem;}
+  .vss-page .vss-pagehead h1{font-size:1.95rem;margin-bottom:.55rem;}
+  .vss-page .vss-pagehead p{font-size:.98rem;line-height:1.5;}
+  .vss-meta{margin-top:1.05rem;gap:7px 16px;}
+  .vss-meta__item{font-size:.82rem;gap:6px;}
+  .vss-meta__item svg{width:16px;height:16px;}
+  /* The first section shouldn't open with a 48px void under the header. */
+  .vss-band--pagehead + .vss-band{padding-top:2rem;}
+}
+
+/* ---- Prose (lede paragraphs under a heading) -------------------------- */
+/* A centered, comfortably measured column of body copy. Used for the short
+   explanatory passages that sit between a heading and the next component. */
+.vss-prose{
+  max-width:760px;
+  margin-inline:auto;
+  text-align:center;
+}
+.vss-page .vss-prose p{
+  margin:0 0 1.1rem;
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+  font-size:clamp(1.02rem,1.5vw,1.12rem);
+  line-height:1.65;
+  color:#4a5773;
+}
+.vss-page .vss-prose p:last-child{margin-bottom:0;}
+
+/* ---- Article column ----------------------------------------------------
+   For pages that are mostly reading (a condition or service explainer)
+   rather than a sequence of marketing panels. Body copy is LEFT aligned at a
+   comfortable measure — centered paragraphs are a landing-page device and get
+   tiring past a couple of lines. Headings align left with the text. */
+.vss-article{max-width:760px;margin-inline:auto;}
+.vss-article .vss-h2{text-align:left;}
+.vss-article .vss-prose{text-align:left;margin-inline:0;max-width:none;}
+.vss-article h3{
+  margin:2rem 0 .6rem;
+  font-size:1.35rem;font-weight:600;letter-spacing:normal;
+  color:var(--vss-ink,#141824);line-height:1.3;
+}
+
+/* ---- Contained figure --------------------------------------------------
+   A photo that sits INSIDE the content column with rounded corners, instead
+   of a full-bleed photo band. Interior pages use this; the full-bleed photo
+   treatment stays with the home page hero. */
+.vss-figure{max-width:900px;margin:0 auto;}
+.vss-figure img{
+  display:block;width:100%;height:auto;
+  /* Reserve the space before the photo arrives, so nothing jumps on load and
+     a tall source image can't blow out the section. */
+  aspect-ratio:16/9;object-fit:cover;
+  background:#eef2f9;
+  border-radius:var(--vss-radius,24px);
+  box-shadow:0 24px 50px -24px rgba(20,40,90,.35);
+}
+.vss-figure figcaption{
+  margin-top:.85rem;text-align:center;
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+  font-size:.9rem;color:var(--vss-muted,#6b7280);
+}
+
+/* ---- On this page (jump links) ----------------------------------------
+   A short contents box under the intro. Gives a longer page a visible
+   skeleton and lets someone jump straight to the part that applies to them. */
+.vss-toc{
+  max-width:760px;margin:0 auto;
+  background:#fff;
+  border:1px solid #e3e9f4;
+  border-left:4px solid var(--vss-blue,#2f6bff);
+  border-radius:16px;
+  padding:24px 28px;
+  box-shadow:0 14px 32px -22px rgba(20,40,90,.35);
+}
+.vss-toc__title{
+  margin:0 0 .85rem;
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+  font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--vss-muted,#6b7280);
+}
+.vss-toc ol{
+  list-style:none;margin:0;padding:0;
+  counter-reset:vss-toc;
+  display:grid;gap:.55rem;
+}
+.vss-toc li{counter-increment:vss-toc;}
+.vss-toc a{
+  display:flex;align-items:baseline;gap:.7rem;
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+  font-size:1.02rem;line-height:1.45;
+  color:var(--vss-ink,#141824);text-decoration:none;
+  transition:color .2s ease;
+}
+.vss-toc a::before{
+  content:counter(vss-toc) ".";
+  flex:0 0 auto;font-weight:700;color:var(--vss-blue,#2f6bff);
+}
+.vss-toc a:hover{color:var(--vss-blue,#2f6bff);}
+
+/* Anchored sections shouldn't land under the sticky Squarespace header. */
+.vss-page [id]{scroll-margin-top:90px;}
+
+/* ---- Pull quote --------------------------------------------------------
+   One sentence lifted out of the copy, to give a long page a resting point. */
+.vss-quote{
+  max-width:760px;margin:2.5rem auto 0;
+  background:var(--vss-blue-soft,rgba(47,107,255,.10));
+  border-left:4px solid var(--vss-blue,#2f6bff);
+  border-radius:0 16px 16px 0;
+  padding:26px 30px;
+}
+.vss-page .vss-quote p{
+  margin:0;
+  font-family:var(--vss-serif,"Newsreader",Georgia,serif);
+  /* Only a step above body copy — it's an aside inside the article, not a
+     section heading, so it shouldn't out-shout the headings around it. */
+  font-size:clamp(1.08rem,1.7vw,1.25rem);
+  line-height:1.5;color:var(--vss-ink,#141824);
+}
+
+/* ---- Info cards (small two-up facts) ----------------------------------- */
+.vss-infocards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:24px;
+  max-width:760px;margin:var(--vss-gap, clamp(1rem,2.5vw,2rem)) auto 0;
+}
+.vss-infocard{
+  background:#fff;border:1px solid #e3e9f4;border-radius:18px;
+  padding:26px 28px;
+  box-shadow:0 14px 32px -22px rgba(20,40,90,.35);
+  /* Same hover as .vss-checklist — the two tile types sit a screen apart, so
+     they should behave identically. */
+  transition:transform .3s cubic-bezier(.2,.7,.2,1),
+             box-shadow .3s ease,
+             border-color .3s ease;
+}
+.vss-infocard:hover{
+  transform:translateY(-3px);
+  border-color:rgba(47,107,255,.45);
+  box-shadow:0 22px 40px -24px rgba(20,40,90,.5);
+}
+.vss-infocard svg{
+  width:26px;height:26px;margin-bottom:14px;
+  fill:none;stroke:var(--vss-blue,#2f6bff);stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+.vss-infocard h3{
+  margin:0 0 .5rem;font-size:1.25rem;font-weight:600;
+  letter-spacing:normal;color:var(--vss-ink,#141824);line-height:1.25;
+}
+.vss-page .vss-infocard p{
+  margin:0;
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+  font-size:1rem;line-height:1.55;color:var(--vss-muted,#6b7280);
+}
+
+/* ---- Checklist (symptom / "is this you?" style list) ------------------- */
+/* Two columns of white cards, each led by a blue check mark. Collapses to one
+   column on narrow screens. */
+.vss-checklist{
+  list-style:none;
+  margin:var(--vss-gap, clamp(1rem,2.5vw,2rem)) 0 0;
+  padding:0;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:16px;
+}
+.vss-checklist li{
+  display:flex;align-items:flex-start;gap:14px;
+  background:#fff;
+  border:1px solid #e3e9f4;
+  border-radius:16px;
+  padding:20px 22px;
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+  font-size:1.02rem;line-height:1.5;color:var(--vss-ink,#141824);
+  box-shadow:0 14px 32px -22px rgba(20,40,90,.35);
+  /* Hover: a small lift, a warmer shadow, and the brand blue picked up in the
+     border. Lighter than the home page's card lift (-10px) on purpose —
+     these are read as a list, so they shouldn't jump under the cursor. */
+  transition:transform .3s cubic-bezier(.2,.7,.2,1),
+             box-shadow .3s ease,
+             border-color .3s ease;
+}
+.vss-checklist li:hover{
+  transform:translateY(-3px);
+  border-color:rgba(47,107,255,.45);
+  box-shadow:0 22px 40px -24px rgba(20,40,90,.5);
+}
+.vss-checklist svg{
+  /* Slightly larger and lighter-stroked than the old check mark: these icons
+     carry internal detail, which 2.4 would clog at this size. */
+  flex:0 0 auto;width:26px;height:26px;margin-top:1px;
+  fill:none;stroke:var(--vss-blue,#2f6bff);stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round;
+  transition:transform .3s cubic-bezier(.2,.7,.2,1);
+}
+.vss-checklist li:hover svg{transform:scale(1.12);}
+
+/* ---- Closing CTA band (navy, centered) --------------------------------- */
+.vss-band--cta{
+  background:linear-gradient(180deg,var(--vss-navy-a,#28344f),var(--vss-navy-b,#212c46));
+  text-align:center;
+}
+.vss-page .vss-band--cta .vss-h2{color:#fff;}
+.vss-page .vss-band--cta .vss-prose p{color:rgba(255,255,255,.82);}
+
+/* ---- Section heading, subheading weight -------------------------------
+   For article pages, where an h2 marks a section of a document rather than
+   announcing a new panel. Sans-serif and noticeably smaller than .vss-h2, so
+   the serif h1 stays the only display-scale type on the page. Drop the
+   modifier to go back to the big serif heading. */
+.vss-h2--sub{
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+  font-size:clamp(1.4rem,2.4vw,1.75rem);
+  font-weight:700;
+  letter-spacing:-.01em;
+  line-height:1.25;
+  margin-bottom:1rem;
+}
+
+/* ---- Inline section CTA -----------------------------------------------
+   A quiet text link that closes a section, so someone convinced halfway down
+   the page doesn't have to scroll to the bottom to act. Deliberately NOT the
+   pill button — several filled buttons down one page compete with each other
+   and with the real CTA at the end. */
+.vss-section-cta{
+  display:inline-flex;align-items:center;gap:.55rem;
+  margin-top:1.75rem;
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+  font-size:1.02rem;font-weight:600;
+  color:var(--vss-blue,#2f6bff);text-decoration:none;
+  border-bottom:2px solid transparent;
+  transition:border-color .2s ease, gap .2s ease;
+}
+.vss-section-cta svg{
+  width:18px;height:18px;
+  fill:none;stroke:currentColor;stroke-width:2.4;
+  stroke-linecap:round;stroke-linejoin:round;
+  transition:transform .2s ease;
+}
+.vss-section-cta:hover{border-bottom-color:currentColor;}
+.vss-section-cta:hover svg{transform:translateX(3px);}
+.vss-section-cta:focus-visible{outline:2px solid var(--vss-blue,#2f6bff);outline-offset:4px;border-radius:4px;}
+
 /* ---- Card grid -------------------------------------------------------- */
 .vss-grid{
   display:grid;
@@ -246,11 +568,18 @@
 
 /* ---- Reduced motion --------------------------------------------------- */
 @media (prefers-reduced-motion:reduce){
-  .vss-btn,.vss-btn__circle,.vss-badge__icon,.vss-card,.vss-card__media{transition:none;}
+  .vss-btn,.vss-btn__circle,.vss-badge__icon,.vss-card,.vss-card__media,
+  .vss-checklist li,.vss-checklist svg,.vss-infocard,
+  .vss-section-cta,.vss-section-cta svg{transition:none;}
   .vss-btn:hover{transform:none;}
   .vss-card:hover{transform:none;}
   .vss-card:hover .vss-card__media{transform:none;}
   .vss-badge:hover .vss-badge__icon{transform:none;}
+  /* Colour and shadow still change on hover — only the movement is dropped. */
+  .vss-checklist li:hover{transform:none;}
+  .vss-checklist li:hover svg{transform:none;}
+  .vss-infocard:hover{transform:none;}
+  .vss-section-cta:hover svg{transform:none;}
 }
 
 
