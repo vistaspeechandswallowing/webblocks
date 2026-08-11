@@ -11,87 +11,56 @@
     • Section → Width: Full Bleed.  Content width: Wide/Full.
     • Section → Padding top & bottom: 0.  (Spacing is owned by these bands.)
 
-  STYLING lives in pages/custom-css.css (Design → Custom CSS): the shared
-  tokens AND the shared components (.vss-btn, .vss-hero, .vss-badge, .vss-h2,
-  .vss-prose, .vss-checklist, …). This block is just markup — the only
-  page-specific style is the hero's background photo, set inline on that
-  section. custom-css.css MUST be installed for this page to look right.
+  THIS IS AN INTERIOR PAGE, so it opens with .vss-band--pagehead — the quiet
+  sub-page header (breadcrumb, title, lede, meta row) — NOT the home page's
+  full-bleed photo hero. .vss-band--hero and its parallax script belong to the
+  home page only; don't copy them here.
 
-  TODO before publishing: swap the hero photo URL below for a swallow-study
-  image once one is picked (it currently reuses the home page's hero photo),
-  and confirm the phone number in the closing CTA matches the site footer.
+  STYLING lives in pages/custom-css.css (Design → Custom CSS): the shared
+  tokens AND the shared components (.vss-pagehead, .vss-btn, .vss-h2,
+  .vss-prose, .vss-checklist, …). This block is pure markup — no page-specific
+  styles at all. custom-css.css MUST be installed for this page to look right.
 =========================================================================== -->
 <div class="vss-page">
 
-  <!-- ===== 1. INTRO TAGLINE ================================================ -->
-  <section class="vss-band vss-band--intro">
-    <div class="vss-container">
-      <p class="vss-eyebrow"><em>Endoscopic swallow studies for adults — in our Arvada office and on site across the Denver metro area.</em></p>
-    </div>
-  </section>
+  <!-- ===== 1. PAGE HEADER ================================================== -->
+  <section class="vss-band vss-band--pagehead">
+    <div class="vss-container vss-pagehead">
+      <p class="vss-crumbs"><a href="/">Home</a><span>/</span>Swallow Study</p>
 
-  <!-- ===== 2. HERO (dark photo background) =================================
-       The background photo is the only page-specific style, so it's set inline
-       here (a darkening overlay gradient is layered over the image). To change
-       the hero image, swap the url() below. -->
-  <section class="vss-band vss-band--hero" style="background-image:linear-gradient(rgba(20,24,36,.6),rgba(20,24,36,.6)),url('https://images.squarespace-cdn.com/content/v1/686b3fd900681e61b11bb5ae/6932b12c-6ef6-4944-851f-bd698a8d9d78/pexels-ron-lach-10388739.jpg?format=2500w');">
-    <div class="vss-container vss-hero">
       <h1>Swallow Study</h1>
       <p>Swallowing problems are common, treatable, and often invisible from the outside. A swallow study lets us see exactly what is happening in the throat during eating and drinking.</p>
-      <div class="vss-hero__actions">
-        <a class="vss-btn" href="/contact">
-          <span>Schedule a study</span>
-          <span class="vss-btn__circle">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
-          </span>
-        </a>
-      </div>
-    </div>
-  </section>
 
-  <!-- ===== 3. WHERE WE PERFORM STUDIES (navy badge bar) =================== -->
-  <section class="vss-band vss-band--badges">
-    <div class="vss-container vss-badges">
-      <a class="vss-badge" href="/contact">
-        <span class="vss-badge__icon">
+      <div class="vss-meta">
+        <span class="vss-meta__item">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M3 21h18"></path>
             <path d="M5 21V7l7-4 7 4v14"></path>
             <path d="M10 21v-6h4v6"></path>
           </svg>
+          Arvada office
         </span>
-        <span class="vss-badge__label">In Our Arvada Office</span>
-      </a>
-
-      <span class="vss-badge__divider" aria-hidden="true"></span>
-
-      <a class="vss-badge" href="/contact">
-        <span class="vss-badge__icon">
+        <span class="vss-meta__item">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M12 21s-7-4.35-7-10a7 7 0 1 1 14 0c0 5.65-7 10-7 10Z"></path>
             <circle cx="12" cy="11" r="2.5"></circle>
           </svg>
+          On site across the Denver metro
         </span>
-        <span class="vss-badge__label">On Site at Facilities</span>
-      </a>
-
-      <span class="vss-badge__divider" aria-hidden="true"></span>
-
-      <a class="vss-badge" href="/contact">
-        <span class="vss-badge__icon">
+        <span class="vss-meta__item">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M8 2v4M16 2v4"></path>
             <path d="M21 12.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7"></path>
             <path d="M3 10h18"></path>
             <path d="M16 19h6M19 16v6"></path>
           </svg>
+          Accepting new clients
         </span>
-        <span class="vss-badge__label">Accepting New Clients</span>
-      </a>
+      </div>
     </div>
   </section>
 
-  <!-- ===== 4. WHAT A SWALLOW STUDY IS ===================================== -->
+  <!-- ===== 2. WHAT A SWALLOW STUDY IS ===================================== -->
   <section class="vss-band">
     <div class="vss-container">
       <h2 class="vss-h2">Treatment based on what we see.</h2>
@@ -102,7 +71,7 @@
     </div>
   </section>
 
-  <!-- ===== 5. WHEN A STUDY IS THE RIGHT NEXT STEP (pale blue) ============= -->
+  <!-- ===== 3. WHEN A STUDY IS THE RIGHT NEXT STEP (pale blue) ============= -->
   <section class="vss-band vss-band--services">
     <div class="vss-container">
       <h2 class="vss-h2">When a swallow study is the right next step</h2>
@@ -135,7 +104,7 @@
     </div>
   </section>
 
-  <!-- ===== 6. CLOSING CTA (navy) ========================================== -->
+  <!-- ===== 4. CLOSING CTA (navy) ========================================== -->
   <section class="vss-band vss-band--cta">
     <div class="vss-container">
       <h2 class="vss-h2">Schedule a study</h2>
@@ -158,30 +127,3 @@
        blocks/footer.html), so it appears on every page from one place. -->
 
 </div>
-
-<script>
-  /* Smooth hero parallax — the background photo drifts slower than the page as
-     you scroll (matches the home page). rAF-throttled; respects reduced-motion. */
-  (function () {
-    var hero = document.querySelector('.vss-band--hero');
-    if (!hero) return;
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    var FACTOR = 0.2;   // higher = more movement
-    var ticking = false;
-
-    function update() {
-      var top = hero.getBoundingClientRect().top;
-      var shift = (top * -FACTOR).toFixed(1);
-      hero.style.backgroundPosition = '50% calc(35% + ' + shift + 'px)';
-      ticking = false;
-    }
-    function onScroll() {
-      if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
-    update();
-  })();
-</script>

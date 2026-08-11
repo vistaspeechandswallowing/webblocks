@@ -223,6 +223,63 @@
   line-height:1.12;
 }
 
+/* ---- Sub-page header --------------------------------------------------
+   The counterpart to .vss-band--hero, for interior pages. Same family — same
+   container, same serif, same button — but deliberately quieter: no photo, no
+   parallax, dark type on a soft tint, and a breadcrumb that places the page
+   inside the site. Use .vss-band--hero ONLY on the home page; every other page
+   opens with this. */
+.vss-band--pagehead{
+  background:linear-gradient(180deg,#eef2f9,#ffffff);
+  border-bottom:1px solid #e3e9f4;
+  padding-block:clamp(2.5rem,5vw,4.5rem);
+}
+.vss-pagehead{text-align:center;}
+
+/* Breadcrumb — small, muted, sits above the page title. */
+.vss-crumbs{
+  margin:0 0 1.4rem;
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+  font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--vss-muted,#6b7280);
+}
+.vss-crumbs a{color:inherit;text-decoration:none;border-bottom:1px solid transparent;}
+.vss-crumbs a:hover{color:var(--vss-blue,#2f6bff);border-bottom-color:currentColor;}
+.vss-crumbs span{margin:0 .5em;opacity:.55;}
+
+.vss-page .vss-pagehead h1{
+  margin:0 0 1rem;
+  /* Smaller than the home hero on purpose — an interior page title, not a
+     billboard. */
+  font-size:clamp(2.2rem,5vw,3.1rem);
+  font-weight:500;line-height:1.1;
+  color:var(--vss-ink,#141824);
+}
+.vss-page .vss-pagehead p{
+  max-width:660px;margin:0 auto;
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+  font-size:clamp(1.02rem,1.5vw,1.15rem);
+  line-height:1.6;color:#4a5773;
+}
+
+/* Meta row — a few at-a-glance facts under the page title. Inline and light,
+   so it informs without becoming a second banner. */
+.vss-meta{
+  display:flex;flex-wrap:wrap;justify-content:center;
+  gap:10px 28px;
+  margin-top:1.75rem;
+}
+.vss-meta__item{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+  font-size:.95rem;font-weight:600;color:#3d4a66;
+}
+.vss-meta__item svg{
+  width:19px;height:19px;flex:0 0 auto;
+  fill:none;stroke:var(--vss-blue,#2f6bff);stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+
 /* ---- Prose (lede paragraphs under a heading) -------------------------- */
 /* A centered, comfortably measured column of body copy. Used for the short
    explanatory passages that sit between a heading and the next component. */
