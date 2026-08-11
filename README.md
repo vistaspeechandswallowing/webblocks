@@ -1,7 +1,13 @@
 # webblocks
 
-HTML code blocks for Squarespace. Every reusable block we build lives here — one
-self-contained HTML file per block, with a browsable gallery to preview and copy them.
+HTML code blocks for Squarespace. Two areas:
+
+- **`blocks/`** — reusable single-purpose blocks, one self-contained file each,
+  with a browsable gallery to preview and copy them.
+- **`pages/`** — full-page compositions, **one code block per page**. Each page
+  builds all its sections on a single shared container and spacing scale, so
+  spacing stays visually consistent across screen sizes. This is where pages get
+  migrated to going forward — see [`pages/README.md`](pages/README.md).
 
 **Live gallery:** https://vistaspeechandswallowing.github.io/webblocks/
 
@@ -11,10 +17,23 @@ self-contained HTML file per block, with a browsable gallery to preview and copy
 webblocks/
 ├── index.html          # Gallery: previews every block and copies its code
 ├── blocks.json         # Manifest listing each block (title, description, tags)
-└── blocks/
-    ├── _template.html      # Starting point for a new block
-    └── hello-banner.html   # Example block
+├── blocks/             # Reusable single-purpose blocks
+│   ├── _template.html      # Starting point for a new block
+│   └── hello-banner.html   # Example block
+└── pages/              # Full-page compositions (one code block per page)
+    ├── _tokens.css         # Shared tokens — paste once into Custom CSS
+    ├── _template.html      # Starting point for a new page
+    └── home.html           # The Home page
 ```
+
+## Why two areas?
+
+A page made of many separate code blocks can't enforce its own spacing — each
+block is sealed off from the others, so the only shared authority is whatever
+Squarespace puts between them, which drifts on large screens. Composing a whole
+page as **one** block puts every section on the same container and the same
+clamped vertical rhythm, defined once. `pages/` is that approach; `blocks/`
+remains handy for one-off drop-ins.
 
 ## Adding a new block
 
