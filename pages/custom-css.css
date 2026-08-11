@@ -473,12 +473,14 @@
   box-shadow:0 22px 40px -24px rgba(20,40,90,.5);
 }
 .vss-checklist svg{
-  flex:0 0 auto;width:22px;height:22px;margin-top:2px;
-  fill:none;stroke:var(--vss-blue,#2f6bff);stroke-width:2.4;
+  /* Slightly larger and lighter-stroked than the old check mark: these icons
+     carry internal detail, which 2.4 would clog at this size. */
+  flex:0 0 auto;width:26px;height:26px;margin-top:1px;
+  fill:none;stroke:var(--vss-blue,#2f6bff);stroke-width:1.9;
   stroke-linecap:round;stroke-linejoin:round;
   transition:transform .3s cubic-bezier(.2,.7,.2,1);
 }
-.vss-checklist li:hover svg{transform:scale(1.15);}
+.vss-checklist li:hover svg{transform:scale(1.12);}
 
 /* ---- Closing CTA band (navy, centered) --------------------------------- */
 .vss-band--cta{
