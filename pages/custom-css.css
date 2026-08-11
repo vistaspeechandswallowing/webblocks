@@ -103,7 +103,14 @@
 
 /* ONE vertical rhythm = ONE clamped section pad, shared by every band.
    Replaces Squarespace's per-section vh/vmax padding that grew unbounded. */
-.vss-band{ padding-block:var(--vss-section-y, clamp(3rem,6vw,6rem)); }
+.vss-band{
+  padding-block:var(--vss-section-y, clamp(3rem,6vw,6rem));
+  /* Default ground is white. Belt-and-braces with the background on .vss-page:
+     a band must never be transparent, or it shows whatever color the
+     containing Squarespace Section uses (grey on this template). The
+     modifiers below override this. */
+  background:#fff;
+}
 
 /* Services sits on a pale blue so the white cards pop (blends into the footer). */
 .vss-band--services{ background:#eef2f9; }
