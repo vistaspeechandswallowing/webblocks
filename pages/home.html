@@ -214,6 +214,9 @@
      Replaces Squarespace's per-section vh/vmax padding that grew unbounded. */
   .vss-band{ padding-block:var(--vss-section-y, clamp(3rem,6vw,6rem)); }
 
+  /* The three light bands share one background. */
+  .vss-band--intro, .vss-band--services, .vss-band--footer{ background:#fff; }
+
   /* Shared pill CTA (hero + services use the exact same button). */
   .vss-btn{
     display:inline-flex;align-items:center;gap:14px;
@@ -243,10 +246,6 @@
   /* =========================================================================
      1. INTRO
      ========================================================================= */
-  .vss-band--intro{
-    padding-block:var(--vss-section-y, clamp(3rem,6vw,6rem));
-    background:#fff;
-  }
   .vss-eyebrow{
     margin:0;text-align:center;
     font-family:var(--vss-serif, Georgia, serif);
@@ -331,7 +330,6 @@
   /* =========================================================================
      4. SERVICES
      ========================================================================= */
-  .vss-band--services{background:#fff;}
   .vss-h2{
     margin:0 0 var(--vss-gap, clamp(1rem,2.5vw,2rem));
     text-align:center;
@@ -362,7 +360,6 @@
   /* =========================================================================
      5. FOOTER
      ========================================================================= */
-  .vss-band--footer{background:#fff;}
   .vss-footer__inner{
     display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:40px 56px;align-items:start;
   }
@@ -403,9 +400,5 @@
 
 <script>
   /* Keep the copyright year current without editing markup. */
-  (function(){
-    var pages = document.getElementsByClassName('vss-footer__year');
-    var y = new Date().getFullYear();
-    for (var i=0;i<pages.length;i++){ pages[i].textContent = y; }
-  })();
+  document.querySelector('.vss-footer__year').textContent = new Date().getFullYear();
 </script>
