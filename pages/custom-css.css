@@ -294,6 +294,23 @@
   stroke-linecap:round;stroke-linejoin:round;
 }
 
+/* On phones the header has to behave like a HEADER, not a title screen. At
+   390px the desktop proportions eat most of the first viewport: a display-
+   sized title, a four-line lede, and a meta row stacked three deep. Tighten
+   all three so the first real section is reachable without scrolling.
+   (Placed AFTER the rules it overrides — same specificity, so source order
+   decides.) */
+@media (max-width:640px){
+  .vss-band--pagehead{padding-block:1.5rem 1.75rem;}
+  .vss-page .vss-pagehead h1{font-size:1.95rem;margin-bottom:.55rem;}
+  .vss-page .vss-pagehead p{font-size:.98rem;line-height:1.5;}
+  .vss-meta{margin-top:1.05rem;gap:7px 16px;}
+  .vss-meta__item{font-size:.82rem;gap:6px;}
+  .vss-meta__item svg{width:16px;height:16px;}
+  /* The first section shouldn't open with a 48px void under the header. */
+  .vss-band--pagehead + .vss-band{padding-top:2rem;}
+}
+
 /* ---- Prose (lede paragraphs under a heading) -------------------------- */
 /* A centered, comfortably measured column of body copy. Used for the short
    explanatory passages that sit between a heading and the next component. */
