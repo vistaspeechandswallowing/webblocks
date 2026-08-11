@@ -1,10 +1,14 @@
 <!-- ===========================================================================
   PAGE:  Home  (Vista Speech & Swallowing)
   ---------------------------------------------------------------------------
-  This is ONE code block for the WHOLE home page. Paste it into a SINGLE
+  This is ONE code block for the home page BODY. Paste it into a SINGLE
   Squarespace Code Block and delete the old separate blocks + native text
   blocks (the "Serving the Denver Metro area…" tagline and the "Speech therapy
   that helps you thrive." heading are now included below).
+
+  The FOOTER is not here on purpose — it's site-wide, so it stays in
+  Squarespace's global Footer section (blocks/footer.html) and appears on every
+  page from one place. Make sure the page has only ONE footer.
 
   SQUARESPACE SECTION SETUP (do this once, so the grid stops fighting us):
     • Put this block in its own Section.
@@ -152,42 +156,10 @@
     </div>
   </section>
 
-  <!-- ===== 5. FOOTER ====================================================== -->
-  <section class="vss-band vss-band--footer">
-    <div class="vss-container">
-      <div class="vss-footer__inner">
-        <div class="vss-footer__brand">
-          <h2 class="vss-footer__name">Vista Speech &amp; Swallowing</h2>
-          <div class="vss-footer__contact">
-            <p>Call: <a href="tel:+17205099640">(720) 509-9640</a></p>
-            <p>Fax: (855) 915-1524</p>
-          </div>
-          <p class="vss-footer__email"><a href="mailto:nicholas@vistaspeech.com">nicholas@vistaspeech.com</a></p>
-        </div>
-
-        <div class="vss-footer__col">
-          <h3 class="vss-footer__heading">Arvada Office</h3>
-          <p class="vss-footer__days">8850 W 58th Ave<br>Suite 201<br>Arvada, CO 80002</p>
-        </div>
-
-        <div class="vss-footer__col">
-          <h3 class="vss-footer__heading">Hours</h3>
-          <p class="vss-footer__days">Monday &ndash; Saturday</p>
-          <p class="vss-footer__appt">By appointment only.</p>
-        </div>
-
-        <p class="vss-footer__notice">
-          The client portal is not to be used for emergency situations. If you or
-          others are in immediate danger or experiencing a medical emergency,
-          call 911 immediately.
-        </p>
-      </div>
-
-      <div class="vss-footer__base">
-        <p>© <span class="vss-footer__year">2026</span> Vista Speech &amp; Swallowing. All rights reserved.</p>
-      </div>
-    </div>
-  </section>
+  <!-- NOTE: The footer is intentionally NOT part of this page. It's a
+       site-wide element managed in Squarespace's global Footer section (using
+       blocks/footer.html), so it appears on every page from one place. Don't
+       add a footer band here. -->
 
 </div>
 
@@ -370,48 +342,14 @@
   .vss-card__desc{margin:0;color:var(--vss-muted,#6b7280);font-size:1.02rem;line-height:1.5;}
   .vss-cta-row{display:flex;justify-content:center;margin-top:var(--vss-section-y, clamp(3rem,6vw,6rem));}
 
-  /* =========================================================================
-     5. FOOTER
-     ========================================================================= */
-  .vss-footer__inner{
-    display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:40px 56px;align-items:start;
-  }
-  .vss-footer__name{margin:0 0 22px;font-size:clamp(1.7rem,3.2vw,2.3rem);font-weight:500;line-height:1.12;letter-spacing:-.01em;color:var(--vss-ink,#141824);}
-  .vss-footer__contact{margin:0 0 18px;}
-  .vss-footer__contact p{margin:0 0 4px;font-size:1.05rem;color:var(--vss-muted,#6b7280);}
-  .vss-footer__email{margin:0 0 28px;font-size:1.05rem;}
-  .vss-band--footer a{color:var(--vss-blue,#2f6bff);font-weight:600;text-decoration:none;transition:color .2s ease;}
-  .vss-band--footer a:hover{color:var(--vss-blue-dark,#1f5be0);text-decoration:underline;}
-  .vss-footer__notice{
-    grid-column:1;margin:4px 0 0;max-width:52ch;padding:16px 20px;border-radius:14px;
-    background:rgba(47,107,255,.10);color:var(--vss-blue-dark,#1f5be0);
-    font-size:.92rem;font-weight:500;line-height:1.6;
-  }
-  .vss-footer__heading{margin:0 0 18px;font-size:clamp(1.35rem,2.4vw,1.6rem);font-weight:500;letter-spacing:-.01em;color:var(--vss-ink,#141824);}
-  .vss-footer__days{margin:0 0 4px;font-size:1.05rem;line-height:1.5;color:var(--vss-muted,#6b7280);}
-  .vss-footer__appt{margin:8px 0 0;font-size:1.05rem;font-weight:700;color:var(--vss-ink,#141824);}
-  .vss-footer__base{margin-top:36px;padding-top:22px;border-top:1px solid rgba(20,40,90,.10);}
-  .vss-footer__base p{margin:0;font-size:.88rem;color:var(--vss-muted,#6b7280);}
-  @media (max-width:900px){
-    .vss-footer__inner{grid-template-columns:1fr 1fr;gap:36px 40px;}
-    .vss-footer__brand{grid-column:1 / -1;}
-  }
-  @media (max-width:560px){
-    .vss-footer__inner{grid-template-columns:1fr;gap:32px;}
-    .vss-footer__brand{grid-column:auto;}
-    .vss-footer__email{margin-bottom:22px;}
-  }
+  /* Footer intentionally omitted — managed by Squarespace's global Footer
+     section (see blocks/footer.html). */
 
   @media (prefers-reduced-motion:reduce){
-    .vss-btn,.vss-btn__circle,.vss-badge__icon,.vss-card,.vss-card__media,.vss-band--footer a{transition:none;}
+    .vss-btn,.vss-btn__circle,.vss-badge__icon,.vss-card,.vss-card__media{transition:none;}
     .vss-btn:hover{transform:none;}
     .vss-card:hover{transform:none;}
     .vss-card:hover .vss-card__media{transform:none;}
     .vss-badge:hover .vss-badge__icon{transform:none;}
   }
 </style>
-
-<script>
-  /* Keep the copyright year current without editing markup. */
-  document.querySelector('.vss-footer__year').textContent = new Date().getFullYear();
-</script>
