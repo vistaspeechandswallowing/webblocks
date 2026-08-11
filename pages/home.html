@@ -18,9 +18,11 @@
     That removes the per-section vh/vmax padding and the 24-column placement
     that made blocks drift apart on large screens.
 
-  SPACING & WIDTH come from the shared tokens in pages/custom-css.css (paste that
-  into Design → Custom CSS once). Every value below also has a fallback, so the
-  page still looks right even before those tokens are installed.
+  STYLING lives in pages/custom-css.css (Design → Custom CSS): the shared tokens
+  AND the shared components (.vss-btn, .vss-hero, .vss-badge, .vss-card, …). This
+  block is just markup — the only page-specific style is the hero's background
+  photo, set inline on that section. So custom-css.css MUST be installed for this
+  page to look right.
 
   Everything is scoped under .vss-page so nothing leaks into the Squarespace UI.
 =========================================================================== -->
@@ -33,8 +35,11 @@
     </div>
   </section>
 
-  <!-- ===== 2. HERO (dark photo background) ================================= -->
-  <section class="vss-band vss-band--hero">
+  <!-- ===== 2. HERO (dark photo background) =================================
+       The background photo is the only page-specific style, so it's set inline
+       here (a darkening overlay gradient is layered over the image). To change
+       the hero image, swap the url() below. -->
+  <section class="vss-band vss-band--hero" style="background-image:linear-gradient(rgba(20,24,36,.9),rgba(20,24,36,.9)),url('https://images.squarespace-cdn.com/content/v1/686b3fd900681e61b11bb5ae/6932b12c-6ef6-4944-851f-bd698a8d9d78/pexels-ron-lach-10388739.jpg?format=2500w');">
     <div class="vss-container vss-hero">
       <h1>Personalized therapy for swallowing, voice, and cognition.</h1>
       <p>Specialized expertise for children and adults, whether in our Arvada clinic or your living room, so patients can eat, speak, and be heard again.</p>
@@ -162,194 +167,3 @@
        add a footer band here. -->
 
 </div>
-
-<style>
-  /* =========================================================================
-     SHARED SYSTEM  — every value falls back to a sane default so the page
-     works even before pages/custom-css.css is added to Custom CSS.
-     ========================================================================= */
-  .vss-page{
-    box-sizing:border-box;
-    font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
-    /* Full-bleed breakout: escape Squarespace's centered content column so the
-       hero photo and navy badge bar can span edge-to-edge. The wrapper spans
-       the full viewport width; each .vss-container re-centers content inside. */
-    width:100vw;
-    max-width:100vw;
-    margin-left:calc(50% - 50vw);
-    margin-right:calc(50% - 50vw);
-    overflow-x:hidden;   /* guard against a stray horizontal scrollbar */
-  }
-  .vss-page *{box-sizing:border-box;}
-
-  /* ONE container = ONE width + ONE gutter, shared by every band. This is what
-     makes the hero, badges, tiles, and footer all line up on wide screens. */
-  .vss-container{
-    max-width:var(--vss-max, 1180px);
-    margin-inline:auto;
-    padding-inline:var(--vss-gutter, clamp(20px,5vw,48px));
-  }
-
-  /* ONE vertical rhythm = ONE clamped section pad, shared by every band.
-     Replaces Squarespace's per-section vh/vmax padding that grew unbounded. */
-  .vss-band{ padding-block:var(--vss-section-y, clamp(3rem,6vw,6rem)); }
-
-  /* The three light bands share one background. */
-  .vss-band--intro, .vss-band--services, .vss-band--footer{ background:#fff; }
-
-  /* Shared pill CTA (hero + services use the exact same button). */
-  .vss-btn{
-    display:inline-flex;align-items:center;gap:14px;
-    font-family:var(--vss-sans, sans-serif);
-    font-size:1.05rem;font-weight:600;text-decoration:none;color:#fff;
-    background:var(--vss-blue,#2f6bff);
-    padding:10px 12px 10px 30px;border-radius:999px;
-    box-shadow:0 12px 28px -10px rgba(47,107,255,.6);
-    transition:background .25s ease, transform .25s ease, box-shadow .25s ease;
-  }
-  .vss-btn:hover{
-    background:var(--vss-blue-dark,#1f5be0);
-    transform:translateY(-2px);
-    box-shadow:0 16px 34px -10px rgba(47,107,255,.7);
-  }
-  .vss-btn__circle{
-    display:inline-flex;align-items:center;justify-content:center;
-    width:42px;height:42px;border-radius:50%;
-    background:rgba(255,255,255,.22);transition:transform .25s ease;
-  }
-  .vss-btn:hover .vss-btn__circle{transform:translateX(4px);}
-  .vss-btn__circle svg{
-    width:20px;height:20px;fill:none;stroke:#fff;stroke-width:2.4;
-    stroke-linecap:round;stroke-linejoin:round;
-  }
-
-  /* =========================================================================
-     1. INTRO
-     ========================================================================= */
-  .vss-eyebrow{
-    margin:0;text-align:center;
-    font-family:var(--vss-serif, Georgia, serif);
-    font-size:clamp(1rem,1.6vw,1.15rem);
-    color:var(--vss-muted,#6b7280);
-  }
-
-  /* =========================================================================
-     2. HERO  (dark photo background baked in — no longer a Squarespace section bg)
-     ========================================================================= */
-  .vss-band--hero{
-    position:relative;
-    background:
-      linear-gradient(rgba(20,24,36,.9), rgba(20,24,36,.9)),
-      url("https://images.squarespace-cdn.com/content/v1/686b3fd900681e61b11bb5ae/6932b12c-6ef6-4944-851f-bd698a8d9d78/pexels-ron-lach-10388739.jpg?format=2500w");
-    background-size:cover;
-    background-position:50% 35%;
-    /* A little extra breathing room top/bottom for the hero specifically. */
-    padding-block:calc(var(--vss-section-y, clamp(3rem,6vw,6rem)) * 1.4);
-  }
-  .vss-hero{ text-align:center; color:#fff; font-family:var(--vss-serif, Georgia, serif); }
-  /* Force white + our serif on the hero heading so the Squarespace theme's
-     default h1 color/font can't wash it out over the photo. */
-  .vss-page .vss-hero h1{
-    color:#fff;
-    font-family:var(--vss-serif, Georgia, serif);
-    font-weight:500;
-    font-size:clamp(2.7rem,7vw,4rem);
-    line-height:1.05;
-    margin:0 0 1.4rem;
-  }
-  .vss-page .vss-hero p{
-    color:#fff;
-    font-size:clamp(1.05rem,1.6vw,1.1rem);
-    line-height:1.5;max-width:640px;margin:0 auto 2.5rem;
-  }
-  .vss-hero__actions{display:flex;gap:1.25rem;justify-content:center;flex-wrap:wrap;}
-  @media (max-width:560px){
-    .vss-hero__actions{flex-direction:column;gap:.9rem;}
-    .vss-hero__actions .vss-btn{justify-content:center;width:100%;padding-left:28px;}
-  }
-
-  /* =========================================================================
-     3. TRUST BADGES  (navy bar)
-     ========================================================================= */
-  .vss-band--badges{
-    background:linear-gradient(180deg,var(--vss-navy-a,#28344f),var(--vss-navy-b,#212c46));
-  }
-  .vss-badges{
-    display:flex;align-items:center;justify-content:center;
-    gap:32px;flex-wrap:wrap;
-  }
-  .vss-badge{
-    display:flex;flex-direction:column;align-items:center;text-align:center;
-    gap:18px;flex:1 1 220px;max-width:300px;
-    text-decoration:none;color:inherit;border-radius:16px;
-  }
-  .vss-badge:focus-visible{outline:2px solid var(--vss-blue-light,#7ea2ff);outline-offset:8px;}
-  .vss-badge__icon{
-    display:inline-flex;align-items:center;justify-content:center;
-    width:76px;height:76px;border-radius:50%;
-    background:rgba(47,107,255,.16);border:1px solid rgba(126,162,255,.35);
-    box-shadow:0 12px 28px -14px rgba(47,107,255,.9);
-    transition:transform .3s cubic-bezier(.2,.7,.2,1), background .3s ease;
-  }
-  .vss-badge__icon svg{width:36px;height:36px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
-  .vss-badge:hover .vss-badge__icon{transform:translateY(-4px);background:rgba(47,107,255,.28);}
-  .vss-badge__label{font-size:1.15rem;font-weight:600;letter-spacing:.01em;color:#fff;line-height:1.3;transition:color .25s ease;}
-  .vss-badge:hover .vss-badge__label{color:var(--vss-blue-light,#7ea2ff);}
-  .vss-badge__divider{flex:0 0 auto;width:1px;height:72px;background:linear-gradient(180deg,transparent,rgba(255,255,255,.18),transparent);}
-  @media (max-width:760px){
-    .vss-badges{gap:12px;flex-wrap:nowrap;align-items:flex-start;}
-    .vss-badge{flex:1 1 0;max-width:none;gap:12px;}
-    .vss-badge__divider{display:none;}
-    .vss-badge__icon{width:58px;height:58px;}
-    .vss-badge__icon svg{width:28px;height:28px;}
-    .vss-badge__label{font-size:.9rem;line-height:1.25;}
-  }
-  @media (max-width:420px){
-    .vss-badges{gap:8px;}
-    .vss-badge{gap:10px;}
-    .vss-badge__icon{width:50px;height:50px;}
-    .vss-badge__icon svg{width:24px;height:24px;}
-    .vss-badge__label{font-size:.8rem;}
-  }
-
-  /* =========================================================================
-     4. SERVICES
-     ========================================================================= */
-  .vss-h2{
-    margin:0 0 var(--vss-gap, clamp(1rem,2.5vw,2rem));
-    text-align:center;
-    font-size:clamp(1.9rem,4vw,2.8rem);
-    font-weight:600;letter-spacing:-.01em;color:var(--vss-ink,#141824);
-    line-height:1.12;
-  }
-  .vss-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:32px;
-    margin-top:var(--vss-section-y, clamp(3rem,6vw,6rem));
-  }
-  .vss-card{
-    background:#fff;border-radius:var(--vss-radius,24px);overflow:hidden;
-    box-shadow:0 18px 40px -18px rgba(20,40,90,.18);
-    transition:transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease;
-    display:flex;flex-direction:column;
-  }
-  .vss-card:hover{transform:translateY(-10px);box-shadow:0 34px 60px -20px rgba(20,40,90,.30);}
-  .vss-card__media{aspect-ratio:16/12;background-size:cover;background-position:center;transition:transform .5s ease;}
-  .vss-card:hover .vss-card__media{transform:scale(1.05);}
-  .vss-card__body{padding:28px 30px 32px;flex:1;display:flex;flex-direction:column;}
-  .vss-card__title{margin:0 0 10px;font-size:1.6rem;font-weight:700;letter-spacing:-.01em;color:var(--vss-ink,#141824);line-height:1.15;}
-  .vss-card__desc{margin:0;color:var(--vss-muted,#6b7280);font-size:1.02rem;line-height:1.5;}
-  .vss-cta-row{display:flex;justify-content:center;margin-top:var(--vss-section-y, clamp(3rem,6vw,6rem));}
-
-  /* Footer intentionally omitted — managed by Squarespace's global Footer
-     section (see blocks/footer.html). */
-
-  @media (prefers-reduced-motion:reduce){
-    .vss-btn,.vss-btn__circle,.vss-badge__icon,.vss-card,.vss-card__media{transition:none;}
-    .vss-btn:hover{transform:none;}
-    .vss-card:hover{transform:none;}
-    .vss-card:hover .vss-card__media{transform:none;}
-    .vss-badge:hover .vss-badge__icon{transform:none;}
-  }
-</style>

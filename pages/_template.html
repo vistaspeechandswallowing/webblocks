@@ -1,60 +1,49 @@
 <!-- ===========================================================================
   PAGE:  [Page name]
   ---------------------------------------------------------------------------
-  ONE code block for the WHOLE page. Paste into a SINGLE Squarespace Code Block.
+  ONE code block for the WHOLE page BODY. Paste into a SINGLE Squarespace Code
+  Block. (The footer is site-wide — leave it in Squarespace's global Footer
+  section; don't add a footer band here.)
 
   SQUARESPACE SECTION SETUP (do this once so the grid stops fighting us):
     • Put this block in its own Section.
-    • Section → Background: none (each band below carries its own background).
+    • Section → Background: none (each band carries its own background).
     • Section → Width: Full Bleed.  Content width: Wide/Full.
-    • Section → Padding top & bottom: 0.  (Spacing is owned by this block.)
+    • Section → Padding top & bottom: 0.  (Spacing is owned by these bands.)
 
-  Spacing + width + palette come from the shared tokens in pages/custom-css.css
-  (paste that into Design → Custom CSS once). Every value below also has a
-  fallback, so the page renders correctly even before the tokens are installed.
+  HOW STYLING WORKS (three tiers):
+    1. Tokens            — values (width, spacing, color) in pages/custom-css.css
+    2. Shared components — .vss-page, .vss-container, .vss-band, .vss-btn,
+                           .vss-hero, .vss-badge, .vss-card, .vss-h2, … all live
+                           in pages/custom-css.css (Design → Custom CSS). REUSE
+                           them; don't redeclare them here.
+    3. Page-specific     — anything unique to THIS page. Prefer an inline style
+                           on the element (e.g. a hero's background photo, like
+                           the .vss-band--hero section in home.html). Only add a
+                           <style> block below if a rule is genuinely page-only.
 
-  Scope everything under .vss-<page> so nothing leaks into the Squarespace UI.
-  Reuse the shared component patterns (.vss-btn, .vss-card, .vss-badge, …) from
-  home.html rather than reinventing them.
+  So a normal page is just markup — no <style> block needed. Make sure
+  pages/custom-css.css is installed in Design → Custom CSS.
 =========================================================================== -->
 <div class="vss-page">
 
   <!-- ===== EXAMPLE BAND ==================================================== -->
-  <section class="vss-band">
+  <section class="vss-band vss-band--intro">
     <div class="vss-container">
-      <!-- section markup goes here -->
+      <!-- section markup goes here — reuse .vss-btn / .vss-card / .vss-badge / .vss-h2 -->
     </div>
   </section>
 
-  <!-- Add more <section class="vss-band"> … </section> blocks below. -->
+  <!-- Example full-bleed hero with a page-specific background photo set inline:
+  <section class="vss-band vss-band--hero"
+           style="background-image:linear-gradient(rgba(20,24,36,.9),rgba(20,24,36,.9)),url('IMAGE_URL');">
+    <div class="vss-container vss-hero">
+      <h1>Headline</h1>
+      <p>Supporting line.</p>
+    </div>
+  </section>
+  -->
+
+  <!-- Add more <section class="vss-band"> … </section> bands below. -->
 
 </div>
-
-<style>
-  /* ---- Shared system (keep in sync with home.html) --------------------- */
-  .vss-page{
-    box-sizing:border-box;
-    font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
-    /* Full-bleed breakout: escape Squarespace's centered content column so
-       full-width bands can span edge-to-edge. Each .vss-container re-centers. */
-    width:100vw;
-    max-width:100vw;
-    margin-left:calc(50% - 50vw);
-    margin-right:calc(50% - 50vw);
-    overflow-x:hidden;
-  }
-  .vss-page *{box-sizing:border-box;}
-
-  /* ONE container = ONE width + ONE gutter, shared by every band. */
-  .vss-container{
-    max-width:var(--vss-max, 1180px);
-    margin-inline:auto;
-    padding-inline:var(--vss-gutter, clamp(20px,5vw,48px));
-  }
-
-  /* ONE vertical rhythm = ONE clamped section pad, shared by every band. */
-  .vss-band{ padding-block:var(--vss-section-y, clamp(3rem,6vw,6rem)); }
-
-  /* ---- Page-specific styles below -------------------------------------- */
-
-</style>
