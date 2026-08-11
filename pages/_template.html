@@ -35,6 +35,13 @@
   .vss-page{
     box-sizing:border-box;
     font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+    /* Full-bleed breakout: escape Squarespace's centered content column so
+       full-width bands can span edge-to-edge. Each .vss-container re-centers. */
+    width:100vw;
+    max-width:100vw;
+    margin-left:calc(50% - 50vw);
+    margin-right:calc(50% - 50vw);
+    overflow-x:hidden;
   }
   .vss-page *{box-sizing:border-box;}
 
