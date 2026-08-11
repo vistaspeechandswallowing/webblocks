@@ -84,6 +84,12 @@
   margin-left:-50vw;
   margin-right:-50vw;
   overflow-x:hidden;   /* guard against a stray horizontal scrollbar */
+  /* Paint the page's own ground. Bands that don't set a background (the plain
+     .vss-band content sections) are transparent, so without this they show
+     whatever color the containing Squarespace Section happens to use — which
+     is a grey on this template, not white. Bands that DO set a background
+     (hero, pagehead, services, badges, cta) paint over this. */
+  background:#fff;
 }
 .vss-page *{box-sizing:border-box;}
 
