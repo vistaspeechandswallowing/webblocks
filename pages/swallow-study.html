@@ -19,10 +19,10 @@
   section carries an id, so links can point at a specific part of the page.
 
   STYLING lives in pages/custom-css.css (Design → Custom CSS): the shared
-  tokens AND the shared components (.vss-pagehead, .vss-article, .vss-quote,
-  .vss-checklist, .vss-infocard, .vss-btn, …). This block is pure markup — no
-  page-specific styles. custom-css.css MUST be installed for this page to look
-  right.
+  tokens AND the shared components (.vss-pagehead, .vss-meta, .vss-article,
+  .vss-prose, .vss-h2--sub, .vss-quote, .vss-checklist, .vss-infocard,
+  .vss-section-cta, .vss-btn). This block is pure markup — no page-specific
+  styles. custom-css.css MUST be installed for this page to look right.
 =========================================================================== -->
 <div class="vss-page">
 
@@ -161,28 +161,6 @@
       </div>
     </div>
   </section>
-
-  <!-- ===== OPTIONAL SECTIONS (uncomment once Nick supplies the copy) =======
-       The reference site carries two more things this page could use. Both
-       need real content — they're scaffolded here rather than invented:
-
-       A) A PROVIDER QUOTE / BIO — reuse blocks/provider-bio.html, or drop a
-          .vss-quote with a real attribution line.
-
-       B) AN FAQ — the reference closes its explainer with common questions
-          ("Does it hurt?", "How long does it take?", "Do I need a referral?",
-          "Is it covered by insurance?"). Same pattern as section 3:
-
-       <section class="vss-band vss-band--services" id="faq">
-         <div class="vss-container">
-           <div class="vss-article">
-             <h2 class="vss-h2 vss-h2--sub">Common questions</h2>
-             <h3>Question goes here?</h3>
-             <div class="vss-prose"><p>Answer goes here.</p></div>
-           </div>
-         </div>
-       </section>
-  ====================================================================== -->
 
   <!-- NOTE: The footer is intentionally NOT part of this page. It's a
        site-wide element managed in Squarespace's global Footer section (using
