@@ -7,32 +7,28 @@
 
   SQUARESPACE SECTION SETUP (do this once so the grid stops fighting us):
     • Put this block in its own Section.
-    • Section → Background: none (each band carries its own background).
+    • Section → Background: white. ("None" lets the template's grey show
+      through — that's what caused the grey bands.)
     • Section → Width: Full Bleed.  Content width: Wide/Full.
     • Section → Padding top & bottom: 0.  (Spacing is owned by these bands.)
 
   SHAPE OF THIS PAGE — it's an ARTICLE, not a landing page:
-    header → contained photo → "on this page" jump links → left-aligned
-    explainer sections at a readable measure → closing CTA.
+    header → left-aligned explainer sections at a readable measure → CTA.
   That means: no full-bleed photo hero and no parallax (those belong to the
-  home page), body copy LEFT aligned inside .vss-article, and every major
-  section carries an id so the contents box can link to it.
+  home page), and body copy LEFT aligned inside .vss-article. Every major
+  section carries an id, so links can point at a specific part of the page.
 
   STYLING lives in pages/custom-css.css (Design → Custom CSS): the shared
-  tokens AND the shared components (.vss-pagehead, .vss-article, .vss-toc,
-  .vss-figure, .vss-quote, .vss-checklist, .vss-infocard, .vss-btn, …). This
-  block is pure markup — no page-specific styles. custom-css.css MUST be
-  installed for this page to look right.
-
-  TODO before publishing: swap the photo below for a real swallow-study /
-  clinic image (it currently reuses a site photo as a placeholder).
+  tokens AND the shared components (.vss-pagehead, .vss-article, .vss-quote,
+  .vss-checklist, .vss-infocard, .vss-btn, …). This block is pure markup — no
+  page-specific styles. custom-css.css MUST be installed for this page to look
+  right.
 =========================================================================== -->
 <div class="vss-page">
 
   <!-- ===== 1. PAGE HEADER ================================================== -->
   <section class="vss-band vss-band--pagehead">
     <div class="vss-container vss-pagehead">
-      <p class="vss-crumbs"><a href="/">Home</a><span>/</span>Swallow Study</p>
 
       <h1>Swallow Study</h1>
       <p>Swallowing problems are common, treatable, and often invisible from the outside. A swallow study lets us see exactly what is happening in the throat during eating and drinking.</p>
@@ -66,34 +62,11 @@
     </div>
   </section>
 
-  <!-- ===== 2. PHOTO + CONTENTS =============================================
-       The photo is CONTAINED (rounded, inside the column), not a full-bleed
-       band — that's what keeps an interior page from reading like a second
-       home page. Swap the src for a real swallow-study photo. -->
-  <section class="vss-band">
-    <div class="vss-container">
-      <figure class="vss-figure">
-        <img src="https://cdn.jsdelivr.net/gh/vistaspeechandswallowing/webimages@33f6688/panel_01_woman-bench-coffee.png"
-             alt="An adult client sitting comfortably with a drink during a swallowing appointment.">
-      </figure>
-
-      <div class="vss-toc" style="margin-top:2.5rem;">
-        <p class="vss-toc__title">On this page</p>
-        <ol>
-          <li><a href="#what-it-is">What a swallow study is</a></li>
-          <li><a href="#signs">When a swallow study is the right next step</a></li>
-          <li><a href="#where">Where we perform studies</a></li>
-          <li><a href="#schedule">Schedule a study</a></li>
-        </ol>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== 3. WHAT A SWALLOW STUDY IS ====================================== -->
-  <section class="vss-band" id="what-it-is">
+  <!-- ===== 2. WHAT IS A SWALLOW STUDY? ===================================== -->
+  <section class="vss-band" id="what-is-it">
     <div class="vss-container">
       <div class="vss-article">
-        <h2 class="vss-h2">What a swallow study is</h2>
+        <h2 class="vss-h2">What is a swallow study?</h2>
         <div class="vss-prose">
           <p>Swallowing problems are common, treatable, and often invisible from the outside. A swallow study lets us see exactly what is happening in the throat during eating and drinking, so treatment is based on what we observe rather than what we guess.</p>
           <p>Vista Speech and Swallowing performs endoscopic swallow studies for adults in our Arvada office and on site at facilities and partner clinics across the Denver metro area.</p>
@@ -106,7 +79,7 @@
     </div>
   </section>
 
-  <!-- ===== 4. WHEN A STUDY IS THE RIGHT NEXT STEP (pale blue) ============== -->
+  <!-- ===== 3. WHEN A STUDY IS THE RIGHT NEXT STEP (pale blue) ============== -->
   <section class="vss-band vss-band--services" id="signs">
     <div class="vss-container">
       <div class="vss-article">
@@ -141,7 +114,7 @@
     </div>
   </section>
 
-  <!-- ===== 5. WHERE WE PERFORM STUDIES ===================================== -->
+  <!-- ===== 4. WHERE WE PERFORM STUDIES (+ closing CTA) ===================== -->
   <section class="vss-band" id="where">
     <div class="vss-container">
       <div class="vss-article">
@@ -171,19 +144,12 @@
           <p>We travel to facilities and partner clinics across the Denver metro area.</p>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- ===== 6. CLOSING CTA (navy) =========================================== -->
-  <section class="vss-band vss-band--cta" id="schedule">
-    <div class="vss-container">
-      <h2 class="vss-h2">Schedule a study</h2>
-      <div class="vss-prose">
-        <p>Call us or send a message through the contact form and we will get you scheduled!</p>
-      </div>
+      <!-- The page's single call to action. Kept INSIDE .vss-container so it
+           sits on the same width and gutter as everything above it. -->
       <div class="vss-cta-row">
         <a class="vss-btn" href="/contact">
-          <span>Contact us</span>
+          <span>Request more info</span>
           <span class="vss-btn__circle">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
           </span>
@@ -201,7 +167,7 @@
 
        B) AN FAQ — the reference closes its explainer with common questions
           ("Does it hurt?", "How long does it take?", "Do I need a referral?",
-          "Is it covered by insurance?"). Same pattern as section 5:
+          "Is it covered by insurance?"). Same pattern as section 3:
 
        <section class="vss-band vss-band--services" id="faq">
          <div class="vss-container">
@@ -212,8 +178,6 @@
            </div>
          </div>
        </section>
-
-       If you add either one, add a matching <li> to the "On this page" box.
   ====================================================================== -->
 
   <!-- NOTE: The footer is intentionally NOT part of this page. It's a
