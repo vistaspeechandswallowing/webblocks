@@ -63,38 +63,49 @@ won't style itself without it). That's a one-time paste, so it's fine.
 
 ## Pasting a page into Squarespace
 
-For the single-block approach to actually control spacing, the containing
-Section must stop imposing its own grid and padding:
-
 1. Delete the page's old separate code blocks **and** any native text blocks
    whose content now lives inside this composition.
 2. New Section → content width **Wide/Full**, background **none** (each band
    carries its own).
 3. In the section's **Design** tab (the Fluid Engine editor):
-   - **Fill Screen** → **off**. Left on, it stretches the section to a fraction
-     of the viewport, which is dead space above and below our content.
-   - **Gap** → the tightest option.
-   - **Row Count** → lower it until there are no empty grid rows left, and drag
-     the code block so it spans from the first row to the last.
+   - **Fill Screen** → **off**. Left on, it holds the section at a fraction of
+     the viewport and — with centered alignment — pads our block out on both
+     sides.
    - **Alignment** → top.
+   - **Gap** and **Row Count** don't matter for these sections; see below.
 4. Paste the page's `.html` into one Code Block.
 5. Make sure `custom-css.css` is in Design → Custom CSS (only needed once, site-wide).
 
-**There is no padding control.** Fluid Engine only offers the five settings
-above — earlier versions of these instructions said to set "Section padding top
-& bottom = 0", and that option does not exist. The section's own vertical
-padding, grid gap, and fill-screen height are zeroed **in CSS instead**, by the
-*Host section reset* rules in `custom-css.css` (end of section 2). Those rules
-are guarded by `:has(.vss-page)`, so they only touch the section holding one of
-our page compositions. Step 3 is still worth doing — it means there's less for
-the CSS to cancel — but the reset is what actually guarantees the gaps go.
+### Why the gaps happened (and what fixes them)
 
-**Header clearance.** The section padding the reset removes was also what held
-the first band clear of the site header, so `.vss-band--pagehead` now carries
-that clearance itself, via the `--vss-header-clear` / `--vss-header-clear-sm`
-tokens in section 1. If a page's title ever sits too close to (or under) the
-header, those two values are the dial. The home hero is exempt on purpose — it
-is meant to run full-bleed underneath the header.
+**A Fluid Engine section doesn't take its height from its content — it takes it
+from its grid.** The Design panel's Row Count becomes a fixed track list, e.g.
+`grid-template-rows: repeat(103, minmax(24px, auto))`, and the code block is
+placed across a fixed span of those rows. Each row is at least 24px whether or
+not anything is in it. Our markup is fluid, so its real height changes as text
+reflows — meaning the reserved height and the true height match at about *one*
+viewport width and drift apart everywhere else:
+
+- reserved > content → empty rows below the block = **the gap**
+- reserved < content → content spills past the section
+
+That's also why the gap moved around with screen size rather than being a
+constant. Note what it is **not**: the section's own padding measures
+`calc(1vmax / 10)` — roughly 2px. Zeroing padding was never going to help, and
+an earlier version of these instructions chased exactly that dead end (along
+with asking for a "Section padding = 0" control that Fluid Engine doesn't have).
+
+The fix in `custom-css.css` (end of section 2) collapses the track list to a
+single `auto` row and pins the block to it, so the grid measures our content and
+Squarespace sizes the section from it. Row Count then stops mattering. The rules
+are guarded by `:has(.vss-page)` — confirmed working in Squarespace's CSS
+compiler — so only sections holding one of our page compositions are affected.
+
+**Header clearance** is carried by the page itself, not by the section:
+`.vss-band--pagehead` has its own top padding, sized by the
+`--vss-header-clear` / `--vss-header-clear-sm` tokens in section 1. If a page
+title ever sits too close to (or under) the header, those two values are the
+dial. The home hero is exempt on purpose — it runs full-bleed under the header.
 
 ## Previewing locally
 

@@ -532,42 +532,54 @@
   .vss-section-cta:hover svg{transform:none;}
 }
 
-/* ---- Host section reset (Fluid Engine) -------------------------------- */
-/* Squarespace's newer "Fluid Engine" section editor does NOT expose a
-   top/bottom padding control — the Design panel only offers Row Count, Gap,
-   Fill Screen, Height and Alignment. So the section's own vertical padding,
-   its grid row gap, and (with Fill Screen on) its min-height can't be zeroed
-   from the UI, and they land as stray space above and below our page block —
-   the "weird gaps between sections".
+/* ---- Let the host section size to our content (Fluid Engine) ---------- */
+/* THE ACTUAL CAUSE OF THE "WEIRD GAPS".
 
-   These rules zero that space in CSS instead. Every rule is guarded by
-   :has(.vss-page), so it applies ONLY to the section that contains one of our
-   page compositions; native Squarespace sections elsewhere are untouched.
-   Setting the panel controls as described in pages/README.md still helps
-   (fewer empty grid rows = less to cancel), but this is what actually
-   guarantees the gap is gone.
+   A Fluid Engine section does not take its height from its content. It takes
+   it from its grid: the Design panel's Row Count becomes a fixed track list,
+   e.g.
 
-   NOTE: written without calc() for the same reason as the breakout above —
-   Squarespace's CSS compiler rejects calc() that mixes units and would drop
-   this whole stylesheet. */
-.page-section:has(.vss-page),
-.page-section:has(.vss-page) .content-wrapper,
-.page-section:has(.vss-page) .section-border{
-  padding-top:0 !important;
-  padding-bottom:0 !important;
-  min-height:0 !important;
-}
-/* The fluid grid itself: no row/column gap, and let the block span freely. */
+       grid-template-rows: repeat(103, minmax(24px, auto));
+
+   and our code block is placed across a fixed span of those rows. Every row
+   is at least 24px tall whether or not anything sits in it. Our markup, by
+   contrast, is fluid — its real height changes as text reflows at different
+   widths. So the reserved height and the true height agree at roughly ONE
+   viewport width and diverge everywhere else:
+
+     reserved > content  ->  empty rows below the block  = the gap
+     reserved < content  ->  content spills past the section
+
+   That is also why the gap moves around with screen size instead of being a
+   constant. Note what it is NOT: the section's own padding measures
+   calc(1vmax / 10) — about 2px — so zeroing padding was never going to help.
+
+   The fix is to stop reserving rows and let the grid measure the block: one
+   auto row, with the block spanning it and all columns. Squarespace then sizes
+   the section from our content, which is what we wanted all along — the panel's
+   Row Count simply stops mattering for these sections.
+
+   Guarded by :has(.vss-page) so ONLY a section containing one of our page
+   compositions is affected; native Squarespace sections are untouched.
+   (:has() is confirmed working in Squarespace's CSS compiler.) */
 .page-section:has(.vss-page) .fluid-engine{
+  grid-template-rows:auto !important;
   row-gap:0 !important;
   column-gap:0 !important;
 }
-/* Individual block wrappers add their own margins; the code block is the only
-   thing in this section, so it needs none. */
-.page-section:has(.vss-page) .fe-block,
-.page-section:has(.vss-page) .sqs-block{
+/* The block carries a generated grid-area spanning the old fixed rows (e.g.
+   1 / 1 / 104 / 9). Left alone it would create 100+ implicit rows and put the
+   reserved height straight back, so pin it to the single auto row. */
+.page-section:has(.vss-page) .fluid-engine > .fe-block{
+  grid-area:1 / 1 / 2 / -1 !important;
   margin:0 !important;
   padding:0 !important;
+}
+/* Fill Screen (when left on) holds the section at a fraction of the viewport
+   and, with centered alignment, pads our block out on both sides. Turning it
+   off in the panel is the primary fix; this is the belt-and-braces. */
+.page-section:has(.vss-page){
+  min-height:0 !important;
 }
 
 /* ==========================================================================
