@@ -68,10 +68,26 @@ Section must stop imposing its own grid and padding:
 
 1. Delete the page's old separate code blocks **and** any native text blocks
    whose content now lives inside this composition.
-2. New Section → **Full Bleed**, content width **Wide/Full**, Section
-   **padding top & bottom = 0**, background **none** (each band carries its own).
-3. Paste the page's `.html` into one Code Block.
-4. Make sure `custom-css.css` is in Design → Custom CSS (only needed once, site-wide).
+2. New Section → content width **Wide/Full**, background **none** (each band
+   carries its own).
+3. In the section's **Design** tab (the Fluid Engine editor):
+   - **Fill Screen** → **off**. Left on, it stretches the section to a fraction
+     of the viewport, which is dead space above and below our content.
+   - **Gap** → the tightest option.
+   - **Row Count** → lower it until there are no empty grid rows left, and drag
+     the code block so it spans from the first row to the last.
+   - **Alignment** → top.
+4. Paste the page's `.html` into one Code Block.
+5. Make sure `custom-css.css` is in Design → Custom CSS (only needed once, site-wide).
+
+**There is no padding control.** Fluid Engine only offers the five settings
+above — earlier versions of these instructions said to set "Section padding top
+& bottom = 0", and that option does not exist. The section's own vertical
+padding, grid gap, and fill-screen height are zeroed **in CSS instead**, by the
+*Host section reset* rules in `custom-css.css` (end of section 2). Those rules
+are guarded by `:has(.vss-page)`, so they only touch the section holding one of
+our page compositions. Step 3 is still worth doing — it means there's less for
+the CSS to cancel — but the reset is what actually guarantees the gaps go.
 
 ## Previewing locally
 

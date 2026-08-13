@@ -515,6 +515,44 @@
   .vss-section-cta:hover svg{transform:none;}
 }
 
+/* ---- Host section reset (Fluid Engine) -------------------------------- */
+/* Squarespace's newer "Fluid Engine" section editor does NOT expose a
+   top/bottom padding control — the Design panel only offers Row Count, Gap,
+   Fill Screen, Height and Alignment. So the section's own vertical padding,
+   its grid row gap, and (with Fill Screen on) its min-height can't be zeroed
+   from the UI, and they land as stray space above and below our page block —
+   the "weird gaps between sections".
+
+   These rules zero that space in CSS instead. Every rule is guarded by
+   :has(.vss-page), so it applies ONLY to the section that contains one of our
+   page compositions; native Squarespace sections elsewhere are untouched.
+   Setting the panel controls as described in pages/README.md still helps
+   (fewer empty grid rows = less to cancel), but this is what actually
+   guarantees the gap is gone.
+
+   NOTE: written without calc() for the same reason as the breakout above —
+   Squarespace's CSS compiler rejects calc() that mixes units and would drop
+   this whole stylesheet. */
+.page-section:has(.vss-page),
+.page-section:has(.vss-page) .content-wrapper,
+.page-section:has(.vss-page) .section-border{
+  padding-top:0 !important;
+  padding-bottom:0 !important;
+  min-height:0 !important;
+}
+/* The fluid grid itself: no row/column gap, and let the block span freely. */
+.page-section:has(.vss-page) .fluid-engine{
+  row-gap:0 !important;
+  column-gap:0 !important;
+}
+/* Individual block wrappers add their own margins; the code block is the only
+   thing in this section, so it needs none. */
+.page-section:has(.vss-page) .fe-block,
+.page-section:has(.vss-page) .sqs-block{
+  margin:0 !important;
+  padding:0 !important;
+}
+
 /* ==========================================================================
    3. GLOBAL TYPE & CHROME
    Small site-wide tweaks that apply outside the page code blocks.
