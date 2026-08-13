@@ -89,6 +89,13 @@ are guarded by `:has(.vss-page)`, so they only touch the section holding one of
 our page compositions. Step 3 is still worth doing — it means there's less for
 the CSS to cancel — but the reset is what actually guarantees the gaps go.
 
+**Header clearance.** The section padding the reset removes was also what held
+the first band clear of the site header, so `.vss-band--pagehead` now carries
+that clearance itself, via the `--vss-header-clear` / `--vss-header-clear-sm`
+tokens in section 1. If a page's title ever sits too close to (or under) the
+header, those two values are the dial. The home hero is exempt on purpose — it
+is meant to run full-bleed underneath the header.
+
 ## Previewing locally
 
 The files are self-contained. To eyeball one, concatenate the tokens and the

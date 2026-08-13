@@ -35,6 +35,15 @@
   --vss-section-y: clamp(3rem, 6vw, 6rem); /* padding above/below each section */
   --vss-gap: clamp(1rem, 2.5vw, 2rem);     /* generic gap between items        */
 
+  /* Clearance for the site header above a page's OPENING band. The host
+     section reset (end of section 2) zeroes the Squarespace section padding
+     that used to provide this, so the opening band has to carry it itself or
+     its title slides under the fixed header. Tune it here if the header's
+     height ever changes. The home hero deliberately does NOT use this — it is
+     meant to sit under the header. */
+  --vss-header-clear: 6.5rem;
+  --vss-header-clear-sm: 4.25rem;          /* shorter mobile header            */
+
   /* ---- Brand palette --------------------------------------------------- */
   --vss-blue: #2f6bff;
   --vss-blue-dark: #1f5be0;
@@ -245,6 +254,11 @@
      next band, so a rule on top of it just reads as a seam. */
   background:linear-gradient(180deg,#eef2f9,#ffffff);
   padding-block:clamp(2.5rem,5vw,4.5rem);
+  /* Header clearance — this is a page's first band, and the host section reset
+     zeroed the section padding that used to hold it clear of the header.
+     Written as its own declaration (not folded into padding-block) so the
+     bottom padding above still applies. */
+  padding-top:var(--vss-header-clear, 6.5rem);
 }
 .vss-pagehead{text-align:center;}
 
@@ -288,7 +302,10 @@
    (Placed AFTER the rules it overrides — same specificity, so source order
    decides.) */
 @media (max-width:640px){
-  .vss-band--pagehead{padding-block:1.6rem 1.9rem;}
+  .vss-band--pagehead{
+    padding-block:1.6rem 1.9rem;
+    padding-top:var(--vss-header-clear-sm, 4.25rem);
+  }
   /* The title has to out-rank a bold sans subhead further down the page, and
      bold sans reads heavier than a regular-weight serif at the same size — so
      the serif needs a clear size advantage, not parity. */
