@@ -515,6 +515,10 @@
 .vss-card__title{margin:0 0 10px;font-size:1.5rem;font-weight:600;letter-spacing:normal;color:var(--vss-ink,#141824);line-height:1.2;}
 .vss-card__desc{margin:0;font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);color:var(--vss-muted,#6b7280);font-size:1.02rem;line-height:1.5;}
 .vss-cta-row{display:flex;justify-content:center;margin-top:var(--vss-section-y, clamp(3rem,6vw,6rem));}
+/* In a page header the same row sits directly under the meta line, so the
+   section-scale margin above would cut the button loose from the block it
+   belongs to (and crowd the band's lower edge). Keep it in the group. */
+.vss-pagehead .vss-cta-row{margin-top:clamp(1.5rem,3vw,2.25rem);}
 
 /* ---- Reduced motion --------------------------------------------------- */
 @media (prefers-reduced-motion:reduce){
