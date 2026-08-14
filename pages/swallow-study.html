@@ -6,11 +6,17 @@
   section; don't add a footer band here.)
 
   SQUARESPACE SECTION SETUP (do this once so the grid stops fighting us):
-    • Put this block in its own Section.
-    • Section → Background: white. ("None" lets the template's grey show
-      through — that's what caused the grey bands.)
-    • Section → Width: Full Bleed.  Content width: Wide/Full.
-    • Section → Padding top & bottom: 0.  (Spacing is owned by these bands.)
+    • Put this block in its own Section, and in ONE Code Block.
+    • Section → Background: none. Each band below carries its own background,
+      and the page's own white sits over the template's grey.
+    • Content width: Wide/Full.
+    • Design tab → Fill Screen: OFF. Left on, it holds the section at a
+      fraction of the viewport and pads the block out on both sides.
+    • Design tab → Alignment: top.
+    • Gap and Row Count don't matter — custom-css.css collapses the fluid
+      grid to a single auto row so the section sizes to our content.
+    Section padding is NOT the dial: it measures about 2px. See pages/README.md
+    ("Why the gaps happened") for the full explanation.
 
   SHAPE OF THIS PAGE — it's an ARTICLE, not a landing page:
     header → left-aligned explainer sections at a readable measure → CTA.
@@ -68,7 +74,8 @@
       <div class="vss-article">
         <h2 class="vss-h2 vss-h2--sub">What is a swallow study?</h2>
         <div class="vss-prose">
-          <p>Swallowing problems are common, treatable, and often invisible from the outside. A swallow study lets us see exactly what is happening in the throat during eating and drinking, so treatment is based on what we observe rather than what we guess.</p>
+          <p>A swallow study is a short, in-person assessment of how you eat and drink. A small camera passed through the nose gives a clear view of the throat while you swallow food and liquid, so the parts of a swallow that cannot be seen or heard from the outside become visible.</p>
+          <p>What we see decides what comes next: which textures and liquids are safe right now, which positions and techniques help, and what therapy should work on.</p>
           <p>Vista Speech and Swallowing performs endoscopic swallow studies for adults in our Arvada office and on site at facilities and partner clinics across the Denver metro area.</p>
         </div>
 

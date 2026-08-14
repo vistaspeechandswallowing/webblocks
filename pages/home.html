@@ -13,10 +13,12 @@
   SQUARESPACE SECTION SETUP (do this once, so the grid stops fighting us):
     • Put this block in its own Section.
     • Section → Background: none (each part below carries its own background).
-    • Section → Width: Full Bleed.  Content width: Wide/Full.
-    • Section → Padding (top & bottom): 0.  (Spacing is owned by this block now.)
-    That removes the per-section vh/vmax padding and the 24-column placement
-    that made blocks drift apart on large screens.
+    • Content width: Wide/Full.
+    • Design tab → Fill Screen: OFF, Alignment: top.
+    • Gap and Row Count don't matter — custom-css.css collapses the fluid grid
+      to a single auto row so the section sizes to our content.
+    Section padding is NOT the dial: it measures about 2px. See pages/README.md
+    ("Why the gaps happened") for the full explanation.
 
   STYLING lives in pages/custom-css.css (Design → Custom CSS): the shared tokens
   AND the shared components (.vss-btn, .vss-hero, .vss-badge, .vss-card, …). This
