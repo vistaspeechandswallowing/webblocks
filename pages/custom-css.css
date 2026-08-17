@@ -53,6 +53,10 @@
   --vss-navy-b: #212c46;
   --vss-ink: #141824;
   --vss-muted: #6b7280;
+  /* The tint laid over the home hero photo. It carries its own alpha, so this
+     one value is BOTH the shade of blue and how much of the photo shows
+     through — tune the colour and the .9 together here, not in the markup. */
+  --vss-hero-overlay: rgba(43, 58, 92, 0.9);
 
   /* ---- Shape / type ---------------------------------------------------- */
   --vss-radius: 24px;
@@ -162,7 +166,9 @@
   color:#4a5773;   /* muted navy, not gray */
 }
 
-/* ---- Hero band (dark photo bg set inline on the section) -------------- */
+/* ---- Hero band -------------------------------------------------------
+   The photo itself stays inline on the section (it's the one genuinely
+   page-specific value); its overlay tint comes from --vss-hero-overlay above. */
 .vss-band--hero{
   position:relative;
   background-size:cover;
