@@ -201,6 +201,10 @@
 /* ---- Trust badges (navy bar) ------------------------------------------ */
 .vss-band--badges{
   background:linear-gradient(180deg,var(--vss-navy-a,#28344f),var(--vss-navy-b,#212c46));
+  /* Shallower than a normal band on purpose. This is a strip of three facts
+     between the hero and the services — a divider, not a section of its own,
+     so it shouldn't claim a section's full vertical rhythm. */
+  padding-block:clamp(1.75rem, 3vw, 2.5rem);
 }
 .vss-badges{
   display:flex;align-items:center;justify-content:center;
