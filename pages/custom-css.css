@@ -27,7 +27,11 @@
 :root{
   /* ---- Layout ---------------------------------------------------------- */
   --vss-max: 1180px;                       /* one content width, site-wide     */
-  --vss-gutter: clamp(20px, 5vw, 48px);    /* space from content to screen edge */
+  /* Space from content to screen edge. The FLOOR is what phones get (5vw is
+     only ~20px at 390px wide), and 20px left the article running nearly edge
+     to edge — a long measure with no margin to rest against. 28px gives the
+     text a visible margin without stealing a meaningful amount of line. */
+  --vss-gutter: clamp(28px, 5vw, 48px);
 
   /* ---- Vertical rhythm ------------------------------------------------- */
   /* Replace Squarespace's per-section vh/vmax padding. Grows with the screen
@@ -49,6 +53,9 @@
   --vss-blue-dark: #1f5be0;
   --vss-blue-light: #7ea2ff;
   --vss-blue-soft: rgba(47, 107, 255, 0.10);
+  /* A muted, readable blue for small type — the brand blue is tuned for
+     buttons and goes glary at label size on a pale ground. */
+  --vss-blue-deep: #3d5aa6;
   --vss-navy-a: #28344f;
   --vss-navy-b: #212c46;
   --vss-ink: #141824;
@@ -294,9 +301,14 @@
    inside the site. Use .vss-band--hero ONLY on the home page; every other page
    opens with this. */
 .vss-band--pagehead{
-  /* No bottom border — the gradient already resolves into the white of the
-     next band, so a rule on top of it just reads as a seam. */
-  background:linear-gradient(180deg,#eef2f9,#ffffff);
+  /* The gradient runs light-to-DEEP, not light-to-white. Fading into white
+     made the header dissolve into the section below it — no edge, so the page
+     read as one continuous surface. Ending on the deepest tint puts the most
+     colour exactly where the band meets the white article, and the rule below
+     then has two different grounds to sit between. (A hairline against a
+     white-to-white fade would just look like a stray line.) */
+  background:linear-gradient(180deg,#f7f9fd,#d7e3f7);
+  border-bottom:1px solid #c3d4ee;
   padding-block:clamp(2.5rem,5vw,4.5rem);
   /* Header clearance — this is a page's first band, and the host section reset
      zeroed the section padding that used to hold it clear of the header.
@@ -320,6 +332,23 @@
   font-size:clamp(1.02rem,1.5vw,1.15rem);
   line-height:1.6;color:#4a5773;
 }
+
+/* Sub-title — the formal name of what the page's plain-English title refers to
+   ("Swallow Study" → the FEES procedure). It belongs to the h1, so it sits
+   tight under it and ahead of the lede: brand blue and a shade smaller than
+   body copy, which reads as a label rather than as a second sentence. */
+.vss-page .vss-pagehead p.vss-pagehead__sub{
+  margin:0 auto .95rem;
+  max-width:660px;
+  font-size:clamp(.95rem,1.3vw,1.05rem);
+  font-weight:600;
+  line-height:1.4;
+  letter-spacing:.01em;
+  color:var(--vss-blue-deep,#3d5aa6);
+}
+/* Close the gap the h1 leaves when a sub-title follows it — the two are one
+   unit, and the h1's full margin would push them apart. */
+.vss-page .vss-pagehead h1:has(+ .vss-pagehead__sub){margin-bottom:.5rem;}
 
 /* Meta row — a few at-a-glance facts under the page title. Inline and light,
    so it informs without becoming a second banner. */
