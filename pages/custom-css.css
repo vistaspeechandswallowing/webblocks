@@ -131,6 +131,12 @@
   background:#cee1fc;
   padding-block:.55rem;
 }
+/* On a phone the strip wraps to two lines, and at the desktop size those lines
+   read as fine print rather than as the first thing on the page. Give it real
+   body-copy size and a little more room to sit in. */
+@media (max-width:640px){
+  .vss-band--intro{padding-block:.85rem;}
+}
 
 /* ---- Pill CTA button -------------------------------------------------- */
 .vss-btn{
@@ -162,8 +168,11 @@
 .vss-eyebrow{
   margin:0;text-align:center;
   font-style:italic;
-  font-size:clamp(.82rem,1.4vw,.95rem);
-  color:#4a5773;   /* muted navy, not gray */
+  /* The floor is the phone size, and it has to stay legible — this line is the
+     first thing on the page, so it can't read as fine print. */
+  font-size:clamp(.95rem,1.4vw,1rem);
+  line-height:1.45;
+  color:#3d4a66;   /* muted navy, not gray */
 }
 
 /* ---- Hero band -------------------------------------------------------
@@ -194,8 +203,11 @@
 }
 .vss-hero__actions{display:flex;gap:1.25rem;justify-content:center;flex-wrap:wrap;}
 @media (max-width:560px){
-  .vss-hero__actions{flex-direction:column;gap:.9rem;}
-  .vss-hero__actions .vss-btn{justify-content:center;width:100%;padding-left:28px;}
+  /* Stacked, but NOT stretched. A full-width pill turns a button into a banner:
+     the label floats in the middle of a huge blue field and stops looking like
+     something you press. Size it to its own content and centre it instead. */
+  .vss-hero__actions{flex-direction:column;gap:.9rem;align-items:center;}
+  .vss-hero__actions .vss-btn{width:auto;justify-content:center;padding-left:26px;}
 }
 
 /* ---- Trust badges (navy bar) ------------------------------------------ */
@@ -236,12 +248,34 @@
   .vss-badge__icon svg{width:28px;height:28px;}
   .vss-badge__label{font-size:.9rem;line-height:1.25;}
 }
-@media (max-width:420px){
-  .vss-badges{gap:8px;}
-  .vss-badge{gap:10px;}
-  .vss-badge__icon{width:50px;height:50px;}
-  .vss-badge__icon svg{width:24px;height:24px;}
-  .vss-badge__label{font-size:.8rem;}
+/* Three across is the right shape on a phone too — it keeps the bar shallow.
+   What made it look awkward was the labels, not the columns: each one wrapped
+   wherever it ran out of room, so the three sat at different line counts with
+   ragged orphans ("Accepting / New / Clients").
+
+   So the fix is to govern the wrap rather than abandon the layout:
+     • claw back width — drop this band's gutter to the minimum, since the
+       columns are the content here and don't need to line up with prose;
+     • balance the wrap, so a label that takes two lines splits evenly instead
+       of stranding one word;
+     • give every label the SAME two-line box (min-height), so the three icons
+       stay on one baseline whether a label wraps or not. That even top edge is
+       what reads as tidy.
+   The result is three columns of even, centred, two-line labels. */
+@media (max-width:560px){
+  .vss-badges{gap:10px;}
+  .vss-band--badges .vss-container{padding-inline:16px;}
+  .vss-badge{gap:12px;}
+  .vss-badge__icon{width:52px;height:52px;}
+  .vss-badge__icon svg{width:26px;height:26px;}
+  .vss-badge__label{
+    font-size:.88rem;
+    line-height:1.3;
+    /* Two lines' worth, reserved for every label. */
+    min-height:2.6em;
+    /* Split a two-line label evenly rather than leaving one word alone. */
+    text-wrap:balance;
+  }
 }
 
 /* ---- Section heading -------------------------------------------------- */
@@ -522,7 +556,10 @@
 .vss-card__media{aspect-ratio:16/12;background-size:cover;background-position:center;transition:transform .5s ease;}
 .vss-card:hover .vss-card__media{transform:scale(1.05);}
 .vss-card__body{padding:28px 30px 32px;flex:1;display:flex;flex-direction:column;}
-.vss-card__title{margin:0 0 10px;font-size:1.5rem;font-weight:600;letter-spacing:normal;color:var(--vss-ink,#141824);line-height:1.2;}
+/* Weight 400 — the theme serif's regular cut. A card title sits below the
+   section heading in the hierarchy, so it doesn't need 500's extra density;
+   at 1.5rem the regular cut still carries the line. */
+.vss-card__title{margin:0 0 10px;font-size:1.5rem;font-weight:400;letter-spacing:normal;color:var(--vss-ink,#141824);line-height:1.25;}
 .vss-card__desc{margin:0;font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);color:var(--vss-muted,#6b7280);font-size:1.02rem;line-height:1.5;}
 .vss-cta-row{display:flex;justify-content:center;margin-top:var(--vss-section-y, clamp(3rem,6vw,6rem));}
 /* In a page header the same row sits directly under the meta line, so the
