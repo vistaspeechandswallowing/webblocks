@@ -294,9 +294,14 @@
    inside the site. Use .vss-band--hero ONLY on the home page; every other page
    opens with this. */
 .vss-band--pagehead{
-  /* No bottom border — the gradient already resolves into the white of the
-     next band, so a rule on top of it just reads as a seam. */
-  background:linear-gradient(180deg,#eef2f9,#ffffff);
+  /* The gradient runs light-to-DEEP, not light-to-white. Fading into white
+     made the header dissolve into the section below it — no edge, so the page
+     read as one continuous surface. Ending on the deepest tint puts the most
+     colour exactly where the band meets the white article, and the rule below
+     then has two different grounds to sit between. (A hairline against a
+     white-to-white fade would just look like a stray line.) */
+  background:linear-gradient(180deg,#f7f9fd,#d7e3f7);
+  border-bottom:1px solid #c3d4ee;
   padding-block:clamp(2.5rem,5vw,4.5rem);
   /* Header clearance — this is a page's first band, and the host section reset
      zeroed the section padding that used to hold it clear of the header.
