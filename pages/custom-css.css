@@ -556,7 +556,10 @@
 .vss-card__media{aspect-ratio:16/12;background-size:cover;background-position:center;transition:transform .5s ease;}
 .vss-card:hover .vss-card__media{transform:scale(1.05);}
 .vss-card__body{padding:28px 30px 32px;flex:1;display:flex;flex-direction:column;}
-.vss-card__title{margin:0 0 10px;font-size:1.5rem;font-weight:600;letter-spacing:normal;color:var(--vss-ink,#141824);line-height:1.2;}
+/* Weight 500 to match the h1 and .vss-h2. At 600 the theme serif thickens into
+   its heavy cut and reads as denser than the page headings above it — a card
+   title shouldn't out-weigh the section it sits under. */
+.vss-card__title{margin:0 0 10px;font-size:1.5rem;font-weight:500;letter-spacing:normal;color:var(--vss-ink,#141824);line-height:1.25;}
 .vss-card__desc{margin:0;font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);color:var(--vss-muted,#6b7280);font-size:1.02rem;line-height:1.5;}
 .vss-cta-row{display:flex;justify-content:center;margin-top:var(--vss-section-y, clamp(3rem,6vw,6rem));}
 /* In a page header the same row sits directly under the meta line, so the
