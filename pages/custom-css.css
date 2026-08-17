@@ -49,6 +49,9 @@
   --vss-blue-dark: #1f5be0;
   --vss-blue-light: #7ea2ff;
   --vss-blue-soft: rgba(47, 107, 255, 0.10);
+  /* A muted, readable blue for small type — the brand blue is tuned for
+     buttons and goes glary at label size on a pale ground. */
+  --vss-blue-deep: #3d5aa6;
   --vss-navy-a: #28344f;
   --vss-navy-b: #212c46;
   --vss-ink: #141824;
@@ -325,6 +328,23 @@
   font-size:clamp(1.02rem,1.5vw,1.15rem);
   line-height:1.6;color:#4a5773;
 }
+
+/* Sub-title — the formal name of what the page's plain-English title refers to
+   ("Swallow Study" → the FEES procedure). It belongs to the h1, so it sits
+   tight under it and ahead of the lede: brand blue and a shade smaller than
+   body copy, which reads as a label rather than as a second sentence. */
+.vss-page .vss-pagehead p.vss-pagehead__sub{
+  margin:0 auto .95rem;
+  max-width:660px;
+  font-size:clamp(.95rem,1.3vw,1.05rem);
+  font-weight:600;
+  line-height:1.4;
+  letter-spacing:.01em;
+  color:var(--vss-blue-deep,#3d5aa6);
+}
+/* Close the gap the h1 leaves when a sub-title follows it — the two are one
+   unit, and the h1's full margin would push them apart. */
+.vss-page .vss-pagehead h1:has(+ .vss-pagehead__sub){margin-bottom:.5rem;}
 
 /* Meta row — a few at-a-glance facts under the page title. Inline and light,
    so it informs without becoming a second banner. */
