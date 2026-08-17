@@ -27,7 +27,11 @@
 :root{
   /* ---- Layout ---------------------------------------------------------- */
   --vss-max: 1180px;                       /* one content width, site-wide     */
-  --vss-gutter: clamp(20px, 5vw, 48px);    /* space from content to screen edge */
+  /* Space from content to screen edge. The FLOOR is what phones get (5vw is
+     only ~20px at 390px wide), and 20px left the article running nearly edge
+     to edge — a long measure with no margin to rest against. 28px gives the
+     text a visible margin without stealing a meaningful amount of line. */
+  --vss-gutter: clamp(28px, 5vw, 48px);
 
   /* ---- Vertical rhythm ------------------------------------------------- */
   /* Replace Squarespace's per-section vh/vmax padding. Grows with the screen
