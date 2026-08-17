@@ -39,9 +39,10 @@
 
   <!-- ===== 2. HERO (dark photo background) =================================
        The background photo is the only page-specific style, so it's set inline
-       here (a darkening overlay gradient is layered over the image). To change
-       the hero image, swap the url() below. -->
-  <section class="vss-band vss-band--hero" style="background-image:linear-gradient(rgba(20,24,36,.6),rgba(20,24,36,.6)),url('https://images.squarespace-cdn.com/content/v1/686b3fd900681e61b11bb5ae/6932b12c-6ef6-4944-851f-bd698a8d9d78/pexels-ron-lach-10388739.jpg?format=2500w');">
+       here. To change the hero image, swap the url() below. The tint layered
+       over it is NOT page-specific — it's --vss-hero-overlay in
+       pages/custom-css.css, so change the shade or the opacity there. -->
+  <section class="vss-band vss-band--hero" style="background-image:linear-gradient(var(--vss-hero-overlay,rgba(43,58,92,.9)),var(--vss-hero-overlay,rgba(43,58,92,.9))),url('https://images.squarespace-cdn.com/content/v1/686b3fd900681e61b11bb5ae/6932b12c-6ef6-4944-851f-bd698a8d9d78/pexels-ron-lach-10388739.jpg?format=2500w');">
     <div class="vss-container vss-hero">
       <h1>Personalized therapy for swallowing, voice, and cognition.</h1>
       <p>Specialized expertise for children and adults, whether in our Arvada clinic or your living room, so patients can eat, speak, and be heard again.</p>
