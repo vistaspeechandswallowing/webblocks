@@ -31,6 +31,8 @@ webblocks/
 ├── site/               # Site-wide code injection (pasted once, not per page)
 │   ├── header-injection.html  # MedicalClinic JSON-LD → Code Injection → Header
 │   └── validate-schema.py     # Checks that JSON-LD against schema.org
+├── paste/              # GENERATED paste-ready output — never edit by hand
+│   └── contact-code-block.html
 └── tools/
     └── paste.py            # Strips repo comments before pasting into Squarespace
 ```
@@ -45,6 +47,9 @@ python3 tools/paste.py pages/home.html            # or just read it
 
 # several files are concatenated in order — one contact code block from two:
 python3 tools/paste.py pages/contact.html site/header-injection.html | pbcopy
+
+# or write the standard outputs to paste/, to copy from GitHub without a terminal:
+python3 tools/paste.py --refresh
 ```
 
 These files are heavily commented on purpose — the notes explain why a band is
@@ -60,6 +65,23 @@ deployed:
 
 ```html
 <!-- vss: pages/contact.html @ d459974 -->
+```
+
+### Copying without a terminal
+
+`python3 tools/paste.py --refresh` writes the paste-ready output into `paste/`,
+which can then be copied straight from GitHub's file view with the
+copy-raw-contents button. Two things get pasted into Squarespace:
+
+| What | Copy from |
+| --- | --- |
+| The `/contact` Code Block | `paste/contact-code-block.html` |
+| Design → Custom CSS | `pages/custom-css.css` (pasted verbatim, so there's nothing to generate) |
+
+**`paste/` is generated.** Edit the sources and re-run `--refresh`; never edit
+those files directly, or the repo stops being the truth.
+
+```text
 ```
 
 ## Why two areas?
