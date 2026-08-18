@@ -9,22 +9,43 @@ site/
 
 ## `header-injection.html`
 
-Holds the practice's `MedicalBusiness` JSON-LD. It's site-wide on purpose: the
+Holds the practice's `MedicalClinic` JSON-LD. It's site-wide on purpose: the
 markup describes the *business*, not a page, so it should be present on every
 URL rather than only on `/contact`. That's also why
 `pages/contact.html` carries no schema of its own — putting it in both
 places would mean two copies to keep in sync.
 
-### Before it goes live
+### The one thing still missing: `sameAs`
 
-One value is still a placeholder:
+`sameAs` is a list of other places on the web that are *this same business* —
+its Google Business Profile, its Facebook page, its Yelp listing. It's how you
+tell Google "the markup on this website and that listing over there describe one
+practice, not two." Without it Google has to infer the connection from the name
+and address matching, which usually works but isn't guaranteed.
 
-| Placeholder | Where to get it |
-| --- | --- |
-| `sameAs: ["[GBP LISTING URL NEEDED]"]` | The public Google Business Profile listing URL |
+The property is currently **left out** rather than left as a placeholder — an
+absent property is valid, a `"[…]"` string is not. To add it:
 
-Don't ship a bracketed placeholder. If a value isn't available yet, **delete
-that property** — an absent property is valid, a `"[…]"` string is not.
+1. Open [Google Maps](https://www.google.com/maps) and search for
+   **Vista Speech & Swallowing**.
+2. Click the practice's listing so its panel opens on the left.
+3. Hit **Share** in that panel, then **Copy link**.
+4. Paste it into `header-injection.html` as the last property, after
+   `knowsLanguage` — and add a comma to the end of the `knowsLanguage` line,
+   or the JSON breaks:
+
+   ```json
+     "knowsLanguage": ["English", "Spanish"],
+     "sameAs": ["https://maps.app.goo.gl/…"]
+   ```
+
+The short `maps.app.goo.gl/…` link is fine. If you'd rather have the long form,
+the address bar URL of the listing page works too. Run the validator (below)
+afterwards to confirm nothing broke.
+
+Worth adding the practice's other profiles to the same list as they appear —
+Facebook, Instagram, Healthgrades, Psychology Today, the ASHA directory. Each
+one is another confirmation that they're all the same practice.
 
 ### Image URLs
 
@@ -74,8 +95,10 @@ they must not *disagree*:
 
 - Leave the Business Information fields blank, **or** fill them in with exactly
   the values in `header-injection.html` (same street string, same phone).
-- Squarespace's block is the narrower type (`LocalBusiness`); ours is the more
-  specific `MedicalBusiness`, which is a subtype of it — no conflict there.
+- Squarespace's block is the broad type (`LocalBusiness`); ours is
+  `MedicalClinic`, which sits below it in the same family
+  (`MedicalClinic` → `MedicalBusiness` → `LocalBusiness`) — no conflict there,
+  just more detail.
 - Watch the address in particular. Squarespace's address widget likes to
   normalise `Ste` to `Suite`; if it does, the two blocks disagree and the
   Google Business Profile match is lost.
@@ -96,8 +119,32 @@ facts and must be identical — a divergence is a bug, not a variation:
 
 ### Validating
 
-Paste the contents of the `<script>` tag into the
-[Rich Results Test](https://search.google.com/test/rich-results) (Code tab) or
-the [Schema Markup Validator](https://validator.schema.org/) after filling in
-the placeholders. Do the check again on the live URL once it's installed, so
-Squarespace's own block is in the picture.
+Two passes, and they check different things.
+
+**1. The local validator — run this after every edit.**
+
+```bash
+python3 site/validate-schema.py
+```
+
+It checks the markup against the real schema.org vocabulary (downloaded once and
+cached): that every property exists, that the type it's attached to actually
+accepts it, that nested values are the right types, that URLs are URLs, and that
+no placeholder survived. This is not busywork — its first run caught two bugs
+that looked completely fine by eye:
+
+- `medicalSpecialty` was on `MedicalBusiness`, which doesn't accept it. The type
+  is now `MedicalClinic`, which does (and is more accurate anyway).
+- the languages were on `availableLanguage`, which belongs to `ContactPoint`
+  and `ServiceChannel` — not to an organization. They're on `knowsLanguage` now.
+
+Both would have been **silently dropped** by anything reading the page rather
+than reported as an error. That's the failure mode this catches.
+
+**2. Google's own tools — run these on the live URL.**
+
+The local validator knows the vocabulary, not Google's requirements for a rich
+result. Once the markup is installed, run the
+[Rich Results Test](https://search.google.com/test/rich-results) and the
+[Schema Markup Validator](https://validator.schema.org/) against the real page,
+which is also the only way to see our block and Squarespace's together.

@@ -5,7 +5,15 @@
   Paste this WHOLE file. It is site-wide — NOT a per-page injection and NOT a
   Code Block. One copy, every page.
 
-  WHAT'S IN IT: the complete MedicalBusiness JSON-LD for the practice.
+  WHAT'S IN IT: the complete MedicalClinic JSON-LD for the practice.
+
+  WHY MedicalClinic AND NOT MedicalBusiness: medicalSpecialty is not a valid
+  property of MedicalBusiness — schema.org puts it on MedicalClinic, Hospital,
+  Physician, and MedicalOrganization only. MedicalClinic is a subclass of
+  MedicalBusiness (and so of LocalBusiness), so nothing is lost by being more
+  specific, and the specialty becomes legal. Likewise the languages are on
+  knowsLanguage, not availableLanguage: that one belongs to ContactPoint and
+  ServiceChannel, not to an organization.
 
   ABOUT SQUARESPACE'S OWN BLOCK: Squarespace emits its own LocalBusiness JSON-LD
   from the Business Information settings. It is essentially empty (little more
@@ -19,9 +27,15 @@
   bug — fix both. In particular "8850 W 58th Ave Ste 201" matches the Google
   Business Profile character for character; do NOT expand "Ste" to "Suite".
 
-  STILL TO FILL IN: "sameAs" — the public Google Business Profile listing URL.
-  Leave the placeholder in and that property is invalid; strip the property out
-  entirely rather than shipping a "[…]" string.
+  STILL TO ADD: "sameAs" — the public Google Business Profile listing URL, which
+  is what tells Google that this markup and that listing are the same business.
+  It is LEFT OUT rather than left as a placeholder: an absent property is valid,
+  a "[…]" string is not. To add it, put this line back after "knowsLanguage"
+  (mind the comma on the line above):
+
+      "sameAs": ["https://…the GBP listing URL…"]
+
+  See site/README.md for where to find that URL.
 
   IMAGE URLS: served from the webimages repo through jsDelivr, PINNED TO A
   COMMIT (the @7de07fd… part) — the same workflow the page compositions use for
@@ -38,7 +52,7 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "MedicalBusiness",
+  "@type": "MedicalClinic",
   "name": "Vista Speech & Swallowing",
   "url": "https://vistaspeech.com",
   "telephone": "+17205099640",
@@ -73,7 +87,6 @@
     { "@type": "City", "name": "Lakewood" },
     { "@type": "State", "name": "Colorado" }
   ],
-  "availableLanguage": ["English", "Spanish"],
-  "sameAs": ["[GBP LISTING URL NEEDED]"]
+  "knowsLanguage": ["English", "Spanish"]
 }
 </script>

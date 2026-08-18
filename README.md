@@ -29,7 +29,8 @@ webblocks/
 │   ├── home.html           # The Home page
 │   └── contact.html        # The Contact page
 └── site/               # Site-wide code injection (pasted once, not per page)
-    └── header-injection.html  # MedicalBusiness JSON-LD → Code Injection → Header
+    ├── header-injection.html  # MedicalClinic JSON-LD → Code Injection → Header
+    └── validate-schema.py     # Checks that JSON-LD against schema.org
 ```
 
 ## Why two areas?
