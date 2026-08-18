@@ -160,10 +160,14 @@
 
 button.vss-btn{
   border:0;
-  font-family:inherit;
   cursor:pointer;
   -webkit-appearance:none;
   appearance:none;
+  /* Repeat the sans rather than saying `inherit`. This selector is
+     `button.vss-btn` (0,1,1) and outranks `.vss-btn` (0,1,0) no matter the
+     source order, so `inherit` here doesn't fall back to the .vss-btn font —
+     it beats it, and the button picks up the theme's serif instead. */
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
 }
 
 .vss-btn{
