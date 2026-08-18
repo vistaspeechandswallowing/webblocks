@@ -2,10 +2,73 @@
 
 **Site-wide code, pasted once into Squarespace — not per page, not a Code Block.**
 
+Code Injection needs a **Core plan or higher**. If the site isn't on one, read
+"Do you actually need to upgrade?" below before paying for it — there's a free
+path that covers most of the ground.
+
 ```
 site/
 └── header-injection.html   # Settings → Advanced → Code Injection → HEADER
 ```
+
+## Do you actually need to upgrade?
+
+Code Injection is a paid tier on Squarespace — **Core plan or higher**. Before
+paying for it, check two things, because there's a good chance the answer is
+"no upgrade needed" or "not worth it."
+
+**1. You may already have it.** Putting JavaScript in a Code Block is the *same*
+premium tier as Code Injection (Core and up). `pages/home.html` contains a
+`<script>` — the hero parallax. So: open the live home page and scroll. **If the
+hero photo drifts more slowly than the page, the site is already on Core or
+higher, Code Injection is already included, and there is nothing to buy.**
+(Check Settings → Billing to confirm.) If the photo is locked to the page, the
+plan is below Core and the script is being stripped.
+
+**2. If you are below Core, the upgrade probably isn't worth it for this.**
+Structured data is a small part of local search. In rough order of impact:
+
+| Lever | Cost | Where |
+| --- | --- | --- |
+| A complete, active **Google Business Profile** | free | This is the big one for "speech therapy near me" — hours, photos, services, reviews, Q&A |
+| **Business Information settings** filled in | free | Settings → Business Information — feeds Squarespace's own generated markup |
+| **Readable NAP text on the page** | free | `pages/contact.html` — done |
+| **This JSON-LD** | Core plan | Adds specialty, service area, languages, and the GBP link |
+
+The JSON-LD is a refinement on top of the first three, not a substitute for
+them. It's worth having; it is not worth doubling the hosting bill for on its
+own. If the plan gets upgraded later for other reasons, it's a two-minute paste.
+
+### Working with Squarespace instead of around it
+
+Whatever the plan, fill in **Settings → Business Information** completely —
+name, address, phone, hours. Squarespace generates its own structured data from
+those fields, and that generated markup can't be edited or removed. Filling the
+panel in is what turns that block from a near-empty stub into a useful one, and
+it's free on every plan.
+
+Use exactly the values in the table further down. Watch the address field in
+particular: it likes to normalise `Ste` to `Suite`, which breaks the character-
+for-character match with the Google Business Profile.
+
+To see what Squarespace is currently emitting, run the live URL through the
+[Rich Results Test](https://search.google.com/test/rich-results) and read the
+detected items. That's also the only way to know what our block would be adding
+on top, rather than guessing.
+
+### If you have Code Blocks but not Code Injection
+
+JSON-LD does **not** have to be in the `<head>`. Google reads structured data
+anywhere in the document, so the same `<script>` tag pasted into a Code Block in
+the page body works. Two caveats:
+
+- A `<script>` tag in a Code Block is gated at the same Core tier, so if
+  Code Injection is out of reach this probably is too — but it costs nothing to
+  paste it in and see whether it survives.
+- A Code Block lives on one page, so the markup is no longer site-wide. Put it
+  on `/contact` first; that's the page the business facts belong to. Adding it
+  to other pages means maintaining copies, which is exactly the divergence this
+  repo keeps warning about — so don't, unless there's a reason.
 
 ## `header-injection.html`
 
@@ -93,8 +156,10 @@ Information**, and there's no switch to turn it off. Ours sits alongside it.
 Two JSON-LD blocks on a page is legal and search engines reconcile them, but
 they must not *disagree*:
 
-- Leave the Business Information fields blank, **or** fill them in with exactly
-  the values in `header-injection.html` (same street string, same phone).
+- **Fill the Business Information fields in**, using exactly the values in
+  `header-injection.html` (same street string, same phone). Leaving them blank
+  is the other consistent option, but it wastes free markup — see "Working with
+  Squarespace instead of around it" above.
 - Squarespace's block is the broad type (`LocalBusiness`); ours is
   `MedicalClinic`, which sits below it in the same family
   (`MedicalClinic` → `MedicalBusiness` → `LocalBusiness`) — no conflict there,
