@@ -1,0 +1,114 @@
+<!-- ===========================================================================
+  SITE-WIDE HEADER CODE INJECTION
+  ---------------------------------------------------------------------------
+  WHERE THIS GOES: Squarespace → Settings → Advanced → Code Injection → HEADER.
+  It is site-wide — NOT a per-page injection. One copy, every page.
+
+  PASTE IT WITH:  python3 tools/paste.py site/header-injection.html | pbcopy
+  That drops this comment header, which is ~3.5KB of notes a visitor would
+  otherwise download on every page view.
+
+  NO CODE INJECTION ON THIS PLAN? Then paste the <script> tag below at the END
+  of the /contact Code Block instead. JSON-LD works anywhere in the document,
+  not only in the head. It stops being site-wide, and it can be stripped
+  silently if the plan's rules change — so verify it with the Rich Results Test
+  after pasting, and again after any plan change. Either way this file stays the
+  ONE copy: don't paste it into the page files in the repo. See README.md.
+
+  WHAT'S IN IT: the complete MedicalClinic JSON-LD for the practice.
+
+  WHY MedicalClinic AND NOT MedicalBusiness: medicalSpecialty is not a valid
+  property of MedicalBusiness — schema.org puts it on MedicalClinic, Hospital,
+  Physician, and MedicalOrganization only. MedicalClinic is a subclass of
+  MedicalBusiness (and so of LocalBusiness), so nothing is lost by being more
+  specific, and the specialty becomes legal. Likewise the languages are on
+  knowsLanguage, not availableLanguage: that one belongs to ContactPoint and
+  ServiceChannel, not to an organization.
+
+  ABOUT SQUARESPACE'S OWN BLOCKS: Squarespace emits three JSON-LD blocks of its
+  own (WebSite, Organization, LocalBusiness) and they cannot be turned off. Ours
+  sits alongside them; several JSON-LD blocks on a page is valid, and search
+  engines reconcile them. Once Business Information is filled in they carry real
+  content — see README.md for what they actually contain, verified from the live
+  page, and for the one field in them that needs fixing (Squarespace ships
+  PLACEHOLDER social links that claim the practice is squarespace's own Facebook,
+  Instagram, and Twitter).
+
+  MUST MATCH pages/contact.html: the street address, phone, and hours
+  here are the same facts shown on /contact. If they ever diverge, that is a
+  bug — fix both. In particular "8850 W 58th Ave Ste 201" matches the Google
+  Business Profile character for character; do NOT expand "Ste" to "Suite".
+
+  "sameAs" IS COMPLETE: the Google Business Profile listing and the practice's
+  Instagram. That first URL is the important one — it tells Google this markup
+  and that Maps listing are the same business. It's written in Google's Place ID
+  form rather than as a maps.app.goo.gl short link or an address-bar URL: the
+  Place ID is Google's permanent identifier for the place, so the link survives
+  renames and moves, needs no redirect, and carries no viewport coordinates to
+  go stale.
+
+  Add other REAL profiles to the same list as they appear (Facebook,
+  Healthgrades, Psychology Today, the ASHA directory); each is another
+  confirmation of the same practice. Never add a bracketed placeholder — an
+  absent entry is valid, a "[…]" string is not — and never add a profile that
+  isn't the practice's own. sameAs asserts "this is the same entity", which is
+  how Squarespace's default social links ended up claiming the practice was
+  Squarespace. See site/README.md.
+
+  IMAGE URLS: served from the webimages repo through jsDelivr, PINNED TO A
+  COMMIT (the @7de07fd… part) — the same workflow the page compositions use for
+  photos. Pin to a commit, never to a branch: a branch URL changes meaning when
+  the repo changes, and jsDelivr caches branch URLs for only 7 days. A
+  github.com/…/blob/… link is NOT an image URL — it's an HTML page — and
+  raw.githubusercontent.com is not meant for production hotlinking.
+
+    • "logo"  — Organization.logo. Correct home for the wordmark.
+    • "image" — Google wants a PHOTO of the business here (the premises, the
+      team, the practitioner), not a 2.5:1 wordmark. The logo is standing in so
+      the property isn't empty; swap it for a real photo when there is one.
+=========================================================================== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MedicalClinic",
+  "name": "Vista Speech & Swallowing",
+  "url": "https://vistaspeech.com",
+  "telephone": "+17205099640",
+  "email": "nicholas@vistaspeech.com",
+  "image": "https://cdn.jsdelivr.net/gh/vistaspeechandswallowing/webimages@7de07fdc48dc651efab365cca946b5a8b2c4add1/VSS%20Logo.png",
+  "logo": "https://cdn.jsdelivr.net/gh/vistaspeechandswallowing/webimages@7de07fdc48dc651efab365cca946b5a8b2c4add1/VSS%20Logo.png",
+  "medicalSpecialty": "SpeechPathology",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "8850 W 58th Ave Ste 201",
+    "addressLocality": "Arvada",
+    "addressRegion": "CO",
+    "postalCode": "80002",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "39.801726",
+    "longitude": "-105.096340"
+  },
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+    "opens": "09:00",
+    "closes": "17:00"
+  }],
+  "areaServed": [
+    { "@type": "City", "name": "Arvada" },
+    { "@type": "City", "name": "Denver" },
+    { "@type": "City", "name": "Westminster" },
+    { "@type": "City", "name": "Wheat Ridge" },
+    { "@type": "City", "name": "Lakewood" },
+    { "@type": "State", "name": "Colorado" }
+  ],
+  "knowsLanguage": ["English", "Spanish"],
+  "sameAs": [
+    "https://www.google.com/maps/place/?q=place_id:ChIJG8F1LtKHa4cRi-mM_vFFI2U",
+    "https://www.instagram.com/vistaspeechandswallowing/"
+  ]
+}
+</script>

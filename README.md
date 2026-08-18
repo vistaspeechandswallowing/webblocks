@@ -1,9 +1,12 @@
 # webblocks
 
-HTML code blocks for Squarespace. Two areas:
+HTML code blocks for Squarespace. Three areas:
 
 - **`blocks/`** — reusable single-purpose blocks, one self-contained file each,
   with a browsable gallery to preview and copy them.
+- **`site/`** — site-wide code that's pasted once into Squarespace's Code
+  Injection rather than into any page — currently the practice's JSON-LD.
+  See [`site/README.md`](site/README.md).
 - **`pages/`** — full-page compositions, **one code block per page**. Each page
   builds all its sections on a single shared container and spacing scale, so
   spacing stays visually consistent across screen sizes. This is where pages get
@@ -20,10 +23,65 @@ webblocks/
 ├── blocks/             # Reusable single-purpose blocks
 │   ├── _template.html      # Starting point for a new block
 │   └── hello-banner.html   # Example block
-└── pages/              # Full-page compositions (one code block per page)
-    ├── custom-css.css      # Complete site Custom CSS — paste once into Squarespace
-    ├── _template.html      # Starting point for a new page
-    └── home.html           # The Home page
+├── pages/              # Full-page compositions (one code block per page)
+│   ├── custom-css.css      # Complete site Custom CSS — paste once into Squarespace
+│   ├── _template.html      # Starting point for a new page
+│   ├── home.html           # The Home page
+│   └── contact.html        # The Contact page
+├── site/               # Site-wide code injection (pasted once, not per page)
+│   ├── header-injection.html  # MedicalClinic JSON-LD → Code Injection → Header
+│   └── validate-schema.py     # Checks that JSON-LD against schema.org
+├── paste/              # GENERATED paste-ready output — never edit by hand
+│   └── contact-code-block.html
+└── tools/
+    └── paste.py            # Strips repo comments before pasting into Squarespace
+```
+
+## Pasting into Squarespace
+
+Always paste through `tools/paste.py` rather than copying the raw file:
+
+```bash
+python3 tools/paste.py pages/home.html | pbcopy   # macOS
+python3 tools/paste.py pages/home.html            # or just read it
+
+# several files are concatenated in order — one contact code block from two:
+python3 tools/paste.py pages/contact.html site/header-injection.html | pbcopy
+
+# or write the standard outputs to paste/, to copy from GitHub without a terminal:
+python3 tools/paste.py --refresh
+```
+
+These files are heavily commented on purpose — the notes explain why a band is
+last, which string must not change, what breaks if it moves. That's worth
+keeping for whoever edits them next, and worth nothing to a visitor, who
+downloads all of it on every page view. On the contact page the comments are
+more than half the file.
+
+The script only removes HTML comments outside `<script>` and `<style>`. It does
+not minify or reformat, and the rendered page is pixel-identical — verified by
+screenshotting both. One marker line survives so it's possible to tell what's
+deployed:
+
+```html
+<!-- vss: pages/contact.html @ d459974 -->
+```
+
+### Copying without a terminal
+
+`python3 tools/paste.py --refresh` writes the paste-ready output into `paste/`,
+which can then be copied straight from GitHub's file view with the
+copy-raw-contents button. Two things get pasted into Squarespace:
+
+| What | Copy from |
+| --- | --- |
+| The `/contact` Code Block | `paste/contact-code-block.html` |
+| Design → Custom CSS | `pages/custom-css.css` (pasted verbatim, so there's nothing to generate) |
+
+**`paste/` is generated.** Edit the sources and re-run `--refresh`; never edit
+those files directly, or the repo stops being the truth.
+
+```text
 ```
 
 ## Why two areas?

@@ -20,6 +20,7 @@ pages/
 ├── _template.html  # Starting point for a new page composition
 ├── home.html       # The Home page
 ├── swallow-study.html  # The Swallow Study page
+├── contact.html    # The Contact page (+ a native lightbox Form block)
 └── …               # More pages land here as they're migrated
 ```
 
@@ -33,7 +34,8 @@ Styling is split by how widely it's used, so nothing is duplicated across pages:
    `.vss-page` (+ full-bleed breakout), `.vss-container`, `.vss-band`, `.vss-btn`,
    `.vss-hero`, `.vss-badge`, `.vss-card`, `.vss-h2`, `.vss-pagehead`,
    `.vss-meta`, `.vss-article`, `.vss-prose`, `.vss-h2--sub`, `.vss-checklist`,
-   `.vss-infocard`, `.vss-quote`, `.vss-section-cta`. Also in `custom-css.css`.
+   `.vss-infocard`, `.vss-quote`, `.vss-section-cta`, `.vss-nap`, `.vss-hours`,
+   `.vss-altcta`. Also in `custom-css.css`.
 
    **Home vs. interior pages:** `.vss-band--hero` (full-bleed photo + parallax)
    is the *home page's* opener and should stay unique to it. Every other page
@@ -61,6 +63,58 @@ won't style itself without it). That's a one-time paste, so it's fine.
    `vss-` component classes) so nothing leaks into the Squarespace UI.
 4. Use the live site as the source of truth for copy, images, and links.
 
+## When a page needs a native Squarespace block
+
+Some things a page can't own: a submission form has to be a **native
+Squarespace Form block**, because that's what actually delivers the mail. Same
+for a Maps embed. Those follow the composition as their own blocks rather than
+being faked inside it.
+
+**Put each one in its own Section.** The Fluid Engine reset at the end of
+`custom-css.css` pins every block in a `:has(.vss-page)` section to a single
+grid cell — that's what makes the section size to our content. Two of our
+blocks plus a native block in *one* section would land on top of each other. So
+a page that wraps around a native block is three stacked Sections: our markup,
+the native block, our markup.
+
+**The contact page is the worked example**, and it does NOT split. Its
+"Request Information" button is a native Form block in lightbox mode, but the
+button lives in our header band anyway, because Squarespace renders its trigger
+as an ordinary server-side `<button class="lightbox-handle">`. A few lines at
+the bottom of `contact.html` forward a click from our button to that one, so
+Squarespace still owns the lightbox and we own the layout. The Form block sits
+in a second Section that CSS collapses to nothing.
+
+**The safety property is the whole design, so don't undo it by hand.** Our
+button ships `hidden`; the script reveals it only after it has actually found
+the native trigger, and adds `.vss-lightbox-adopted` to `<body>` at the same
+moment — which is the only thing that collapses the form's Section. So if the
+script never runs (scripts are stripped while you're logged in and editing) or
+Squarespace renames that class in an update, our button stays hidden and the
+native one stays visible and working. Never hide the form Section in
+Squarespace's UI, and never drop the `hidden` attribute: that's what turns a
+graceful fallback into a page with no way to open the form.
+
+**Editing the form still works normally.** The script does nothing when the
+page is inside an iframe — which is how the Squarespace editor renders it — so
+the form block is visible and editable there. `/contact?vss-showform` does the
+same on the live site. Editor detection is by framing rather than by a
+Squarespace CSS class on purpose: class names change between releases, and
+being wrong would hide the form from you with no way back.
+
+Only the trigger BUTTON is `display:none`; the block and section are never
+removed, because the lightbox mounts from inside that block. The section is
+emptied instead (grid, padding and min-height collapse around it). Hiding the
+button rather than clipping the section also keeps it out of the tab order — a
+clipped-but-present button is invisible and still focusable.
+
+Verified against a replica of Squarespace's real DOM: the click reaches the
+lightbox, the section collapses, editing and `?vss-showform` both restore the
+native button, and both failure modes fall back correctly.
+One of those tests caught a live bug — `hidden` is only a UA `display:none`, so
+`.vss-btn`'s `display:inline-flex` was overriding it and showing a dead button
+in exactly the case the attribute existed to cover.
+
 ## Pasting a page into Squarespace
 
 1. Delete the page's old separate code blocks **and** any native text blocks
@@ -73,7 +127,25 @@ won't style itself without it). That's a one-time paste, so it's fine.
      sides.
    - **Alignment** → top.
    - **Gap** and **Row Count** don't matter for these sections; see below.
-4. Paste the page's `.html` into one Code Block.
+4. Paste the page's `.html` into one Code Block — but paste the **stripped**
+   version, not the raw file:
+
+   ```bash
+   python3 tools/paste.py pages/home.html | pbcopy
+   ```
+
+   The contact page also carries the JSON-LD (this site has no Code Injection
+   to put it in), so pass both files:
+
+   ```bash
+   python3 tools/paste.py pages/contact.html site/header-injection.html | pbcopy
+   ```
+
+   The comments in these files are for whoever edits them next; a visitor
+   downloads every byte of them on every page view. `tools/paste.py` removes
+   them and leaves one marker line naming the file and commit, so it's possible
+   to tell what's deployed. Nothing else changes — the rendered page is
+   pixel-identical. See the top-level README.
 5. Make sure `custom-css.css` is in Design → Custom CSS (only needed once, site-wide).
 
 ### Why the gaps happened (and what fixes them)

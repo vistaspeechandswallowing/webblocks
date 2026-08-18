@@ -3,54 +3,93 @@
     "file": "blocks/homepage-hero.html",
     "title": "Homepage Hero",
     "description": "Centered hero with a headline, supporting text, and two audience buttons (patient/caregiver vs. provider) with a group-hover effect. White text on a transparent background — sits over a colored/image section.",
-    "tags": ["hero", "homepage", "cta"],
+    "tags": [
+      "hero",
+      "homepage",
+      "cta"
+    ],
     "previewBg": "#2b3a67"
   },
   {
     "file": "blocks/service-tiles.html",
     "title": "Service Tiles",
     "description": "Responsive grid of service cards (image, title, description) with hover lift/zoom, plus a centered pill CTA button.",
-    "tags": ["services", "grid", "cards", "cta"],
+    "tags": [
+      "services",
+      "grid",
+      "cards",
+      "cta"
+    ],
     "previewBg": "#eef2f9"
   },
   {
     "file": "blocks/appointment-booking.html",
     "title": "Appointment Booking",
     "description": "Blue split panel with a booking pitch on the left and a glassy booking form (name, phone, date, time) on the right. Emails each submission via Formspree (AJAX, with a spam honeypot).",
-    "tags": ["form", "booking", "appointment", "cta"]
+    "tags": [
+      "form",
+      "booking",
+      "appointment",
+      "cta"
+    ]
   },
   {
     "file": "blocks/testimonials.html",
     "title": "Testimonials",
     "description": "\"What Our Patients Say\" section with a heading, intro text, and a responsive grid of review cards (avatar, name, location, stars, quote).",
-    "tags": ["testimonials", "reviews", "grid", "social-proof"]
+    "tags": [
+      "testimonials",
+      "reviews",
+      "grid",
+      "social-proof"
+    ]
   },
   {
     "file": "blocks/provider-bio.html",
     "title": "Provider Bio",
     "description": "Hovering profile tile for a team member: portrait photo beside an eyebrow label, name with credentials, role, key-fact pills, bio paragraph, and a booking CTA. Stacks vertically on mobile.",
-    "tags": ["bio", "team", "about", "profile", "card"],
+    "tags": [
+      "bio",
+      "team",
+      "about",
+      "profile",
+      "card"
+    ],
     "previewBg": "#eef2f9"
   },
   {
     "file": "blocks/trust-badges.html",
     "title": "Trust Badges",
     "description": "Full-width navy reassurance bar with three trust signals (Offering Telehealth, Accepts Insurance, Accepting New Clients), each a circular-badge icon above a label. Stays a compact three-across row on phones instead of stacking into a tall column.",
-    "tags": ["badges", "trust", "social-proof", "bar"],
+    "tags": [
+      "badges",
+      "trust",
+      "social-proof",
+      "bar"
+    ],
     "previewBg": "#28344f"
   },
   {
     "file": "blocks/squarespace-form-styler.html",
     "title": "Squarespace Form Styler",
     "description": "Drop-in CSS that restyles a native Squarespace Form block to match the site: rounded fields, brand-blue accents, pill submit button, and a card wrapper. On mobile the Name and Phone rows stack and fields shrink so nothing runs off the card.",
-    "tags": ["form", "squarespace", "css", "styling"],
+    "tags": [
+      "form",
+      "squarespace",
+      "css",
+      "styling"
+    ],
     "previewBg": "#eef2f9"
   },
   {
     "file": "blocks/footer.html",
     "title": "Site Footer",
     "description": "Footer with sans-serif type and blue accents. Practice name, phone/fax, email, a soft-blue emergency-use callout, plus Office address and Hours columns. Three-column layout that collapses to two then one on smaller screens, with an auto-updating copyright year.",
-    "tags": ["footer", "contact", "hours"],
+    "tags": [
+      "footer",
+      "contact",
+      "hours"
+    ],
     "previewBg": "#eef2f9"
   }
 ]

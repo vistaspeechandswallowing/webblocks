@@ -9,8 +9,9 @@
      1. Shared design tokens      — the one source of truth for the page
                                      compositions in pages/*.html
      2. Shared page components    — the reusable building blocks (container,
-                                     bands, button, hero, badges, cards) that
-                                     every page composition uses
+                                     bands, button, hero, badges, cards,
+                                     contact details) that every page
+                                     composition uses
      3. Global type & chrome      — small site-wide tweaks (headings, header)
      4. Form styler               — restyles native Squarespace Form blocks
 
@@ -146,6 +147,29 @@
 }
 
 /* ---- Pill CTA button -------------------------------------------------- */
+/* .vss-btn is used on <a> AND on <button> (the contact page's lightbox
+   trigger). A button brings its own UA background, border, and font, none of
+   which it should keep. */
+/* The `hidden` attribute is only a UA display:none, so ANY author rule that
+   sets display beats it — .vss-btn's inline-flex included. Without this, the
+   contact page's lightbox button would appear even when its script never ran:
+   a dead button next to the working native one, which is the exact failure
+   the hidden attribute was there to prevent. Caught by a fallback test, not
+   by eye. */
+.vss-page [hidden]{display:none !important;}
+
+button.vss-btn{
+  border:0;
+  cursor:pointer;
+  -webkit-appearance:none;
+  appearance:none;
+  /* Repeat the sans rather than saying `inherit`. This selector is
+     `button.vss-btn` (0,1,1) and outranks `.vss-btn` (0,1,0) no matter the
+     source order, so `inherit` here doesn't fall back to the .vss-btn font —
+     it beats it, and the button picks up the theme's serif instead. */
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+}
+
 .vss-btn{
   display:inline-flex;align-items:center;gap:14px;
   font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
@@ -482,6 +506,133 @@
   font-size:1rem;line-height:1.55;color:var(--vss-muted,#6b7280);
 }
 
+/* ---- Contact details inside an info card ------------------------------
+   Two small pieces used by the contact page, both living INSIDE a
+   .vss-infocard so the office and the hours read as the same kind of tile as
+   the ones on the other pages. Only the typography of the two elements is new
+   — the card, its border, and its hover all come from .vss-infocard above.
+
+   Why real elements rather than styled paragraphs: an <address> and a <dl>
+   say what the content IS, which is the whole point of putting this text on
+   the page (see pages/contact.html). Don't swap them for <p>s. */
+
+/* The name / address / phone / email block. <address> is italic by default,
+   which is wrong here — this is the practice's address, not an aside. */
+.vss-nap{font-style:normal;margin:0;}
+.vss-page .vss-nap p{
+  margin:0 0 .55rem;
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+  font-size:1rem;line-height:1.55;color:var(--vss-muted,#6b7280);
+}
+.vss-page .vss-nap p:last-child{margin-bottom:0;}
+/* The two tappable lines (phone, email) carry the brand blue so they read as
+   actions, not as more address text. */
+.vss-page .vss-nap a{
+  color:var(--vss-blue,#2f6bff);
+  font-weight:600;
+  text-decoration:none;
+  border-bottom:1px solid transparent;
+  transition:border-color .2s ease;
+}
+.vss-page .vss-nap a:hover{border-bottom-color:currentColor;}
+.vss-page .vss-nap a:focus-visible{outline:2px solid var(--vss-blue,#2f6bff);outline-offset:3px;border-radius:3px;}
+
+/* Opening hours. ONE row covers Monday–Saturday — a six-row list of identical
+   times is harder to read, not more precise.
+
+   THE QUALIFIER IS PART OF THE VALUE. "By appointment only" lives inside the
+   <dd>, styled as a second line of it, NOT as a sibling note under the list.
+   That is deliberate: the times are meaningless without it, so no one — reading
+   the page or walking the list with a screen reader — should be able to pick up
+   one without the other. Keep it inside the <dd>. */
+.vss-hours{margin:0;}
+.vss-page .vss-hours dt{
+  margin:0;
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+  font-size:1rem;font-weight:700;line-height:1.5;
+  color:var(--vss-ink,#141824);
+}
+.vss-page .vss-hours dd{
+  margin:.15rem 0 0;
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+  font-size:1rem;line-height:1.55;color:var(--vss-muted,#6b7280);
+}
+.vss-hours__note{
+  display:block;
+  font-weight:600;
+  color:var(--vss-blue-deep,#3d5aa6);
+}
+
+/* ---- Understated alternative CTA --------------------------------------
+   The quiet half of a CTA pair: a plain underlined link under a filled button,
+   for the second-choice action ("or text us at …"). Deliberately NOT a second
+   button — two buttons of equal weight make the reader choose instead of act,
+   and the choosing is the friction. Muted blue rather than the brand blue for
+   the same reason: at link size the brand blue is loud enough to compete with
+   the button it sits under. */
+.vss-page p.vss-altcta{
+  /* `auto` on the sides, not 0: .vss-pagehead p centres itself with margin
+     auto and a 660px max-width, and a plain `.9rem 0 0` shorthand would reset
+     that and pin the line to the left of the band. */
+  margin:.9rem auto 0;
+  text-align:center;
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+  font-size:1rem;
+  line-height:1.5;
+}
+.vss-page .vss-altcta a{
+  color:var(--vss-blue-deep,#3d5aa6);
+  text-decoration:underline;
+  text-underline-offset:3px;
+  text-decoration-thickness:1px;
+  transition:color .2s ease;
+}
+.vss-page .vss-altcta a:hover{color:var(--vss-blue-dark,#1f5be0);}
+.vss-page .vss-altcta a:focus-visible{
+  outline:2px solid var(--vss-blue,#2f6bff);
+  outline-offset:3px;
+  border-radius:3px;
+}
+
+/* ---- The adopted lightbox form section --------------------------------
+   The contact page's "Request Information" button is a native Squarespace
+   Form block in lightbox mode, sitting in its own Section. The page block's
+   script forwards clicks from OUR button to Squarespace's trigger, and adds
+   .vss-lightbox-adopted to <body> at the same moment — so these rules only
+   take effect once our button is definitely working. Get that order wrong and
+   the failure is severe: a hidden native button plus a dead custom one means
+   no way to open the form at all.
+
+   WHAT IS HIDDEN, AND WHAT IS NOT. Only the trigger button is display:none —
+   never the block or the section. The lightbox mounts from inside that block,
+   so removing it from the layout risks taking the overlay with it. The section
+   is emptied instead: its grid, padding and min-height collapse to nothing
+   around a block that no longer draws anything.
+
+   Hiding the BUTTON rather than clipping the section to 1px also keeps it out
+   of the tab order. A clipped-but-present button is invisible and still
+   focusable — a keyboard user tabs into nowhere. (`display:none` doesn't stop
+   the script: a programmatic .click() doesn't care whether the element is
+   rendered.) */
+body.vss-lightbox-adopted .sqs-block-form .lightbox-handle-wrapper{
+  display:none !important;
+}
+body.vss-lightbox-adopted .page-section:has(.sqs-block-form .lightbox-handle){
+  /* The Section's own height setting (section-height--medium and friends) sets
+     min-height, and would hold a 40vh hole open where the button used to be. */
+  min-height:0 !important;
+}
+body.vss-lightbox-adopted .page-section:has(.sqs-block-form .lightbox-handle) .content-wrapper{
+  padding-top:0 !important;
+  padding-bottom:0 !important;
+}
+/* Same Fluid Engine problem as the page compositions: the grid reserves rows
+   whether or not anything is in them. */
+body.vss-lightbox-adopted .page-section:has(.sqs-block-form .lightbox-handle) .fluid-engine{
+  grid-template-rows:0 !important;
+  row-gap:0 !important;
+}
+
 /* ---- Checklist (symptom / "is this you?" style list) ------------------- */
 /* Two columns of white cards, each led by a blue check mark. Collapses to one
    column on narrow screens. */
@@ -608,6 +759,7 @@
   /* Colour and shadow still change on hover — only the movement is dropped. */
   .vss-checklist li:hover{transform:none;}
   .vss-checklist li:hover svg{transform:none;}
+  .vss-nap a,.vss-altcta a{transition:none;}
   .vss-infocard:hover{transform:none;}
   .vss-section-cta:hover svg{transform:none;}
 }
@@ -840,14 +992,30 @@ p.footer{
 .sqs-block-form .form-item.fields.name legend { grid-column: 1 / -1 !important; }
 .sqs-block-form .form-item.fields.name .field { width: 100% !important; }
 
-/* Phone group: narrow Country + flexible Number, both allowed to shrink.
-   The two fields live in a wrapper div directly inside the phone fieldset. */
+/* Phone group: Country + Number in a wrapper div inside the phone fieldset.
+
+   This was a fixed two-column grid with 8rem for Country, which truncated it
+   to "United ..." — 8rem minus the select's own 1rem left and 2.6rem right
+   padding (the custom caret, above) leaves about 70px for the text. The old
+   rule also assumed exactly two children, so it squeezed the number into the
+   8rem column if the country selector was ever switched off in the form's
+   settings.
+
+   Flex-wrap fixes both. Country gets enough room for its longest realistic
+   label; Number takes the rest and, when there isn't enough width for the
+   pair, wraps onto its own full-width line instead of shrinking to a stub —
+   which is what makes this work on a phone without a media query. One child
+   alone fills the row. */
 .sqs-block-form .form-item.fields.phone > div {
-  display: grid !important;
-  grid-template-columns: minmax(0, 8rem) minmax(0, 1fr) !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
   gap: 0.75rem !important;
   align-items: end !important;
 }
+.sqs-block-form .form-item.fields.phone > div > * { min-width: 0 !important; }
+/* 13rem holds "United States" plus the caret; it doesn't grow past that. */
+.sqs-block-form .form-item.fields.phone > div > *:first-child { flex: 0 1 13rem !important; }
+.sqs-block-form .form-item.fields.phone > div > *:last-child  { flex: 1 1 13rem !important; }
 
 /* Never let the card exceed the viewport, and let long labels wrap.
    (max-width kept as a plain value — no min()/calc() — so the compiler accepts
@@ -879,15 +1047,60 @@ p.footer{
   margin: 0 !important;
 }
 
-/* Error states */
+/* Error states -----------------------------------------------------------
+   Squarespace renders every error — the summary at the top of the form and
+   each field's own message — as:
+
+     <p class="form-field-error hawrxS_zLJ4CZHlM"><svg …/>message text</p>
+
+   TARGET `.form-field-error` AND NOTHING ELSE. The second class is a hashed
+   CSS-module name that changes whenever Squarespace rebuilds that component;
+   styling against it would work today and silently stop working later.
+
+   The default is a solid dark-red pill. That shape is fine for four words and
+   poor for the summary, which is a full sentence and wraps to two or three
+   lines inside a shape that says "short label". A soft tint with a real
+   border reads as a notice and lets the text set at a normal line height. */
+.sqs-block-form .form-field-error {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 0.55rem !important;
+  margin: 0.5rem 0 !important;
+  padding: 0.7rem 0.9rem !important;
+  border: 1px solid rgba(224, 53, 90, 0.35) !important;
+  border-radius: 12px !important;
+  background: rgba(224, 53, 90, 0.10) !important;
+  color: #b0203f !important;
+  font-size: 0.95rem !important;
+  font-weight: 500 !important;
+  line-height: 1.5 !important;
+  /* Even out the ragged edge on the two- and three-line summary. Ignored by
+     browsers that don't support it, which is the correct fallback. */
+  text-wrap: pretty;
+}
+/* The icon carries fill="white" as an ATTRIBUTE, for the dark pill it used to
+   sit in. A CSS fill overrides a presentation attribute, so this is what keeps
+   it from turning into a white hole on the tint. */
+.sqs-block-form .form-field-error svg {
+  flex: 0 0 auto !important;
+  margin-top: 0.15rem !important;
+}
+.sqs-block-form .form-field-error svg path { fill: currentColor !important; }
+
+/* A field's own message is short, so let it shrink to its text instead of
+   ruling a full-width band across the form — that emphasis belongs to the
+   summary at the top. The summary sits outside any .form-item, which is what
+   separates the two. If a future component drops .form-item, these just stay
+   full width: no worse than the summary, and nothing breaks. */
+.sqs-block-form .form-item .form-field-error {
+  display: inline-flex !important;
+  margin: 0.35rem 0 0.55rem !important;
+}
+
+/* The field itself, when it has an error. */
 .sqs-block-form .form-item.error .field-element {
   border-color: #e0355a !important;
   box-shadow: 0 0 0 3px rgba(224, 53, 90, 0.12) !important;
-}
-.sqs-block-form .form-item.error .error-message {
-  margin-top: 0.4rem !important;
-  color: #e0355a !important;
-  font-size: 0.85rem !important;
 }
 
 /* Submit button */
