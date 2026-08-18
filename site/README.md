@@ -340,24 +340,40 @@ which is also the only way to see our block and Squarespace's together.
 
 ### What Google actually reported (Aug 2026)
 
-Rich Results Test on the contact page, for the record — this is the baseline to
-compare against after any change:
+Rich Results Test on the contact page — the baseline to compare against after
+any change.
+
+**Read the results per rich-result type, not as one list.** The test groups its
+findings by the type of rich result being evaluated, and each type has its own
+required fields. The same markup therefore appears in more than one tab with
+different verdicts, which looks like a contradiction and isn't:
+
+| Tab | What it showed |
+| --- | --- |
+| **Local Businesses** | **2 items, both valid** — our `MedicalClinic` and Squarespace's `LocalBusiness`. |
+| **Organization** | 3 items, one invalid — the same two, plus Squarespace's `Organization`, which fails for missing `name` and `image`. |
+
+**Local Businesses is the tab that matters here.** That's the family of results a
+clinic actually competes for. Both items pass it.
 
 **Our `MedicalClinic`: valid.** Every field parsed the way it was meant to —
 structured `PostalAddress`, `geo`, `openingHoursSpecification` as Mon–Sat
 `T09:00`–`T17:00`, all six `areaServed` entries, both languages, and
 `medicalSpecialty` resolved to `schema.org/SpeechPathology` (i.e. Google read it
-as the enumeration member, not as a bare string). The jsDelivr logo URL loaded.
+as the enumeration member, not as a bare string — that resolution is what the
+`MedicalClinic` type change bought; on `MedicalBusiness` the property would have
+been dropped). The jsDelivr logo URL loaded.
 
-Two flags remain, and **neither is ours to fix**:
+Everything still flagged belongs to **Squarespace's** blocks, and none of it is
+editable or removable:
 
-| Flag | Whose | What to do |
+| Flag | Where | What to do |
 | --- | --- | --- |
-| `Organization` invalid — missing `name`, missing `image` | Squarespace's | Nothing. It emits `legalName` but no `name`, and no image. Not editable, not removable. An invalid item is not a penalty — it just isn't eligible for a rich result. |
-| `LocalBusiness` missing `addressLocality` / `postalCode` / `streetAddress` | Squarespace's | Nothing. It sends the address as one string rather than a structured `PostalAddress`. Ours carries the structured version. |
+| `Organization` invalid — missing `name`, `image` | Organization tab | Nothing. Squarespace emits `legalName` but no `name`, and no image. An invalid item is **not a penalty** — it is simply not eligible for that rich result. |
+| `LocalBusiness` missing `addressLocality` / `postalCode` / `streetAddress` | Local Businesses tab | Nothing. Squarespace sends the address as one string. Ours carries the structured version — this gap is why our block exists. |
+| `LocalBusiness` missing `telephone` | Organization tab | Nothing. Ours has it. |
 
 **`priceRange` (optional)** is flagged on the `MedicalClinic` and is deliberately
 left out. Google lists it as recommended for LocalBusiness, but a practice that
 bills insurance has no honest price range to state, and the item is already
 valid without it. Don't add a decorative `"$$"` to clear a yellow flag.
-
