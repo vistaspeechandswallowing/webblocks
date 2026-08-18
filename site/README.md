@@ -58,17 +58,58 @@ on top, rather than guessing.
 
 ### If you have Code Blocks but not Code Injection
 
-JSON-LD does **not** have to be in the `<head>`. Google reads structured data
-anywhere in the document, so the same `<script>` tag pasted into a Code Block in
-the page body works. Two caveats:
+**This is the situation the site is actually in:** scripts inside Code Blocks
+run, but Settings → Advanced → Code Injection is locked behind an upgrade.
 
-- A `<script>` tag in a Code Block is gated at the same Core tier, so if
-  Code Injection is out of reach this probably is too — but it costs nothing to
-  paste it in and see whether it survives.
-- A Code Block lives on one page, so the markup is no longer site-wide. Put it
-  on `/contact` first; that's the page the business facts belong to. Adding it
-  to other pages means maintaining copies, which is exactly the divergence this
-  repo keeps warning about — so don't, unless there's a reason.
+That combination is almost certainly a **legacy plan**, not a loophole.
+Squarespace's own documentation says Code Injection is available on "Core, Plus,
+Advanced, and some legacy billing plans" — note *some*. Older plans bundled
+these features differently than the current lineup does, and a site that has
+been on the same plan for a while keeps the old bundle. The two gates are
+enforced in different places (one locks a settings panel, the other filters
+block content), so they don't have to agree.
+
+Practical read: don't treat working Code Blocks as something to hide, but don't
+build anything load-bearing on them either. A grandfathered bundle is stable
+until the plan is migrated or renewed onto the current lineup, and then it
+isn't. That's an argument for the layering this repo already uses, not against
+using Code Blocks:
+
+- **The readable text on `/contact` is the durable layer.** It is ordinary HTML,
+  works on every plan, and is what a person actually reads. If everything else
+  vanished tomorrow, the address, hours, and service area are still on the page.
+- **The JSON-LD is the enhancement.** Nice to have, and it can go away without
+  taking anything visible with it.
+
+#### Putting the JSON-LD in a Code Block
+
+JSON-LD does **not** have to be in the `<head>` — Google reads structured data
+anywhere in the document. Body placement is a documented, supported position,
+not a workaround.
+
+1. Copy the `<script type="application/ld+json">…</script>` tag out of
+   `header-injection.html` — the whole tag, not just the JSON inside it.
+2. Paste it at the **end** of the `/contact` Code Block, after the closing
+   `</div>` of `.vss-page`. It renders nothing, so its position doesn't affect
+   the layout.
+3. Confirm it survived: view source on the live page and search for
+   `MedicalClinic`, then run the URL through the
+   [Rich Results Test](https://search.google.com/test/rich-results).
+
+Step 3 is not optional. If the plan ever stops allowing scripts in Code Blocks,
+the tag will be stripped **silently** — the page will look completely normal
+with the markup gone. Re-check after any plan change.
+
+Two things not to do:
+
+- **Don't copy the JSON into `pages/contact.html` in this repo.** It stays in
+  `header-injection.html`, as one copy, whichever box it gets pasted into. The
+  day the plan gains Code Injection, it moves to the head with no edits and no
+  reconciling of two versions that drifted apart.
+- **Don't paste it onto several pages.** A Code Block lives on one page, so this
+  is no longer site-wide markup — and duplicating it across pages means
+  maintaining copies of the business's address. `/contact` is the page these
+  facts belong to; one copy there is the right trade.
 
 ## `header-injection.html`
 

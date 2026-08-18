@@ -2,8 +2,15 @@
   SITE-WIDE HEADER CODE INJECTION
   ---------------------------------------------------------------------------
   WHERE THIS GOES: Squarespace → Settings → Advanced → Code Injection → HEADER.
-  Paste this WHOLE file. It is site-wide — NOT a per-page injection and NOT a
-  Code Block. One copy, every page.
+  Paste this WHOLE file. It is site-wide — NOT a per-page injection. One copy,
+  every page.
+
+  NO CODE INJECTION ON THIS PLAN? Then paste the <script> tag below at the END
+  of the /contact Code Block instead. JSON-LD works anywhere in the document,
+  not only in the head. It stops being site-wide, and it can be stripped
+  silently if the plan's rules change — so verify it with the Rich Results Test
+  after pasting, and again after any plan change. Either way this file stays the
+  ONE copy: don't paste it into pages/contact.html in the repo. See README.md.
 
   WHAT'S IN IT: the complete MedicalClinic JSON-LD for the practice.
 
