@@ -14,17 +14,26 @@
   them from disagreeing, the Business Information panel should either be left
   blank or filled in with EXACTLY the values below — see site/README.md.
 
-  MUST MATCH blocks/contact-details.html: the street address, phone, and hours
+  MUST MATCH pages/contact.html: the street address, phone, and hours
   here are the same facts shown on /contact. If they ever diverge, that is a
   bug — fix both. In particular "8850 W 58th Ave Ste 201" matches the Google
   Business Profile character for character; do NOT expand "Ste" to "Suite".
 
-  BEFORE THIS GOES LIVE, replace the three bracketed placeholders:
-    • "image"            — the logo/photo URL (an absolute https:// URL)
-    • geo latitude/longitude — read off the Google Business Profile map pin
-    • "sameAs"           — the Google Business Profile listing URL
-  Leave a placeholder in and that property is invalid; strip the property out
+  STILL TO FILL IN: "sameAs" — the public Google Business Profile listing URL.
+  Leave the placeholder in and that property is invalid; strip the property out
   entirely rather than shipping a "[…]" string.
+
+  IMAGE URLS: served from the webimages repo through jsDelivr, PINNED TO A
+  COMMIT (the @7de07fd… part) — the same workflow the page compositions use for
+  photos. Pin to a commit, never to a branch: a branch URL changes meaning when
+  the repo changes, and jsDelivr caches branch URLs for only 7 days. A
+  github.com/…/blob/… link is NOT an image URL — it's an HTML page — and
+  raw.githubusercontent.com is not meant for production hotlinking.
+
+    • "logo"  — Organization.logo. Correct home for the wordmark.
+    • "image" — Google wants a PHOTO of the business here (the premises, the
+      team, the practitioner), not a 2.5:1 wordmark. The logo is standing in so
+      the property isn't empty; swap it for a real photo when there is one.
 =========================================================================== -->
 <script type="application/ld+json">
 {
@@ -34,7 +43,8 @@
   "url": "https://vistaspeech.com",
   "telephone": "+17205099640",
   "email": "nicholas@vistaspeech.com",
-  "image": "[LOGO URL NEEDED]",
+  "image": "https://cdn.jsdelivr.net/gh/vistaspeechandswallowing/webimages@7de07fdc48dc651efab365cca946b5a8b2c4add1/VSS%20Logo.png",
+  "logo": "https://cdn.jsdelivr.net/gh/vistaspeechandswallowing/webimages@7de07fdc48dc651efab365cca946b5a8b2c4add1/VSS%20Logo.png",
   "medicalSpecialty": "SpeechPathology",
   "address": {
     "@type": "PostalAddress",
@@ -46,8 +56,8 @@
   },
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": "[FROM GBP PIN]",
-    "longitude": "[FROM GBP PIN]"
+    "latitude": "39.801726",
+    "longitude": "-105.096340"
   },
   "openingHoursSpecification": [{
     "@type": "OpeningHoursSpecification",
