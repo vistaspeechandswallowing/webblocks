@@ -28,9 +28,35 @@ webblocks/
 │   ├── _template.html      # Starting point for a new page
 │   ├── home.html           # The Home page
 │   └── contact.html        # The Contact page
-└── site/               # Site-wide code injection (pasted once, not per page)
-    ├── header-injection.html  # MedicalClinic JSON-LD → Code Injection → Header
-    └── validate-schema.py     # Checks that JSON-LD against schema.org
+├── site/               # Site-wide code injection (pasted once, not per page)
+│   ├── header-injection.html  # MedicalClinic JSON-LD → Code Injection → Header
+│   └── validate-schema.py     # Checks that JSON-LD against schema.org
+└── tools/
+    └── paste.py            # Strips repo comments before pasting into Squarespace
+```
+
+## Pasting into Squarespace
+
+Always paste through `tools/paste.py` rather than copying the raw file:
+
+```bash
+python3 tools/paste.py pages/contact.html | pbcopy   # macOS
+python3 tools/paste.py pages/contact.html            # or just read it
+```
+
+These files are heavily commented on purpose — the notes explain why a band is
+last, which string must not change, what breaks if it moves. That's worth
+keeping for whoever edits them next, and worth nothing to a visitor, who
+downloads all of it on every page view. On `contact.html` the comments are more
+than half the file (8.1KB → 3.7KB).
+
+The script only removes HTML comments outside `<script>` and `<style>`. It does
+not minify or reformat, and the rendered page is pixel-identical — verified by
+screenshotting both. One marker line survives so it's possible to tell what's
+deployed:
+
+```html
+<!-- vss: pages/contact.html @ d459974 -->
 ```
 
 ## Why two areas?

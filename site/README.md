@@ -92,8 +92,14 @@ JSON-LD does **not** have to be in the `<head>` — Google reads structured data
 anywhere in the document. Body placement is a documented, supported position,
 not a workaround.
 
-1. Copy the `<script type="application/ld+json">…</script>` tag out of
-   `header-injection.html` — the whole tag, not just the JSON inside it.
+1. Get the tag without this file's comment header:
+
+   ```bash
+   python3 tools/paste.py site/header-injection.html | pbcopy
+   ```
+
+   (Copying the raw file works too, but pastes ~3.5KB of notes into the live
+   page along with it. See the top-level README.)
 2. Paste it at the **end** of the `/contact` Code Block, after the closing
    `</div>` of `.vss-page`. It renders nothing, so its position doesn't affect
    the layout.

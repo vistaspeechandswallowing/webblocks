@@ -2,8 +2,11 @@
   SITE-WIDE HEADER CODE INJECTION
   ---------------------------------------------------------------------------
   WHERE THIS GOES: Squarespace → Settings → Advanced → Code Injection → HEADER.
-  Paste this WHOLE file. It is site-wide — NOT a per-page injection. One copy,
-  every page.
+  It is site-wide — NOT a per-page injection. One copy, every page.
+
+  PASTE IT WITH:  python3 tools/paste.py site/header-injection.html | pbcopy
+  That drops this comment header, which is ~3.5KB of notes a visitor would
+  otherwise download on every page view.
 
   NO CODE INJECTION ON THIS PLAN? Then paste the <script> tag below at the END
   of the /contact Code Block instead. JSON-LD works anywhere in the document,

@@ -85,7 +85,18 @@ being faked inside it.
      sides.
    - **Alignment** → top.
    - **Gap** and **Row Count** don't matter for these sections; see below.
-4. Paste the page's `.html` into one Code Block.
+4. Paste the page's `.html` into one Code Block — but paste the **stripped**
+   version, not the raw file:
+
+   ```bash
+   python3 tools/paste.py pages/contact.html | pbcopy
+   ```
+
+   The comments in these files are for whoever edits them next; a visitor
+   downloads every byte of them on every page view. `tools/paste.py` removes
+   them and leaves one marker line naming the file and commit, so it's possible
+   to tell what's deployed. Nothing else changes — the rendered page is
+   pixel-identical. See the top-level README.
 5. Make sure `custom-css.css` is in Design → Custom CSS (only needed once, site-wide).
 
 ### Why the gaps happened (and what fixes them)
