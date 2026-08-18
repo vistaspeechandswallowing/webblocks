@@ -24,9 +24,12 @@
       (site/header-injection.html) and in the footer (blocks/footer.html).
       Change one, change all three. A divergence is a bug.
 
-  NO SCHEMA IN THIS BLOCK on purpose: the MedicalBusiness JSON-LD is site-wide
-  (Settings → Advanced → Code Injection → Header), because it describes the
-  business, not this page. See site/README.md.
+  THE JSON-LD: this site's plan has no Code Injection, so the practice's
+  MedicalClinic JSON-LD is pasted at the END of this block on the live site,
+  after the closing </div> below. It is NOT part of this file — it lives in
+  site/header-injection.html as the one copy, so that gaining Code Injection
+  later is a move rather than a merge of two versions that drifted apart. Don't
+  paste it in here. See site/README.md.
 
   SQUARESPACE SECTION SETUP (do this once so the grid stops fighting us):
     • Put this block in its own Section, with the form block beneath it.

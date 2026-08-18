@@ -22,12 +22,14 @@
   knowsLanguage, not availableLanguage: that one belongs to ContactPoint and
   ServiceChannel, not to an organization.
 
-  ABOUT SQUARESPACE'S OWN BLOCK: Squarespace emits its own LocalBusiness JSON-LD
-  from the Business Information settings. It is essentially empty (little more
-  than a name and url) and cannot be turned off. Ours sits alongside it; two
-  JSON-LD blocks on a page is valid, and search engines reconcile them. To keep
-  them from disagreeing, the Business Information panel should either be left
-  blank or filled in with EXACTLY the values below — see site/README.md.
+  ABOUT SQUARESPACE'S OWN BLOCKS: Squarespace emits three JSON-LD blocks of its
+  own (WebSite, Organization, LocalBusiness) and they cannot be turned off. Ours
+  sits alongside them; several JSON-LD blocks on a page is valid, and search
+  engines reconcile them. Once Business Information is filled in they carry real
+  content — see README.md for what they actually contain, verified from the live
+  page, and for the one field in them that needs fixing (Squarespace ships
+  PLACEHOLDER social links that claim the practice is squarespace's own Facebook,
+  Instagram, and Twitter).
 
   MUST MATCH pages/contact.html: the street address, phone, and hours
   here are the same facts shown on /contact. If they ever diverge, that is a

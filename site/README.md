@@ -25,6 +25,11 @@ higher, Code Injection is already included, and there is nothing to buy.**
 (Check Settings → Billing to confirm.) If the photo is locked to the page, the
 plan is below Core and the script is being stripped.
 
+**On this site, as of the last check:** scripts in Code Blocks run — the
+JSON-LD pasted into the `/contact` block is present in the live page source —
+while the Code Injection panel is locked. See "If you have Code Blocks but not
+Code Injection" below.
+
 **2. If you are below Core, the upgrade probably isn't worth it for this.**
 Structured data is a small part of local search. In rough order of impact:
 
@@ -190,24 +195,60 @@ They're different properties and both are set:
   standing in so the property isn't empty — **replace it with a real photo**
   when there is one.
 
-### The Squarespace-generated block
+### The Squarespace-generated blocks
 
-Squarespace emits its own `LocalBusiness` JSON-LD from **Settings → Business
-Information**, and there's no switch to turn it off. Ours sits alongside it.
-Two JSON-LD blocks on a page is legal and search engines reconcile them, but
-they must not *disagree*:
+Squarespace emits **three** JSON-LD blocks of its own and there is no switch to
+turn them off. Ours sits alongside them — several JSON-LD blocks on a page is
+valid, and search engines reconcile them. Verified from the live page:
 
-- **Fill the Business Information fields in**, using exactly the values in
-  `header-injection.html` (same street string, same phone). Leaving them blank
-  is the other consistent option, but it wastes free markup — see "Working with
-  Squarespace instead of around it" above.
-- Squarespace's block is the broad type (`LocalBusiness`); ours is
-  `MedicalClinic`, which sits below it in the same family
-  (`MedicalClinic` → `MedicalBusiness` → `LocalBusiness`) — no conflict there,
-  just more detail.
-- Watch the address in particular. Squarespace's address widget likes to
-  normalise `Ste` to `Suite`; if it does, the two blocks disagree and the
-  Google Business Profile match is lost.
+| Block | What it carries |
+| --- | --- |
+| `WebSite` | url, name, logo image |
+| `Organization` | legalName, address as one string, email, telephone, **`sameAs`** |
+| `LocalBusiness` | address as one string, image, name, `openingHours` |
+
+Filling in Business Information is what put content in them — before that they
+were near-empty stubs. So the free path really does work, and what our block
+adds on top is the part Squarespace can't express: a structured `PostalAddress`,
+`geo` coordinates, `medicalSpecialty`, `areaServed`, and `knowsLanguage`.
+
+Types don't collide either: Squarespace's is the broad `LocalBusiness`, ours is
+`MedicalClinic`, which sits below it in the same family
+(`MedicalClinic` → `MedicalBusiness` → `LocalBusiness`).
+
+#### Fix the placeholder social links
+
+Squarespace's `Organization` block ships with **demo** social accounts still in
+it:
+
+```json
+"sameAs": ["http://facebook.com/squarespace",
+           "http://instagram.com/squarespace",
+           "http://twitter.com/squarespace"]
+```
+
+That is markup on the practice's own site telling Google the practice *is*
+Squarespace's Facebook, Instagram, and Twitter. `sameAs` means "these are the
+same entity" — it's the exact property we're careful about adding correctly, and
+here it's pointing at a stranger.
+
+Fix it in **Settings → Social Links**: remove the placeholder accounts, or
+replace them with the practice's real profiles. Do this before worrying about
+adding our own `sameAs`.
+
+#### Values that differ harmlessly
+
+Not every difference between their blocks and ours is a bug:
+
+- **Phone format.** Theirs is `(720) 509-9640`, ours is `+17205099640`. Same
+  number; the E.164 form is the one schema.org prefers, and Google parses both.
+- **Address shape.** Theirs is one newline-joined string, ours is a structured
+  `PostalAddress`. The street text is identical (`8850 W 58th Ave Ste 201`),
+  which is what matters — that's why we keep that string exact.
+- **Coordinates.** Squarespace derives its own map pin from the address
+  (`39.8017574, -105.0963765`) which is a few metres off the pin in our `geo`
+  (`39.801726, -105.096340`). At that distance it makes no practical
+  difference; don't churn either one to match.
 
 ### Facts that must match `pages/contact.html`
 
@@ -223,27 +264,23 @@ facts and must be identical — a divergence is a bug, not a variation:
 
 `blocks/footer.html` shows the same address and phone; keep it in step too.
 
-#### What the Business Information panel does to the address
+#### The Business Information panel and the address
 
 The panel's **Physical Location** field is a Google Places lookup ("powered by
-Google"), and picking a suggestion stores Google's *normalised* form of the
-address, not what you typed:
+Google") and it *displays* the address in Google's expanded form — "8850 West
+58th Avenue, Ste 201". Don't be alarmed by that: what Squarespace actually
+stores and emits is the canonical string,
 
-| | |
-| --- | --- |
-| Our canonical string (matches the GBP listing) | `8850 W 58th Ave Ste 201` |
-| What the panel stores after autocomplete | `8850 West 58th Avenue, Ste 201` |
+```
+8850 W 58th Ave Ste 201
+```
 
-Try typing the address by hand and clicking away **without** accepting the
-autocomplete suggestion; if it sticks, use the canonical string.
+confirmed in the `LocalBusiness` and `Organization` markup on the live page. The
+expansion is display-only.
 
-If the field insists on the expanded form, **leave it** — don't chase it, and
-don't change any other file to match. This particular mismatch is safe: `W` →
-`West` and `Ave` → `Avenue` is Google's own expansion of its own place data, so
-Google is not going to fail to recognise the two as one address. What matters is
-that the strings we control — `pages/contact.html`, `header-injection.html`,
-`blocks/footer.html` — all stay on the canonical form, because those are the
-ones a crawler compares against the GBP listing.
+What still matters: it kept `Ste` un-expanded. If the field is ever re-entered
+and comes back as `Suite`, that's the one to catch — it breaks the
+character-for-character match with the Google Business Profile.
 
 #### Hours
 
