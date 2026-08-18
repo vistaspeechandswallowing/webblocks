@@ -992,14 +992,30 @@ p.footer{
 .sqs-block-form .form-item.fields.name legend { grid-column: 1 / -1 !important; }
 .sqs-block-form .form-item.fields.name .field { width: 100% !important; }
 
-/* Phone group: narrow Country + flexible Number, both allowed to shrink.
-   The two fields live in a wrapper div directly inside the phone fieldset. */
+/* Phone group: Country + Number in a wrapper div inside the phone fieldset.
+
+   This was a fixed two-column grid with 8rem for Country, which truncated it
+   to "United ..." — 8rem minus the select's own 1rem left and 2.6rem right
+   padding (the custom caret, above) leaves about 70px for the text. The old
+   rule also assumed exactly two children, so it squeezed the number into the
+   8rem column if the country selector was ever switched off in the form's
+   settings.
+
+   Flex-wrap fixes both. Country gets enough room for its longest realistic
+   label; Number takes the rest and, when there isn't enough width for the
+   pair, wraps onto its own full-width line instead of shrinking to a stub —
+   which is what makes this work on a phone without a media query. One child
+   alone fills the row. */
 .sqs-block-form .form-item.fields.phone > div {
-  display: grid !important;
-  grid-template-columns: minmax(0, 8rem) minmax(0, 1fr) !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
   gap: 0.75rem !important;
   align-items: end !important;
 }
+.sqs-block-form .form-item.fields.phone > div > * { min-width: 0 !important; }
+/* 13rem holds "United States" plus the caret; it doesn't grow past that. */
+.sqs-block-form .form-item.fields.phone > div > *:first-child { flex: 0 1 13rem !important; }
+.sqs-block-form .form-item.fields.phone > div > *:last-child  { flex: 1 1 13rem !important; }
 
 /* Never let the card exceed the viewport, and let long labels wrap.
    (max-width kept as a plain value — no min()/calc() — so the compiler accepts
