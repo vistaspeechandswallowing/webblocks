@@ -27,8 +27,7 @@ webblocks/
 │   ├── custom-css.css      # Complete site Custom CSS — paste once into Squarespace
 │   ├── _template.html      # Starting point for a new page
 │   ├── home.html           # The Home page
-│   ├── contact-top.html    # The Contact page, above the form button
-│   └── contact-bottom.html # …and below it (see pages/README.md)
+│   └── contact.html        # The Contact page
 ├── site/               # Site-wide code injection (pasted once, not per page)
 │   ├── header-injection.html  # MedicalClinic JSON-LD → Code Injection → Header
 │   └── validate-schema.py     # Checks that JSON-LD against schema.org
@@ -45,7 +44,7 @@ python3 tools/paste.py pages/home.html | pbcopy   # macOS
 python3 tools/paste.py pages/home.html            # or just read it
 
 # several files are concatenated in order — one contact code block from two:
-python3 tools/paste.py pages/contact-bottom.html site/header-injection.html | pbcopy
+python3 tools/paste.py pages/contact.html site/header-injection.html | pbcopy
 ```
 
 These files are heavily commented on purpose — the notes explain why a band is
@@ -60,7 +59,7 @@ screenshotting both. One marker line survives so it's possible to tell what's
 deployed:
 
 ```html
-<!-- vss: pages/contact-top.html @ d459974 -->
+<!-- vss: pages/contact.html @ d459974 -->
 ```
 
 ## Why two areas?

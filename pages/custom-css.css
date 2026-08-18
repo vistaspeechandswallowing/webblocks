@@ -147,6 +147,25 @@
 }
 
 /* ---- Pill CTA button -------------------------------------------------- */
+/* .vss-btn is used on <a> AND on <button> (the contact page's lightbox
+   trigger). A button brings its own UA background, border, and font, none of
+   which it should keep. */
+/* The `hidden` attribute is only a UA display:none, so ANY author rule that
+   sets display beats it — .vss-btn's inline-flex included. Without this, the
+   contact page's lightbox button would appear even when its script never ran:
+   a dead button next to the working native one, which is the exact failure
+   the hidden attribute was there to prevent. Caught by a fallback test, not
+   by eye. */
+.vss-page [hidden]{display:none !important;}
+
+button.vss-btn{
+  border:0;
+  font-family:inherit;
+  cursor:pointer;
+  -webkit-appearance:none;
+  appearance:none;
+}
+
 .vss-btn{
   display:inline-flex;align-items:center;gap:14px;
   font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
@@ -546,18 +565,13 @@
    button — two buttons of equal weight make the reader choose instead of act,
    and the choosing is the friction. Muted blue rather than the brand blue for
    the same reason: at link size the brand blue is loud enough to compete with
-   the button it sits under.
-
-   The band pairs with a native Squarespace block above it (the lightbox form
-   button), so its TOP padding is small — the two are one unit, and a full
-   section's worth between them would break the pair apart. */
-.vss-band--altcta{
-  padding-top:clamp(.9rem,1.8vw,1.4rem);
-  padding-bottom:clamp(2rem,4vw,3rem);
-}
-.vss-altcta{text-align:center;}
-.vss-page .vss-altcta p{
-  margin:0;
+   the button it sits under. */
+.vss-page p.vss-altcta{
+  /* `auto` on the sides, not 0: .vss-pagehead p centres itself with margin
+     auto and a 660px max-width, and a plain `.9rem 0 0` shorthand would reset
+     that and pin the line to the left of the band. */
+  margin:.9rem auto 0;
+  text-align:center;
   font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
   font-size:1rem;
   line-height:1.5;
@@ -574,6 +588,34 @@
   outline:2px solid var(--vss-blue,#2f6bff);
   outline-offset:3px;
   border-radius:3px;
+}
+
+/* ---- The adopted lightbox form section --------------------------------
+   The contact page's "Request Information" button is a native Squarespace
+   Form block in lightbox mode, sitting in its own Section. The page block's
+   script forwards clicks from OUR button to Squarespace's trigger, and adds
+   .vss-lightbox-adopted to <body> at the same moment — so this rule only
+   collapses that section once our button is definitely working.
+
+   Get the order wrong and the failure is severe: a hidden native button plus
+   a dead custom one means no way to open the form at all. Hence the body
+   class rather than hiding the section in Squarespace.
+
+   NOTE it is NOT display:none. The lightbox mounts from inside this block, so
+   removing it from the layout can take the overlay with it. This keeps the
+   block rendered and merely takes it out of the flow. */
+body.vss-lightbox-adopted .page-section:has(.sqs-block-form .lightbox-handle){
+  position:absolute !important;
+  width:1px !important;
+  height:1px !important;
+  /* !important on min-height specifically: the Section's own height setting
+     (section-height--medium and friends) sets min-height and would otherwise
+     hold a 40vh hole open where the collapsed section used to be. */
+  min-height:0 !important;
+  margin:-1px !important;
+  padding:0 !important;
+  overflow:hidden !important;
+  border:0 !important;
 }
 
 /* ---- Checklist (symptom / "is this you?" style list) ------------------- */

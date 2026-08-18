@@ -20,8 +20,7 @@ pages/
 ├── _template.html  # Starting point for a new page composition
 ├── home.html       # The Home page
 ├── swallow-study.html  # The Swallow Study page
-├── contact-top.html     # The Contact page, part 1 — above the form button
-├── contact-bottom.html  # …part 2 — below it. THREE sections; read the files.
+├── contact.html    # The Contact page (+ a native lightbox Form block)
 └── …               # More pages land here as they're migrated
 ```
 
@@ -78,20 +77,29 @@ blocks plus a native block in *one* section would land on top of each other. So
 a page that wraps around a native block is three stacked Sections: our markup,
 the native block, our markup.
 
-**The contact page is the worked example.** Its "Request Information" button is
-a native Form block in lightbox mode, and it sits *between* the two halves of
-the composition, so the page is three stacked Sections:
+**The contact page is the worked example**, and it does NOT split. Its
+"Request Information" button is a native Form block in lightbox mode, but the
+button lives in our header band anyway, because Squarespace renders its trigger
+as an ordinary server-side `<button class="lightbox-handle">`. A few lines at
+the bottom of `contact.html` forward a click from our button to that one, so
+Squarespace still owns the lightbox and we own the layout. The Form block sits
+in a second Section that CSS collapses to nothing.
 
-| Section | Holds |
-| --- | --- |
-| 1 | `contact-top.html` — the tinted page header. Carries the header clearance, so it must be first. |
-| 2 | The native Form block, Lightbox mode, labelled "Request Information". |
-| 3 | `contact-bottom.html` — the understated "or text us at …" link, then the office cards and service area. Also carries the JSON-LD. |
+**The safety property is the whole design, so don't undo it by hand.** Our
+button ships `hidden`; the script reveals it only after it has actually found
+the native trigger, and adds `.vss-lightbox-adopted` to `<body>` at the same
+moment — which is the only thing that collapses the form's Section. So if the
+script never runs (scripts are stripped while you're logged in and editing) or
+Squarespace renames that class in an update, our button stays hidden and the
+native one stays visible and working. Never hide the form Section in
+Squarespace's UI, and never drop the `hidden` attribute: that's what turns a
+graceful fallback into a page with no way to open the form.
 
-The CTA pair reads button-then-link across the Section boundary, which is the
-point: a filled button for the main action, a plain underlined link
-(`.vss-altcta`) for the second. Two buttons of equal weight would make the
-reader choose instead of act. Don't reorder the sections.
+Verified against a replica of Squarespace's real DOM: the click reaches the
+lightbox, the section collapses, and both failure modes fall back correctly.
+One of those tests caught a live bug — `hidden` is only a UA `display:none`, so
+`.vss-btn`'s `display:inline-flex` was overriding it and showing a dead button
+in exactly the case the attribute existed to cover.
 
 ## Pasting a page into Squarespace
 
@@ -112,12 +120,11 @@ reader choose instead of act. Don't reorder the sections.
    python3 tools/paste.py pages/home.html | pbcopy
    ```
 
-   The contact page is two blocks, and the second one also carries the JSON-LD
-   (this site has no Code Injection to put it in), so pass both files:
+   The contact page also carries the JSON-LD (this site has no Code Injection
+   to put it in), so pass both files:
 
    ```bash
-   python3 tools/paste.py pages/contact-top.html | pbcopy
-   python3 tools/paste.py pages/contact-bottom.html site/header-injection.html | pbcopy
+   python3 tools/paste.py pages/contact.html site/header-injection.html | pbcopy
    ```
 
    The comments in these files are for whoever edits them next; a visitor

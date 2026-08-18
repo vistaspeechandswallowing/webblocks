@@ -37,7 +37,7 @@ Structured data is a small part of local search. In rough order of impact:
 | --- | --- | --- |
 | A complete, active **Google Business Profile** | free | This is the big one for "speech therapy near me" — hours, photos, services, reviews, Q&A |
 | **Business Information settings** filled in | free | Settings → Business Information — feeds Squarespace's own generated markup |
-| **Readable NAP text on the page** | free | `pages/contact-bottom.html` — done |
+| **Readable NAP text on the page** | free | `pages/contact.html` — done |
 | **This JSON-LD** | Core plan | Adds specialty, service area, languages, and the GBP link |
 
 The JSON-LD is a refinement on top of the first three, not a substitute for
@@ -257,7 +257,7 @@ Not every difference between their blocks and ours is a bug:
   (`39.801726, -105.096340`). At that distance it makes no practical
   difference; don't churn either one to match.
 
-### Facts that must match `pages/contact-bottom.html`
+### Facts that must match `pages/contact.html`
 
 The street address, phone, and hours appear in both files. They are the same
 facts and must be identical — a divergence is a bug, not a variation:
@@ -296,7 +296,7 @@ is `Closed`. That matches `openingHoursSpecification` exactly (Monday–Saturday
 opens 09:00, closes 17:00, no Sunday).
 
 There is nowhere in the panel for **"by appointment only"** — it only accepts
-times. That qualifier lives on the page (`pages/contact-bottom.html`), which is the
+times. That qualifier lives on the page (`pages/contact.html`), which is the
 reason the page carries its own hours rather than deferring to this panel.
 
 Worth re-reading the six rows after typing them: a stray character at the end of

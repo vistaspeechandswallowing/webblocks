@@ -5,11 +5,11 @@
     python3 tools/paste.py pages/home.html | pbcopy   # straight to clipboard
 
 Several files can be given at once, and are concatenated in the order listed.
-That is how the contact page's second code block is produced — the page markup
+That is how the contact page's code block is produced — the page markup
 followed by the JSON-LD, which is where it lives while this site has no Code
 Injection:
 
-    python3 tools/paste.py pages/contact-bottom.html site/header-injection.html | pbcopy
+    python3 tools/paste.py pages/contact.html site/header-injection.html | pbcopy
 
 Why: the comments in these files are written for whoever edits them next — why a
 band is last, which string must not change, what breaks if it moves. That is
@@ -21,7 +21,7 @@ So: keep writing comments freely in the source files, and paste THIS output
 instead. One short marker line survives, naming the file and the commit it came
 from, so it's possible to tell what's actually deployed:
 
-    <!-- vss: pages/contact-top.html @ a1b2c3d -->
+    <!-- vss: pages/contact.html @ a1b2c3d -->
 
 Comments inside <script> and <style> are left alone — only HTML comments in the
 markup are removed. Nothing else is touched: no minifying, no reformatting, no
