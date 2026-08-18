@@ -223,6 +223,42 @@ facts and must be identical — a divergence is a bug, not a variation:
 
 `blocks/footer.html` shows the same address and phone; keep it in step too.
 
+#### What the Business Information panel does to the address
+
+The panel's **Physical Location** field is a Google Places lookup ("powered by
+Google"), and picking a suggestion stores Google's *normalised* form of the
+address, not what you typed:
+
+| | |
+| --- | --- |
+| Our canonical string (matches the GBP listing) | `8850 W 58th Ave Ste 201` |
+| What the panel stores after autocomplete | `8850 West 58th Avenue, Ste 201` |
+
+Try typing the address by hand and clicking away **without** accepting the
+autocomplete suggestion; if it sticks, use the canonical string.
+
+If the field insists on the expanded form, **leave it** — don't chase it, and
+don't change any other file to match. This particular mismatch is safe: `W` →
+`West` and `Ave` → `Avenue` is Google's own expansion of its own place data, so
+Google is not going to fail to recognise the two as one address. What matters is
+that the strings we control — `pages/contact.html`, `header-injection.html`,
+`blocks/footer.html` — all stay on the canonical form, because those are the
+ones a crawler compares against the GBP listing.
+
+#### Hours
+
+The panel takes hours per day, so all six rows read `09:00 - 17:00` and Sunday
+is `Closed`. That matches `openingHoursSpecification` exactly (Monday–Saturday,
+opens 09:00, closes 17:00, no Sunday).
+
+There is nowhere in the panel for **"by appointment only"** — it only accepts
+times. That qualifier lives on the page (`pages/contact.html`), which is the
+reason the page carries its own hours rather than deferring to this panel.
+
+Worth re-reading the six rows after typing them: a stray character at the end of
+a single day's field (`09:00 - 17:00x`) is nearly invisible in the panel and
+makes that one day's hours unparseable.
+
 ### Validating
 
 Two passes, and they check different things.
