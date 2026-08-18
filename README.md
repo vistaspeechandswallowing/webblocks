@@ -1,9 +1,12 @@
 # webblocks
 
-HTML code blocks for Squarespace. Two areas:
+HTML code blocks for Squarespace. Three areas:
 
 - **`blocks/`** — reusable single-purpose blocks, one self-contained file each,
   with a browsable gallery to preview and copy them.
+- **`site/`** — site-wide code that's pasted once into Squarespace's Code
+  Injection rather than into any page — currently the practice's JSON-LD.
+  See [`site/README.md`](site/README.md).
 - **`pages/`** — full-page compositions, **one code block per page**. Each page
   builds all its sections on a single shared container and spacing scale, so
   spacing stays visually consistent across screen sizes. This is where pages get
@@ -20,10 +23,12 @@ webblocks/
 ├── blocks/             # Reusable single-purpose blocks
 │   ├── _template.html      # Starting point for a new block
 │   └── hello-banner.html   # Example block
-└── pages/              # Full-page compositions (one code block per page)
-    ├── custom-css.css      # Complete site Custom CSS — paste once into Squarespace
-    ├── _template.html      # Starting point for a new page
-    └── home.html           # The Home page
+├── pages/              # Full-page compositions (one code block per page)
+│   ├── custom-css.css      # Complete site Custom CSS — paste once into Squarespace
+│   ├── _template.html      # Starting point for a new page
+│   └── home.html           # The Home page
+└── site/               # Site-wide code injection (pasted once, not per page)
+    └── header-injection.html  # MedicalBusiness JSON-LD → Code Injection → Header
 ```
 
 ## Why two areas?
