@@ -224,6 +224,10 @@ Types don't collide either: Squarespace's is the broad `LocalBusiness`, ours is
 
 #### Fix the placeholder social links
 
+**Done — fixed in Aug 2026**; `sameAs` now points at the practice's real
+Instagram. Left here because it comes back if the Social Links panel is ever
+re-populated from a template.
+
 Squarespace's `Organization` block ships with **demo** social accounts still in
 it:
 
@@ -333,3 +337,27 @@ result. Once the markup is installed, run the
 [Rich Results Test](https://search.google.com/test/rich-results) and the
 [Schema Markup Validator](https://validator.schema.org/) against the real page,
 which is also the only way to see our block and Squarespace's together.
+
+### What Google actually reported (Aug 2026)
+
+Rich Results Test on the contact page, for the record — this is the baseline to
+compare against after any change:
+
+**Our `MedicalClinic`: valid.** Every field parsed the way it was meant to —
+structured `PostalAddress`, `geo`, `openingHoursSpecification` as Mon–Sat
+`T09:00`–`T17:00`, all six `areaServed` entries, both languages, and
+`medicalSpecialty` resolved to `schema.org/SpeechPathology` (i.e. Google read it
+as the enumeration member, not as a bare string). The jsDelivr logo URL loaded.
+
+Two flags remain, and **neither is ours to fix**:
+
+| Flag | Whose | What to do |
+| --- | --- | --- |
+| `Organization` invalid — missing `name`, missing `image` | Squarespace's | Nothing. It emits `legalName` but no `name`, and no image. Not editable, not removable. An invalid item is not a penalty — it just isn't eligible for a rich result. |
+| `LocalBusiness` missing `addressLocality` / `postalCode` / `streetAddress` | Squarespace's | Nothing. It sends the address as one string rather than a structured `PostalAddress`. Ours carries the structured version. |
+
+**`priceRange` (optional)** is flagged on the `MedicalClinic` and is deliberately
+left out. Google lists it as recommended for LocalBusiness, but a practice that
+bills insurance has no honest price range to state, and the item is already
+valid without it. Don't add a decorative `"$$"` to clear a yellow flag.
+
