@@ -34,8 +34,8 @@ Styling is split by how widely it's used, so nothing is duplicated across pages:
    `.vss-page` (+ full-bleed breakout), `.vss-container`, `.vss-band`, `.vss-btn`,
    `.vss-hero`, `.vss-badge`, `.vss-card`, `.vss-h2`, `.vss-pagehead`,
    `.vss-meta`, `.vss-article`, `.vss-prose`, `.vss-h2--sub`, `.vss-checklist`,
-   `.vss-infocard`, `.vss-quote`, `.vss-section-cta`, `.vss-nap`, `.vss-hours`,
-   `.vss-formlead`. Also in `custom-css.css`.
+   `.vss-infocard`, `.vss-quote`, `.vss-section-cta`, `.vss-nap`, `.vss-hours`.
+   Also in `custom-css.css`.
 
    **Home vs. interior pages:** `.vss-band--hero` (full-bleed photo + parallax)
    is the *home page's* opener and should stay unique to it. Every other page
@@ -65,13 +65,21 @@ won't style itself without it). That's a one-time paste, so it's fine.
 
 ## When a page needs a native Squarespace block
 
-`contact.html` is the exception to "one code block per page": the submission
-form has to stay a **native Squarespace Form block**, because that's what
-actually delivers the mail. The composition therefore runs from the page header
-down to the line that hands the reader to the form, and stops — the form block
-sits directly beneath it in the same section. Anything a page genuinely can't
-own (a form, a Maps embed) follows the composition as its own block rather than
+Some things a page can't own: a submission form has to be a **native
+Squarespace Form block**, because that's what actually delivers the mail. Same
+for a Maps embed. Those follow the composition as their own blocks rather than
 being faked inside it.
+
+**Put each one in its own Section.** The Fluid Engine reset at the end of
+`custom-css.css` pins every block in a `:has(.vss-page)` section to a single
+grid cell — that's what makes the section size to our content. Two of our
+blocks plus a native block in *one* section would land on top of each other. So
+a page that wraps around a native block is three stacked Sections: our markup,
+the native block, our markup.
+
+`contact.html` had a form under it and no longer does; the lead-in line that
+pointed at the form was removed with it. `.vss-formlead` went too — see the
+commit if it's ever needed again.
 
 ## Pasting a page into Squarespace
 

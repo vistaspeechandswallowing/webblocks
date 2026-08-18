@@ -540,34 +540,6 @@
   color:var(--vss-blue-deep,#3d5aa6);
 }
 
-/* ---- Form lead-in ------------------------------------------------------
-   The one line that hands the reader over to the form block below. It is NOT
-   part of the article above it — same family as .vss-quote (soft blue, same
-   radius) but centered and quieter, so it reads as an instruction attached to
-   the form rather than as another section of the page. Keep it LAST in the
-   composition: the native Squarespace Form block sits directly beneath it. */
-/* The band holding it drops its bottom padding: the form block below is a
-   separate Squarespace block with its own top spacing, and a full section's
-   worth on top of that pushed the form a screen away from the line that
-   introduces it. */
-.vss-band--formlead{padding-bottom:0;}
-.vss-formlead{
-  max-width:620px;
-  margin:0 auto;
-  padding:20px 26px;
-  border-radius:16px;
-  background:var(--vss-blue-soft,rgba(47,107,255,.10));
-  text-align:center;
-}
-.vss-page .vss-formlead p{
-  margin:0;
-  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
-  font-size:clamp(1.02rem,1.5vw,1.12rem);
-  font-weight:500;
-  line-height:1.6;
-  color:var(--vss-blue-dark,#1f5be0);
-}
-
 /* ---- Checklist (symptom / "is this you?" style list) ------------------- */
 /* Two columns of white cards, each led by a blue check mark. Collapses to one
    column on narrow screens. */
