@@ -1,0 +1,174 @@
+<!-- ===========================================================================
+  PAGE:  Contact  (Vista Speech & Swallowing)
+  ---------------------------------------------------------------------------
+  ONE code block for the WHOLE page BODY. Paste into a SINGLE Squarespace Code
+  Block. (The footer is site-wide — leave it in Squarespace's global Footer
+  section; don't add a footer band here.)
+
+  ONE EXCEPTION on this page: the FORM stays a native Squarespace Form block,
+  placed directly BELOW this code block. It has to — a form that Squarespace
+  owns is what delivers the submissions, and we can't own that from inside a
+  code block. So the composition runs from the page header down to the line
+  that hands the reader to the form, and stops. The form (and the map, if it
+  stays) follow as their own blocks in the same section. This is why the
+  form lead-in is the LAST thing in the markup below — don't move it.
+
+  WHY THIS PAGE EXISTS AS TEXT: /contact used to be a form and a Maps iframe
+  and almost nothing else, so there was nothing on it for a search engine to
+  read — no address, no hours, no service area. Everything below is here to be
+  read, by people and by crawlers. Two rules follow from that:
+
+    • The street string is "8850 W 58th Ave Ste 201" — character for character
+      what the Google Business Profile says. Do NOT expand "Ste" to "Suite".
+    • The same address, phone, and hours appear in the site-wide JSON-LD
+      (site/header-injection.html) and in the footer (blocks/footer.html).
+      Change one, change all three. A divergence is a bug.
+
+  NO SCHEMA IN THIS BLOCK on purpose: the MedicalBusiness JSON-LD is site-wide
+  (Settings → Advanced → Code Injection → Header), because it describes the
+  business, not this page. See site/README.md.
+
+  SQUARESPACE SECTION SETUP (do this once so the grid stops fighting us):
+    • Put this block in its own Section, with the form block beneath it.
+    • Section → Background: white. ("None" lets the template's grey show
+      through.)
+    • Section → Width: Full Bleed.  Content width: Wide/Full.
+    • Design tab → Fill Screen: OFF, Alignment: top.
+    • Section padding top & bottom: 0. (Spacing is owned by these bands.)
+
+  STYLING lives in pages/custom-css.css (Design → Custom CSS): the shared
+  tokens AND the shared components (.vss-pagehead, .vss-article, .vss-infocard,
+  .vss-nap, .vss-hours, .vss-formlead, .vss-btn, …). This block is pure markup
+  — no page-specific styles. custom-css.css MUST be installed.
+=========================================================================== -->
+<div class="vss-page">
+
+  <!-- ===== 1. PAGE HEADER ================================================== -->
+  <!-- Same opener as every interior page (.vss-band--pagehead). The button is
+       a tel: link, not a scroll-to-form: someone on a contact page who is
+       ready to talk should be able to talk. -->
+  <section class="vss-band vss-band--pagehead">
+    <div class="vss-container vss-pagehead">
+
+      <h1>Contact</h1>
+      <p>Speech, voice, and swallowing care for children and adults — in our Arvada office, on site across the Denver metro, and by telehealth statewide.</p>
+
+      <div class="vss-meta">
+        <span class="vss-meta__item">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 21h18"></path>
+            <path d="M5 21V7l7-4 7 4v14"></path>
+            <path d="M10 21v-6h4v6"></path>
+          </svg>
+          Arvada office
+        </span>
+        <span class="vss-meta__item">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M8 2v4M16 2v4"></path>
+            <path d="M21 12.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7"></path>
+            <path d="M3 10h18"></path>
+            <path d="M16 19h6M19 16v6"></path>
+          </svg>
+          By appointment only
+        </span>
+        <span class="vss-meta__item">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M3 12h18"></path>
+            <path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18Z"></path>
+          </svg>
+          Se habla espa&ntilde;ol
+        </span>
+      </div>
+
+      <div class="vss-cta-row">
+        <a class="vss-btn" href="tel:+17205099640">
+          <span>Call (720) 509-9640</span>
+          <span class="vss-btn__circle">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 2. OFFICE + HOURS =============================================== -->
+  <!-- The NAP and the hours, as two info cards. The <address> and the <dl> are
+       load-bearing: they're what makes this text machine-readable as contact
+       information. See .vss-nap / .vss-hours in custom-css.css. -->
+  <section class="vss-band" id="office">
+    <div class="vss-container">
+      <div class="vss-article">
+        <h2 class="vss-h2 vss-h2--sub">Where to find us</h2>
+      </div>
+
+      <div class="vss-infocards">
+
+        <div class="vss-infocard">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 21h18"></path>
+            <path d="M5 21V7l7-4 7 4v14"></path>
+            <path d="M10 21v-6h4v6"></path>
+          </svg>
+          <address class="vss-nap">
+            <h3>Vista Speech &amp; Swallowing</h3>
+            <!-- "Ste 201", never "Suite" — this string has to match the Google
+                 Business Profile exactly. -->
+            <p>8850 W 58th Ave Ste 201<br>Arvada, CO 80002</p>
+            <p><a href="tel:+17205099640">(720) 509-9640</a></p>
+            <p><a href="mailto:nicholas@vistaspeech.com">nicholas@vistaspeech.com</a></p>
+          </address>
+        </div>
+
+        <div class="vss-infocard">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M12 7v5l3.5 2"></path>
+          </svg>
+          <h3>Hours</h3>
+          <!-- ONE row for the whole week, and "by appointment only" sits INSIDE
+               the <dd> as part of the value. The times don't mean anything
+               without it, so it must not become a separate note that can be
+               read (or skipped) on its own. -->
+          <dl class="vss-hours">
+            <dt>Monday &ndash; Saturday</dt>
+            <dd>
+              9:00 AM &ndash; 5:00 PM
+              <span class="vss-hours__note">By appointment only</span>
+            </dd>
+          </dl>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 3. SERVICE AREA (pale blue) ===================================== -->
+  <section class="vss-band vss-band--services" id="service-area">
+    <div class="vss-container">
+      <div class="vss-article">
+        <h2 class="vss-h2 vss-h2--sub">Service area</h2>
+        <div class="vss-prose">
+          <p>We see clients in our Arvada office, on site throughout the Denver metro, and by telehealth across Colorado. Se habla espa&ntilde;ol.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 4. HAND-OFF TO THE FORM ========================================= -->
+  <!-- LAST band on purpose: the native Squarespace Form block goes directly
+       beneath this code block, so this line lands immediately above it. If you
+       add anything after this, the lead-in stops pointing at the form. -->
+  <section class="vss-band vss-band--formlead" id="form">
+    <div class="vss-container">
+      <div class="vss-formlead">
+        <p>Tell us a bit about what&rsquo;s going on and Nicholas will get back to you within one business day.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOTE: The footer is intentionally NOT part of this page. It's a
+       site-wide element managed in Squarespace's global Footer section (using
+       blocks/footer.html), so it appears on every page from one place. -->
+
+</div>

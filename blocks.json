@@ -82,19 +82,6 @@
     "previewBg": "#eef2f9"
   },
   {
-    "file": "blocks/contact-details.html",
-    "title": "Contact Details",
-    "description": "Crawlable contact content for the Contact page: name, address, phone, and email in an address element, Monday–Saturday hours in a definition list with “by appointment only” attached to the times, and the service area. Ends with a visually distinct lead-in line that sits directly above the form block. No schema — the JSON-LD is site-wide in site/header-injection.html.",
-    "tags": [
-      "contact",
-      "nap",
-      "hours",
-      "seo",
-      "local"
-    ],
-    "previewBg": "#eef2f9"
-  },
-  {
     "file": "blocks/footer.html",
     "title": "Site Footer",
     "description": "Footer with sans-serif type and blue accents. Practice name, phone/fax, email, a soft-blue emergency-use callout, plus Office address and Hours columns. Three-column layout that collapses to two then one on smaller screens, with an auto-updating copyright year.",

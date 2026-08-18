@@ -26,7 +26,8 @@ webblocks/
 ├── pages/              # Full-page compositions (one code block per page)
 │   ├── custom-css.css      # Complete site Custom CSS — paste once into Squarespace
 │   ├── _template.html      # Starting point for a new page
-│   └── home.html           # The Home page
+│   ├── home.html           # The Home page
+│   └── contact.html        # The Contact page
 └── site/               # Site-wide code injection (pasted once, not per page)
     └── header-injection.html  # MedicalBusiness JSON-LD → Code Injection → Header
 ```

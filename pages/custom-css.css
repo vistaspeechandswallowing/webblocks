@@ -9,8 +9,9 @@
      1. Shared design tokens      — the one source of truth for the page
                                      compositions in pages/*.html
      2. Shared page components    — the reusable building blocks (container,
-                                     bands, button, hero, badges, cards) that
-                                     every page composition uses
+                                     bands, button, hero, badges, cards,
+                                     contact details) that every page
+                                     composition uses
      3. Global type & chrome      — small site-wide tweaks (headings, header)
      4. Form styler               — restyles native Squarespace Form blocks
 
@@ -482,6 +483,91 @@
   font-size:1rem;line-height:1.55;color:var(--vss-muted,#6b7280);
 }
 
+/* ---- Contact details inside an info card ------------------------------
+   Two small pieces used by the contact page, both living INSIDE a
+   .vss-infocard so the office and the hours read as the same kind of tile as
+   the ones on the other pages. Only the typography of the two elements is new
+   — the card, its border, and its hover all come from .vss-infocard above.
+
+   Why real elements rather than styled paragraphs: an <address> and a <dl>
+   say what the content IS, which is the whole point of putting this text on
+   the page (see pages/contact.html). Don't swap them for <p>s. */
+
+/* The name / address / phone / email block. <address> is italic by default,
+   which is wrong here — this is the practice's address, not an aside. */
+.vss-nap{font-style:normal;margin:0;}
+.vss-page .vss-nap p{
+  margin:0 0 .55rem;
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+  font-size:1rem;line-height:1.55;color:var(--vss-muted,#6b7280);
+}
+.vss-page .vss-nap p:last-child{margin-bottom:0;}
+/* The two tappable lines (phone, email) carry the brand blue so they read as
+   actions, not as more address text. */
+.vss-page .vss-nap a{
+  color:var(--vss-blue,#2f6bff);
+  font-weight:600;
+  text-decoration:none;
+  border-bottom:1px solid transparent;
+  transition:border-color .2s ease;
+}
+.vss-page .vss-nap a:hover{border-bottom-color:currentColor;}
+.vss-page .vss-nap a:focus-visible{outline:2px solid var(--vss-blue,#2f6bff);outline-offset:3px;border-radius:3px;}
+
+/* Opening hours. ONE row covers Monday–Saturday — a six-row list of identical
+   times is harder to read, not more precise.
+
+   THE QUALIFIER IS PART OF THE VALUE. "By appointment only" lives inside the
+   <dd>, styled as a second line of it, NOT as a sibling note under the list.
+   That is deliberate: the times are meaningless without it, so no one — reading
+   the page or walking the list with a screen reader — should be able to pick up
+   one without the other. Keep it inside the <dd>. */
+.vss-hours{margin:0;}
+.vss-page .vss-hours dt{
+  margin:0;
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+  font-size:1rem;font-weight:700;line-height:1.5;
+  color:var(--vss-ink,#141824);
+}
+.vss-page .vss-hours dd{
+  margin:.15rem 0 0;
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+  font-size:1rem;line-height:1.55;color:var(--vss-muted,#6b7280);
+}
+.vss-hours__note{
+  display:block;
+  font-weight:600;
+  color:var(--vss-blue-deep,#3d5aa6);
+}
+
+/* ---- Form lead-in ------------------------------------------------------
+   The one line that hands the reader over to the form block below. It is NOT
+   part of the article above it — same family as .vss-quote (soft blue, same
+   radius) but centered and quieter, so it reads as an instruction attached to
+   the form rather than as another section of the page. Keep it LAST in the
+   composition: the native Squarespace Form block sits directly beneath it. */
+/* The band holding it drops its bottom padding: the form block below is a
+   separate Squarespace block with its own top spacing, and a full section's
+   worth on top of that pushed the form a screen away from the line that
+   introduces it. */
+.vss-band--formlead{padding-bottom:0;}
+.vss-formlead{
+  max-width:620px;
+  margin:0 auto;
+  padding:20px 26px;
+  border-radius:16px;
+  background:var(--vss-blue-soft,rgba(47,107,255,.10));
+  text-align:center;
+}
+.vss-page .vss-formlead p{
+  margin:0;
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+  font-size:clamp(1.02rem,1.5vw,1.12rem);
+  font-weight:500;
+  line-height:1.6;
+  color:var(--vss-blue-dark,#1f5be0);
+}
+
 /* ---- Checklist (symptom / "is this you?" style list) ------------------- */
 /* Two columns of white cards, each led by a blue check mark. Collapses to one
    column on narrow screens. */
@@ -608,6 +694,7 @@
   /* Colour and shadow still change on hover — only the movement is dropped. */
   .vss-checklist li:hover{transform:none;}
   .vss-checklist li:hover svg{transform:none;}
+  .vss-nap a{transition:none;}
   .vss-infocard:hover{transform:none;}
   .vss-section-cta:hover svg{transform:none;}
 }
