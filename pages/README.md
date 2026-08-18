@@ -20,7 +20,8 @@ pages/
 ├── _template.html  # Starting point for a new page composition
 ├── home.html       # The Home page
 ├── swallow-study.html  # The Swallow Study page
-├── contact.html    # The Contact page (form block sits BELOW it — see the file)
+├── contact-top.html     # The Contact page, part 1 — above the form button
+├── contact-bottom.html  # …part 2 — below it. THREE sections; read the files.
 └── …               # More pages land here as they're migrated
 ```
 
@@ -34,8 +35,8 @@ Styling is split by how widely it's used, so nothing is duplicated across pages:
    `.vss-page` (+ full-bleed breakout), `.vss-container`, `.vss-band`, `.vss-btn`,
    `.vss-hero`, `.vss-badge`, `.vss-card`, `.vss-h2`, `.vss-pagehead`,
    `.vss-meta`, `.vss-article`, `.vss-prose`, `.vss-h2--sub`, `.vss-checklist`,
-   `.vss-infocard`, `.vss-quote`, `.vss-section-cta`, `.vss-nap`, `.vss-hours`.
-   Also in `custom-css.css`.
+   `.vss-infocard`, `.vss-quote`, `.vss-section-cta`, `.vss-nap`, `.vss-hours`,
+   `.vss-altcta`. Also in `custom-css.css`.
 
    **Home vs. interior pages:** `.vss-band--hero` (full-bleed photo + parallax)
    is the *home page's* opener and should stay unique to it. Every other page
@@ -77,9 +78,20 @@ blocks plus a native block in *one* section would land on top of each other. So
 a page that wraps around a native block is three stacked Sections: our markup,
 the native block, our markup.
 
-`contact.html` had a form under it and no longer does; the lead-in line that
-pointed at the form was removed with it. `.vss-formlead` went too — see the
-commit if it's ever needed again.
+**The contact page is the worked example.** Its "Request Information" button is
+a native Form block in lightbox mode, and it sits *between* the two halves of
+the composition, so the page is three stacked Sections:
+
+| Section | Holds |
+| --- | --- |
+| 1 | `contact-top.html` — the tinted page header. Carries the header clearance, so it must be first. |
+| 2 | The native Form block, Lightbox mode, labelled "Request Information". |
+| 3 | `contact-bottom.html` — the understated "or text us at …" link, then the office cards and service area. Also carries the JSON-LD. |
+
+The CTA pair reads button-then-link across the Section boundary, which is the
+point: a filled button for the main action, a plain underlined link
+(`.vss-altcta`) for the second. Two buttons of equal weight would make the
+reader choose instead of act. Don't reorder the sections.
 
 ## Pasting a page into Squarespace
 
@@ -97,15 +109,15 @@ commit if it's ever needed again.
    version, not the raw file:
 
    ```bash
-   python3 tools/paste.py pages/contact.html | pbcopy
+   python3 tools/paste.py pages/home.html | pbcopy
    ```
 
-   For the contact page, pass both files — the block is the page markup
-   *followed by* the JSON-LD, since this site has no Code Injection to put the
-   markup in:
+   The contact page is two blocks, and the second one also carries the JSON-LD
+   (this site has no Code Injection to put it in), so pass both files:
 
    ```bash
-   python3 tools/paste.py pages/contact.html site/header-injection.html | pbcopy
+   python3 tools/paste.py pages/contact-top.html | pbcopy
+   python3 tools/paste.py pages/contact-bottom.html site/header-injection.html | pbcopy
    ```
 
    The comments in these files are for whoever edits them next; a visitor

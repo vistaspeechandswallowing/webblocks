@@ -1,0 +1,105 @@
+<!-- ===========================================================================
+  PAGE:  Contact — PART 2 of 2  (Vista Speech & Swallowing)
+  ---------------------------------------------------------------------------
+  Paste this into the THIRD section, below the native Form block. See
+  pages/contact-top.html for why the page is split into three sections and why
+  the order must not change.
+
+  IT OPENS WITH THE UNDERSTATED CTA — "or text us at …" — which belongs to the
+  Request Information button in the section above it, not to the office cards
+  below. It's deliberately a plain underlined link, not a second button: two
+  buttons of equal weight make the reader choose instead of act. Keep it quiet.
+
+  sms: DOES NOTHING ON MOST DESKTOPS (it works on phones and on macOS with
+  Messages). That's why the same number is also a tel: link in the office card
+  further down — don't let this link become the only route to the number.
+
+  WHY THIS ALSO CARRIES THE JSON-LD: this site's plan has no Code Injection, so
+  the practice's MedicalClinic markup is pasted at the END of this block, after
+  the closing </div>. It is NOT part of this file — it lives in
+  site/header-injection.html as the one copy. Paste both together with:
+
+      python3 tools/paste.py pages/contact-bottom.html site/header-injection.html | pbcopy
+
+  The street string is "8850 W 58th Ave Ste 201" — character for character what
+  the Google Business Profile says. Do NOT expand "Ste" to "Suite". The same
+  address, phone, and hours appear in the JSON-LD and in blocks/footer.html;
+  change one, change all three.
+=========================================================================== -->
+<div class="vss-page">
+
+  <!-- ===== THE QUIET HALF OF THE CTA PAIR ================================== -->
+  <section class="vss-band vss-band--altcta">
+    <div class="vss-container vss-altcta">
+      <p><a href="sms:+17205099640">or text us at (720)&nbsp;509-9640</a></p>
+    </div>
+  </section>
+
+  <!-- ===== OFFICE + HOURS ================================================= -->
+  <!-- The NAP and the hours, as two info cards. The <address> and the <dl> are
+       load-bearing: they're what makes this text machine-readable as contact
+       information. See .vss-nap / .vss-hours in custom-css.css. -->
+  <section class="vss-band" id="office">
+    <div class="vss-container">
+      <div class="vss-article">
+        <h2 class="vss-h2 vss-h2--sub">Where to find us</h2>
+      </div>
+
+      <div class="vss-infocards">
+
+        <div class="vss-infocard">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 21h18"></path>
+            <path d="M5 21V7l7-4 7 4v14"></path>
+            <path d="M10 21v-6h4v6"></path>
+          </svg>
+          <address class="vss-nap">
+            <h3>Vista Speech &amp; Swallowing</h3>
+            <!-- "Ste 201", never "Suite" — this string has to match the Google
+                 Business Profile exactly. -->
+            <p>8850 W 58th Ave Ste 201<br>Arvada, CO 80002</p>
+            <p><a href="tel:+17205099640">(720) 509-9640</a></p>
+            <p><a href="mailto:nicholas@vistaspeech.com">nicholas@vistaspeech.com</a></p>
+          </address>
+        </div>
+
+        <div class="vss-infocard">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M12 7v5l3.5 2"></path>
+          </svg>
+          <h3>Hours</h3>
+          <!-- ONE row for the whole week, and "by appointment only" sits INSIDE
+               the <dd> as part of the value. The times don't mean anything
+               without it, so it must not become a separate note that can be
+               read (or skipped) on its own. -->
+          <dl class="vss-hours">
+            <dt>Monday &ndash; Saturday</dt>
+            <dd>
+              9:00 AM &ndash; 5:00 PM
+              <span class="vss-hours__note">By appointment only</span>
+            </dd>
+          </dl>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SERVICE AREA (pale blue) ======================================== -->
+  <section class="vss-band vss-band--services" id="service-area">
+    <div class="vss-container">
+      <div class="vss-article">
+        <h2 class="vss-h2 vss-h2--sub">Service area</h2>
+        <div class="vss-prose">
+          <p>We see clients in our Arvada office, on site throughout the Denver metro, and by telehealth across Colorado. Se habla espa&ntilde;ol.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOTE: The footer is intentionally NOT part of this page. It's a
+       site-wide element managed in Squarespace's global Footer section (using
+       blocks/footer.html), so it appears on every page from one place. -->
+
+</div>

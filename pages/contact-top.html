@@ -1,0 +1,76 @@
+<!-- ===========================================================================
+  PAGE:  Contact — PART 1 of 2  (Vista Speech & Swallowing)
+  ---------------------------------------------------------------------------
+  THIS PAGE IS THREE STACKED SECTIONS. Paste this file into the FIRST one:
+
+      Section 1  →  pages/contact-top.html      (this file)   — Code Block
+      Section 2  →  the native Form block, Lightbox mode, "Request Information"
+      Section 3  →  pages/contact-bottom.html                 — Code Block
+
+  WHY IT'S SPLIT: the Request Information button is a native Squarespace Form
+  block in lightbox mode — Squarespace owns it, so it can't live inside our
+  markup. And it can't share a Section with our block either: the Fluid Engine
+  reset at the end of custom-css.css pins every block in a :has(.vss-page)
+  section to one grid cell, which is what makes the section size to our
+  content. Two blocks in one Section would land on top of each other. So the
+  composition opens up around the button, and each piece gets its own Section.
+
+  THE CTA PAIR, in reading order: this file ends the tinted header band; the
+  form block's button follows on white; then contact-bottom.html opens with the
+  understated "or text us at …" link. Button dominant, link secondary — that
+  hierarchy is the whole point, so don't reorder the sections.
+
+  The header CLEARANCE lives here — .vss-band--pagehead carries the top padding
+  that keeps the title out from under the site header. That's why this is the
+  first block on the page.
+
+  SQUARESPACE SECTION SETUP (all three sections):
+    • Background: white.  Width: Full Bleed.  Content width: Wide/Full.
+    • Design tab → Fill Screen: OFF, Alignment: top.
+    • Section padding top & bottom: 0. (Spacing is owned by our bands.)
+
+  PASTE IT WITH:  python3 tools/paste.py pages/contact-top.html | pbcopy
+  STYLING lives in pages/custom-css.css (Design → Custom CSS).
+=========================================================================== -->
+<div class="vss-page">
+
+  <!-- ===== PAGE HEADER ===================================================== -->
+  <!-- No button in here on purpose — the CTA pair starts with the native form
+       block in the NEXT section. See the note above. -->
+  <section class="vss-band vss-band--pagehead">
+    <div class="vss-container vss-pagehead">
+
+      <h1>Contact</h1>
+      <p>Speech, voice, and swallowing care for children and adults — in our Arvada office, on site across the Denver metro, and by telehealth statewide.</p>
+
+      <div class="vss-meta">
+        <span class="vss-meta__item">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 21h18"></path>
+            <path d="M5 21V7l7-4 7 4v14"></path>
+            <path d="M10 21v-6h4v6"></path>
+          </svg>
+          Arvada office
+        </span>
+        <span class="vss-meta__item">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M8 2v4M16 2v4"></path>
+            <path d="M21 12.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7"></path>
+            <path d="M3 10h18"></path>
+            <path d="M16 19h6M19 16v6"></path>
+          </svg>
+          By appointment only
+        </span>
+        <span class="vss-meta__item">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M3 12h18"></path>
+            <path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18Z"></path>
+          </svg>
+          Se habla espa&ntilde;ol
+        </span>
+      </div>
+    </div>
+  </section>
+
+</div>

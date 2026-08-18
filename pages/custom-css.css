@@ -540,6 +540,42 @@
   color:var(--vss-blue-deep,#3d5aa6);
 }
 
+/* ---- Understated alternative CTA --------------------------------------
+   The quiet half of a CTA pair: a plain underlined link under a filled button,
+   for the second-choice action ("or text us at …"). Deliberately NOT a second
+   button — two buttons of equal weight make the reader choose instead of act,
+   and the choosing is the friction. Muted blue rather than the brand blue for
+   the same reason: at link size the brand blue is loud enough to compete with
+   the button it sits under.
+
+   The band pairs with a native Squarespace block above it (the lightbox form
+   button), so its TOP padding is small — the two are one unit, and a full
+   section's worth between them would break the pair apart. */
+.vss-band--altcta{
+  padding-top:clamp(.9rem,1.8vw,1.4rem);
+  padding-bottom:clamp(2rem,4vw,3rem);
+}
+.vss-altcta{text-align:center;}
+.vss-page .vss-altcta p{
+  margin:0;
+  font-family:var(--vss-sans, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif);
+  font-size:1rem;
+  line-height:1.5;
+}
+.vss-page .vss-altcta a{
+  color:var(--vss-blue-deep,#3d5aa6);
+  text-decoration:underline;
+  text-underline-offset:3px;
+  text-decoration-thickness:1px;
+  transition:color .2s ease;
+}
+.vss-page .vss-altcta a:hover{color:var(--vss-blue-dark,#1f5be0);}
+.vss-page .vss-altcta a:focus-visible{
+  outline:2px solid var(--vss-blue,#2f6bff);
+  outline-offset:3px;
+  border-radius:3px;
+}
+
 /* ---- Checklist (symptom / "is this you?" style list) ------------------- */
 /* Two columns of white cards, each led by a blue check mark. Collapses to one
    column on narrow screens. */
@@ -666,7 +702,7 @@
   /* Colour and shadow still change on hover — only the movement is dropped. */
   .vss-checklist li:hover{transform:none;}
   .vss-checklist li:hover svg{transform:none;}
-  .vss-nap a{transition:none;}
+  .vss-nap a,.vss-altcta a{transition:none;}
   .vss-infocard:hover{transform:none;}
   .vss-section-cta:hover svg{transform:none;}
 }
