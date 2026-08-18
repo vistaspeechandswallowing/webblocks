@@ -340,18 +340,12 @@ which is also the only way to see our block and Squarespace's together.
 Rich Results Test on the contact page — the baseline to compare against after
 any change.
 
-**Read the results per rich-result type, not as one list.** The test groups its
-findings by the type of rich result being evaluated, and each type has its own
-required fields. The same markup therefore appears in more than one tab with
-different verdicts, which looks like a contradiction and isn't:
-
-| Tab | What it showed |
-| --- | --- |
-| **Local Businesses** | **2 items, both valid** — our `MedicalClinic` and Squarespace's `LocalBusiness`. |
-| **Organization** | 3 items, one invalid — the same two, plus Squarespace's `Organization`, which fails for missing `name` and `image`. |
-
-**Local Businesses is the tab that matters here.** That's the family of results a
-clinic actually competes for. Both items pass it.
+**Read the per-item verdicts, not the headline count.** The test groups its
+findings by rich-result type, and each type applies its own required fields, so
+the same run can show a different set of items — and a different headline, "2
+valid items" vs "3 items detected: some are invalid" — depending which view
+you're in. That is not a contradiction and not a change in the markup. Go by
+the green/red mark on each item.
 
 **Our `MedicalClinic`: valid.** Every field parsed the way it was meant to —
 structured `PostalAddress`, `geo`, `openingHoursSpecification` as Mon–Sat
@@ -359,7 +353,8 @@ structured `PostalAddress`, `geo`, `openingHoursSpecification` as Mon–Sat
 `medicalSpecialty` resolved to `schema.org/SpeechPathology` (i.e. Google read it
 as the enumeration member, not as a bare string — that resolution is what the
 `MedicalClinic` type change bought; on `MedicalBusiness` the property would have
-been dropped). The jsDelivr logo URL loaded.
+been dropped). The jsDelivr logo URL loaded, and both `sameAs` entries — the GBP
+listing by Place ID and the Instagram profile — came through intact.
 
 Everything still flagged belongs to **Squarespace's** blocks, and none of it is
 editable or removable:
