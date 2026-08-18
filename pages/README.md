@@ -92,6 +92,14 @@ being faked inside it.
    python3 tools/paste.py pages/contact.html | pbcopy
    ```
 
+   For the contact page, pass both files — the block is the page markup
+   *followed by* the JSON-LD, since this site has no Code Injection to put the
+   markup in:
+
+   ```bash
+   python3 tools/paste.py pages/contact.html site/header-injection.html | pbcopy
+   ```
+
    The comments in these files are for whoever edits them next; a visitor
    downloads every byte of them on every page view. `tools/paste.py` removes
    them and leaves one marker line naming the file and commit, so it's possible

@@ -4,6 +4,13 @@
     python3 tools/paste.py pages/contact.html            # to the terminal
     python3 tools/paste.py pages/contact.html | pbcopy   # straight to clipboard
 
+Several files can be given at once, and are concatenated in the order listed.
+That is how the contact page's ONE code block is produced — the page markup
+followed by the JSON-LD, which is where it lives while this site has no Code
+Injection:
+
+    python3 tools/paste.py pages/contact.html site/header-injection.html | pbcopy
+
 Why: the comments in these files are written for whoever edits them next — why a
 band is last, which string must not change, what breaks if it moves. That is
 worth keeping in the repo and worth nothing to a visitor, who downloads every
@@ -87,27 +94,36 @@ def tidy(text):
     return text.strip("\n")
 
 
-def main():
-    if len(sys.argv) != 2:
-        sys.exit(__doc__.strip().splitlines()[0] + "\n\nusage: "
-                 "python3 tools/paste.py <file>")
-    path = sys.argv[1]
-    source = open(path).read()
-    output = tidy(strip_comments(source))
-
+def label(path):
+    """Repo-relative name, so the marker line means something."""
     root = subprocess.run(["git", "rev-parse", "--show-toplevel"],
                           capture_output=True, text=True,
                           cwd=os.path.dirname(os.path.abspath(path)) or ".")
-    name = os.path.relpath(os.path.abspath(path), root.stdout.strip()) \
-        if root.returncode == 0 else os.path.basename(path)
+    if root.returncode != 0:
+        return os.path.basename(path)
+    return os.path.relpath(os.path.abspath(path), root.stdout.strip())
 
-    print(f"<!-- vss: {name} @ {revision()} -->")
-    print(output)
 
-    saved = len(source) - len(output)
-    sys.stderr.write(
-        f"{name}: {len(source):,} → {len(output):,} bytes "
-        f"({saved:,} of comments removed)\n")
+def main():
+    paths = sys.argv[1:]
+    if not paths:
+        sys.exit(__doc__.strip().splitlines()[0] + "\n\nusage: "
+                 "python3 tools/paste.py <file> [file …]")
+
+    rev = revision()
+    for index, path in enumerate(paths):
+        source = open(path).read()
+        output = tidy(strip_comments(source))
+        name = label(path)
+
+        if index:
+            print()
+        print(f"<!-- vss: {name} @ {rev} -->")
+        print(output)
+
+        sys.stderr.write(
+            f"{name}: {len(source):,} → {len(output):,} bytes "
+            f"({len(source) - len(output):,} of comments removed)\n")
 
 
 if __name__ == "__main__":

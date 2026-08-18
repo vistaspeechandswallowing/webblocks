@@ -42,6 +42,9 @@ Always paste through `tools/paste.py` rather than copying the raw file:
 ```bash
 python3 tools/paste.py pages/contact.html | pbcopy   # macOS
 python3 tools/paste.py pages/contact.html            # or just read it
+
+# several files are concatenated in order — the whole contact code block:
+python3 tools/paste.py pages/contact.html site/header-injection.html | pbcopy
 ```
 
 These files are heavily commented on purpose — the notes explain why a band is
