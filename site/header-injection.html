@@ -39,15 +39,17 @@
   bug — fix both. In particular "8850 W 58th Ave Ste 201" matches the Google
   Business Profile character for character; do NOT expand "Ste" to "Suite".
 
-  STILL TO ADD: the Google Business Profile listing URL, as another entry in
-  "sameAs" below. That is the one that matters most — it's what ties this markup
-  to the listing that shows up in Maps and the local pack. Add it as a second
-  string in the array (mind the comma), never as a bracketed placeholder:
-  an absent entry is valid, a "[…]" string is not.
+  "sameAs" IS NOW COMPLETE ENOUGH TO SHIP: the Google Business Profile listing
+  and the practice's Instagram. That first URL is the important one — it tells
+  Google this markup and that Maps listing are the same business.
 
-  See site/README.md for how to find that URL. Other real profiles (Facebook,
-  Healthgrades, Psychology Today, the ASHA directory) belong in the same list as
-  they appear — each one is another confirmation of the same practice.
+  Add other REAL profiles to the same list as they appear (Facebook,
+  Healthgrades, Psychology Today, the ASHA directory); each is another
+  confirmation of the same practice. Never add a bracketed placeholder — an
+  absent entry is valid, a "[…]" string is not — and never add a profile that
+  isn't the practice's own. sameAs asserts "this is the same entity", which is
+  how Squarespace's default social links ended up claiming the practice was
+  Squarespace. See site/README.md.
 
   IMAGE URLS: served from the webimages repo through jsDelivr, PINNED TO A
   COMMIT (the @7de07fd… part) — the same workflow the page compositions use for
@@ -101,6 +103,7 @@
   ],
   "knowsLanguage": ["English", "Spanish"],
   "sameAs": [
+    "https://maps.app.goo.gl/SnPmpLpmTCHQZg1r9",
     "https://www.instagram.com/vistaspeechandswallowing/"
   ]
 }

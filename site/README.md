@@ -130,37 +130,29 @@ URL rather than only on `/contact`. That's also why
 `pages/contact.html` carries no schema of its own — putting it in both
 places would mean two copies to keep in sync.
 
-### The one thing still missing: `sameAs`
+### `sameAs` — what it is, and the rule for it
 
-`sameAs` is a list of other places on the web that are *this same business* —
-its Google Business Profile, its Facebook page, its Yelp listing. It's how you
-tell Google "the markup on this website and that listing over there describe one
-practice, not two." Without it Google has to infer the connection from the name
+`sameAs` lists other places on the web that are **this same business** — its
+Google Business Profile, its Instagram, a directory listing. It's how Google is
+told "the markup on this website and that listing over there describe one
+practice, not two." Without it, Google has to infer the connection from the name
 and address matching, which usually works but isn't guaranteed.
 
-The property is currently **left out** rather than left as a placeholder — an
-absent property is valid, a `"[…]"` string is not. To add it:
+Currently set to the Google Business Profile listing and the practice's
+Instagram. The GBP one is the important one — it's the listing that appears in
+Maps and the local pack.
 
-1. Open [Google Maps](https://www.google.com/maps) and search for
-   **Vista Speech & Swallowing**.
-2. Click the practice's listing so its panel opens on the left.
-3. Hit **Share** in that panel, then **Copy link**.
-4. Paste it into `header-injection.html` as the last property, after
-   `knowsLanguage` — and add a comma to the end of the `knowsLanguage` line,
-   or the JSON breaks:
+**The rule: every entry must be a profile the practice actually owns.** `sameAs`
+is an identity claim, not a link list. Squarespace shipped this site with
+`sameAs` pointing at *its own* Facebook, Instagram, and Twitter accounts, which
+was the practice's markup asserting it was Squarespace. Add real profiles
+(Facebook, Healthgrades, Psychology Today, the ASHA directory) as they appear;
+never add anything else.
 
-   ```json
-     "knowsLanguage": ["English", "Spanish"],
-     "sameAs": ["https://maps.app.goo.gl/…"]
-   ```
-
-The short `maps.app.goo.gl/…` link is fine. If you'd rather have the long form,
-the address bar URL of the listing page works too. Run the validator (below)
-afterwards to confirm nothing broke.
-
-Worth adding the practice's other profiles to the same list as they appear —
-Facebook, Instagram, Healthgrades, Psychology Today, the ASHA directory. Each
-one is another confirmation that they're all the same practice.
+To find a Google Business Profile URL: open [Google Maps](https://www.google.com/maps),
+search for the business, click its listing, then **Share → Copy link**. The
+short `maps.app.goo.gl/…` form is fine — it's Google's own redirect to the
+listing. The long address-bar URL works too.
 
 ### Image URLs
 
