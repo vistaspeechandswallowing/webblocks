@@ -1047,15 +1047,60 @@ p.footer{
   margin: 0 !important;
 }
 
-/* Error states */
+/* Error states -----------------------------------------------------------
+   Squarespace renders every error — the summary at the top of the form and
+   each field's own message — as:
+
+     <p class="form-field-error hawrxS_zLJ4CZHlM"><svg …/>message text</p>
+
+   TARGET `.form-field-error` AND NOTHING ELSE. The second class is a hashed
+   CSS-module name that changes whenever Squarespace rebuilds that component;
+   styling against it would work today and silently stop working later.
+
+   The default is a solid dark-red pill. That shape is fine for four words and
+   poor for the summary, which is a full sentence and wraps to two or three
+   lines inside a shape that says "short label". A soft tint with a real
+   border reads as a notice and lets the text set at a normal line height. */
+.sqs-block-form .form-field-error {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 0.55rem !important;
+  margin: 0.5rem 0 !important;
+  padding: 0.7rem 0.9rem !important;
+  border: 1px solid rgba(224, 53, 90, 0.35) !important;
+  border-radius: 12px !important;
+  background: rgba(224, 53, 90, 0.10) !important;
+  color: #b0203f !important;
+  font-size: 0.95rem !important;
+  font-weight: 500 !important;
+  line-height: 1.5 !important;
+  /* Even out the ragged edge on the two- and three-line summary. Ignored by
+     browsers that don't support it, which is the correct fallback. */
+  text-wrap: pretty;
+}
+/* The icon carries fill="white" as an ATTRIBUTE, for the dark pill it used to
+   sit in. A CSS fill overrides a presentation attribute, so this is what keeps
+   it from turning into a white hole on the tint. */
+.sqs-block-form .form-field-error svg {
+  flex: 0 0 auto !important;
+  margin-top: 0.15rem !important;
+}
+.sqs-block-form .form-field-error svg path { fill: currentColor !important; }
+
+/* A field's own message is short, so let it shrink to its text instead of
+   ruling a full-width band across the form — that emphasis belongs to the
+   summary at the top. The summary sits outside any .form-item, which is what
+   separates the two. If a future component drops .form-item, these just stay
+   full width: no worse than the summary, and nothing breaks. */
+.sqs-block-form .form-item .form-field-error {
+  display: inline-flex !important;
+  margin: 0.35rem 0 0.55rem !important;
+}
+
+/* The field itself, when it has an error. */
 .sqs-block-form .form-item.error .field-element {
   border-color: #e0355a !important;
   box-shadow: 0 0 0 3px rgba(224, 53, 90, 0.12) !important;
-}
-.sqs-block-form .form-item.error .error-message {
-  margin-top: 0.4rem !important;
-  color: #e0355a !important;
-  font-size: 0.85rem !important;
 }
 
 /* Submit button */
