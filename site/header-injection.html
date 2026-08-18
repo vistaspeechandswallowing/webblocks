@@ -39,15 +39,15 @@
   bug — fix both. In particular "8850 W 58th Ave Ste 201" matches the Google
   Business Profile character for character; do NOT expand "Ste" to "Suite".
 
-  STILL TO ADD: "sameAs" — the public Google Business Profile listing URL, which
-  is what tells Google that this markup and that listing are the same business.
-  It is LEFT OUT rather than left as a placeholder: an absent property is valid,
-  a "[…]" string is not. To add it, put this line back after "knowsLanguage"
-  (mind the comma on the line above):
+  STILL TO ADD: the Google Business Profile listing URL, as another entry in
+  "sameAs" below. That is the one that matters most — it's what ties this markup
+  to the listing that shows up in Maps and the local pack. Add it as a second
+  string in the array (mind the comma), never as a bracketed placeholder:
+  an absent entry is valid, a "[…]" string is not.
 
-      "sameAs": ["https://…the GBP listing URL…"]
-
-  See site/README.md for where to find that URL.
+  See site/README.md for how to find that URL. Other real profiles (Facebook,
+  Healthgrades, Psychology Today, the ASHA directory) belong in the same list as
+  they appear — each one is another confirmation of the same practice.
 
   IMAGE URLS: served from the webimages repo through jsDelivr, PINNED TO A
   COMMIT (the @7de07fd… part) — the same workflow the page compositions use for
@@ -99,6 +99,9 @@
     { "@type": "City", "name": "Lakewood" },
     { "@type": "State", "name": "Colorado" }
   ],
-  "knowsLanguage": ["English", "Spanish"]
+  "knowsLanguage": ["English", "Spanish"],
+  "sameAs": [
+    "https://www.instagram.com/vistaspeechandswallowing/"
+  ]
 }
 </script>
