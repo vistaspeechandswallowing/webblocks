@@ -95,8 +95,22 @@ native one stays visible and working. Never hide the form Section in
 Squarespace's UI, and never drop the `hidden` attribute: that's what turns a
 graceful fallback into a page with no way to open the form.
 
+**Editing the form still works normally.** The script does nothing when the
+page is inside an iframe — which is how the Squarespace editor renders it — so
+the form block is visible and editable there. `/contact?vss-showform` does the
+same on the live site. Editor detection is by framing rather than by a
+Squarespace CSS class on purpose: class names change between releases, and
+being wrong would hide the form from you with no way back.
+
+Only the trigger BUTTON is `display:none`; the block and section are never
+removed, because the lightbox mounts from inside that block. The section is
+emptied instead (grid, padding and min-height collapse around it). Hiding the
+button rather than clipping the section also keeps it out of the tab order — a
+clipped-but-present button is invisible and still focusable.
+
 Verified against a replica of Squarespace's real DOM: the click reaches the
-lightbox, the section collapses, and both failure modes fall back correctly.
+lightbox, the section collapses, editing and `?vss-showform` both restore the
+native button, and both failure modes fall back correctly.
 One of those tests caught a live bug — `hidden` is only a UA `display:none`, so
 `.vss-btn`'s `display:inline-flex` was overriding it and showing a dead button
 in exactly the case the attribute existed to cover.

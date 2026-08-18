@@ -24,9 +24,11 @@
   hide the form section by hand in Squarespace: the CSS only collapses it once
   the handoff has succeeded.
 
-  TEST IT LOGGED OUT. Squarespace disables embedded scripts while you are
-  logged in and editing, so in the editor our button will stay hidden and the
-  native one will show. That is the fallback working, not a bug.
+  TEST IT LOGGED OUT, and EDIT THE FORM IN THE EDITOR AS NORMAL. The script
+  deliberately does nothing when the page is inside an iframe — which is how
+  the Squarespace editor renders it — so the form block stays visible and
+  editable there. On the live site, /contact?vss-showform does the same thing.
+  Either way you get Squarespace's own button back; nothing else changes.
 
   SQUARESPACE SECTION SETUP (both sections):
     • Background: white.  Width: Full Bleed.  Content width: Wide/Full.
@@ -186,8 +188,34 @@
   (function () {
     var started = false;
 
+    /* Two ways to switch the handoff off and get the native form block back,
+       both of which leave the page working — they just show Squarespace's
+       button instead of ours:
+
+       1. IN THE SQUARESPACE EDITOR. The editor renders the site inside an
+          iframe, so `window.self !== window.top` means "someone is editing".
+          Without this the form block collapses to a 1px sliver in the editor
+          too, and there's nothing left to click to edit the form.
+       2. ON THE LIVE SITE, by adding ?vss-showform to the URL — e.g.
+          /contact?vss-showform — for checking the form without digging
+          through the editor.
+
+       Detecting the editor by iframe rather than by a Squarespace CSS class:
+       class names change between releases, and being wrong there would hide
+       the form from you again. Framing is structural. The one false positive
+       — someone embedding the site in an iframe — just shows them the native
+       button, which is fine. */
+    function editing() {
+      try {
+        if (window.self !== window.top) return true;
+      } catch (e) {
+        return true;                     /* cross-origin frame: assume editor */
+      }
+      return window.location.search.indexOf('vss-showform') !== -1;
+    }
+
     function adopt() {
-      if (started) return;
+      if (started || editing()) return;
 
       var handle = document.querySelector('.sqs-block-form .lightbox-handle');
       var trigger = document.querySelector('[data-vss-lightbox]');

@@ -598,28 +598,39 @@ button.vss-btn{
    The contact page's "Request Information" button is a native Squarespace
    Form block in lightbox mode, sitting in its own Section. The page block's
    script forwards clicks from OUR button to Squarespace's trigger, and adds
-   .vss-lightbox-adopted to <body> at the same moment — so this rule only
-   collapses that section once our button is definitely working.
+   .vss-lightbox-adopted to <body> at the same moment — so these rules only
+   take effect once our button is definitely working. Get that order wrong and
+   the failure is severe: a hidden native button plus a dead custom one means
+   no way to open the form at all.
 
-   Get the order wrong and the failure is severe: a hidden native button plus
-   a dead custom one means no way to open the form at all. Hence the body
-   class rather than hiding the section in Squarespace.
+   WHAT IS HIDDEN, AND WHAT IS NOT. Only the trigger button is display:none —
+   never the block or the section. The lightbox mounts from inside that block,
+   so removing it from the layout risks taking the overlay with it. The section
+   is emptied instead: its grid, padding and min-height collapse to nothing
+   around a block that no longer draws anything.
 
-   NOTE it is NOT display:none. The lightbox mounts from inside this block, so
-   removing it from the layout can take the overlay with it. This keeps the
-   block rendered and merely takes it out of the flow. */
+   Hiding the BUTTON rather than clipping the section to 1px also keeps it out
+   of the tab order. A clipped-but-present button is invisible and still
+   focusable — a keyboard user tabs into nowhere. (`display:none` doesn't stop
+   the script: a programmatic .click() doesn't care whether the element is
+   rendered.) */
+body.vss-lightbox-adopted .sqs-block-form .lightbox-handle-wrapper{
+  display:none !important;
+}
 body.vss-lightbox-adopted .page-section:has(.sqs-block-form .lightbox-handle){
-  position:absolute !important;
-  width:1px !important;
-  height:1px !important;
-  /* !important on min-height specifically: the Section's own height setting
-     (section-height--medium and friends) sets min-height and would otherwise
-     hold a 40vh hole open where the collapsed section used to be. */
+  /* The Section's own height setting (section-height--medium and friends) sets
+     min-height, and would hold a 40vh hole open where the button used to be. */
   min-height:0 !important;
-  margin:-1px !important;
-  padding:0 !important;
-  overflow:hidden !important;
-  border:0 !important;
+}
+body.vss-lightbox-adopted .page-section:has(.sqs-block-form .lightbox-handle) .content-wrapper{
+  padding-top:0 !important;
+  padding-bottom:0 !important;
+}
+/* Same Fluid Engine problem as the page compositions: the grid reserves rows
+   whether or not anything is in them. */
+body.vss-lightbox-adopted .page-section:has(.sqs-block-form .lightbox-handle) .fluid-engine{
+  grid-template-rows:0 !important;
+  row-gap:0 !important;
 }
 
 /* ---- Checklist (symptom / "is this you?" style list) ------------------- */
