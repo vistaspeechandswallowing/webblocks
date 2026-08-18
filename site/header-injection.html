@@ -39,9 +39,13 @@
   bug — fix both. In particular "8850 W 58th Ave Ste 201" matches the Google
   Business Profile character for character; do NOT expand "Ste" to "Suite".
 
-  "sameAs" IS NOW COMPLETE ENOUGH TO SHIP: the Google Business Profile listing
-  and the practice's Instagram. That first URL is the important one — it tells
-  Google this markup and that Maps listing are the same business.
+  "sameAs" IS COMPLETE: the Google Business Profile listing and the practice's
+  Instagram. That first URL is the important one — it tells Google this markup
+  and that Maps listing are the same business. It's written in Google's Place ID
+  form rather than as a maps.app.goo.gl short link or an address-bar URL: the
+  Place ID is Google's permanent identifier for the place, so the link survives
+  renames and moves, needs no redirect, and carries no viewport coordinates to
+  go stale.
 
   Add other REAL profiles to the same list as they appear (Facebook,
   Healthgrades, Psychology Today, the ASHA directory); each is another
@@ -103,7 +107,7 @@
   ],
   "knowsLanguage": ["English", "Spanish"],
   "sameAs": [
-    "https://maps.app.goo.gl/SnPmpLpmTCHQZg1r9",
+    "https://www.google.com/maps/place/?q=place_id:ChIJG8F1LtKHa4cRi-mM_vFFI2U",
     "https://www.instagram.com/vistaspeechandswallowing/"
   ]
 }

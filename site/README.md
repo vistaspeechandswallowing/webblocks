@@ -149,10 +149,15 @@ was the practice's markup asserting it was Squarespace. Add real profiles
 (Facebook, Healthgrades, Psychology Today, the ASHA directory) as they appear;
 never add anything else.
 
-To find a Google Business Profile URL: open [Google Maps](https://www.google.com/maps),
-search for the business, click its listing, then **Share → Copy link**. The
-short `maps.app.goo.gl/…` form is fine — it's Google's own redirect to the
-listing. The long address-bar URL works too.
+#### Which form of Google Maps URL
+
+Three forms exist and they are not equally good:
+
+| Form | Verdict |
+| --- | --- |
+| `google.com/maps/place/?q=place_id:ChIJ…` | **Use this.** The Place ID is Google's permanent identifier for the place: no redirect, survives renames and moves, no coordinates to go stale. Get it from the [Place ID Finder](https://developers.google.com/maps/documentation/places/web-service/place-id). |
+| `maps.app.goo.gl/…` (Share → Copy link) | Fine. Google's own shortener resolving to Google's own listing. Easiest to get; costs a redirect hop. |
+| `google.com/maps/place/Name/@39.80,-105.09,17z/data=!3m1…` | **Avoid.** Looks the most official and is the worst — it embeds the viewport you happened to be looking at plus a `data=` payload that is not a stable identifier. |
 
 ### Image URLs
 
